@@ -43,7 +43,7 @@ reserved = {
 
 
 tokens = [
-        'PLUS', 'MINUS', 'MULT','DIV','EQUALS','OPAREN', 
+        'PLUS', 'MINUS', 'MULT','DIV','EQUALS','OPAREN', 'STRING', 
         'CPAREN', 'ID','OBRACKET', 'CBRACKET', 'GREATERTHAN', 
         'LESSTHAN', 'GRE','COLON','SCOLON','COMMA', 'NUMBER',
         'PER','EQ','LESSEQ','GREATEQ','DIFF','LCOR','RCOR',
@@ -75,6 +75,7 @@ t_COMMA = r','
 t_LCOR = r'\['
 t_RCOR = r'\]' #Revisarlo
 t_QUOTE = r'\"'
+t_STRING = r'\"[+-@#$^&*?!a-z/\s/A-Z][a-z/\s/A-Z0-9+-@#$^&*?!:]*\"'
 
 #and or not relop ABD OR NOT 
 
@@ -223,6 +224,19 @@ def p_escrt(p):
     '''escrt : PRINT OPAREN expresion CPAREN SCOLON
 	| PRINT OPAREN CPAREN SCOLON
 	| PRINT OPAREN QUOTE ID QUOTE CPAREN SCOLON
+    | PRINT OPAREN ID escrt2 CPAREN SCOLON
+    | PRINT OPAREN STRING CPAREN SCOLON
+    '''
+
+def p_escrt2(p):
+    '''escrt2 : COMMA escrt3
+    | empty
+    '''
+
+def p_escrt3(p):
+    '''escrt3 : ID escrt2
+    | ID
+    | STRING escrt2 escrt2
     '''
 
 def p_cond(p):
@@ -272,7 +286,7 @@ def p_exp(p):
     '''
     exp : termino
     | PLUS
-    | MINUS
+    | MINUS 
     '''
 
 def p_termino(p):
@@ -282,17 +296,18 @@ def p_termino(p):
     | DIV
     '''
 
-def p_varcte(p):
-    '''
-    varcte : ID
-    | CTEI
-    | CTED
-    '''
+
 
 def p_factor(p):
     '''
-    factor : ID
+    factor : varcte
     | OPAREN expresion CPAREN
+    '''
+
+def p_varcte(p):
+    '''
+    varcte : ID
+    | NUMBER
     '''
 
 def p_metodos(p):
@@ -346,3 +361,11 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 print(result)
+
+
+# Patch notes - - - - - - - - - - - - - -
+
+#Need to check asignacion
+# test2 = (1+1); doesn't work. . . 
+# test2 = 1+1; doesn't work. . .
+# test2 = 1 + test doesn't work . . .

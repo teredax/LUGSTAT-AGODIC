@@ -1,0 +1,7 @@
+ lugstat lugstattest;
+ var test,test2,test3 : int; 
+ {
+ print(test, ":", test2);
+ print(test, "+", test2);
+ test = 1;
+ }
