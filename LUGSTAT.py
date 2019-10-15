@@ -1,4 +1,5 @@
 #Gonzalo Garcia A01281414
+#Jesus Lugo A01089769
 # Caso de prueba se pega en inputf.txt
 #usando PLY (Lex / Yacc for python)
 
@@ -7,7 +8,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-InputF= open("inputf.txt", "r") 
+InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -149,11 +150,12 @@ def p_vars(p):
 def p_vars1(p):
     '''
     vars1 : CTEI COMMA vars1
+    | CTEI empty
     | empty '''
 
 def p_vars2(p):
     '''
-    vars2 : LCOR vars1 RCOR  
+    vars2 : LCOR vars1 RCOR vars2
     | empty '''
 
 def p_vars3(p):
@@ -218,7 +220,8 @@ def p_asign2(p):
     '''
     asign2 : LCOR expresion RCOR asign2
     | LCOR CTEI RCOR asign2
-    | empty'''
+    | empty
+    '''
 
 def p_escrt(p):
     '''escrt : PRINT OPAREN expresion CPAREN SCOLON
@@ -285,22 +288,23 @@ def p_expresion(p):
 def p_exp(p):
     '''
     exp : termino
-    | PLUS
-    | MINUS 
+    | termino PLUS exp
+    | termino MINUS exp
     '''
 
 def p_termino(p):
     '''
     termino : factor
-    | MULT
-    | DIV
+    | factor MULT termino
+    | factor DIV termino 
     '''
 
 
 
 def p_factor(p):
     '''
-    factor : varcte
+    factor : PLUS varcte
+    | MINUS varcte
     | OPAREN expresion CPAREN
     '''
 
@@ -308,6 +312,7 @@ def p_varcte(p):
     '''
     varcte : ID
     | NUMBER
+    | DOUBLE
     '''
 
 def p_metodos(p):
@@ -364,8 +369,8 @@ print(result)
 
 
 # Patch notes - - - - - - - - - - - - - -
-
-#Need to check asignacion
+#[][] [2] trial[1] Corrected
+#Need to check asignacion still not working
 # test2 = (1+1); doesn't work. . . 
 # test2 = 1+1; doesn't work. . .
 # test2 = 1 + test doesn't work . . .
