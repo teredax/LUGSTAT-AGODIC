@@ -12,11 +12,9 @@ cache=InputF.read()
 reserved = {
     'if' : 'IF',
     'else' : 'ELSE',
-    'program' :'PROGRAM',
     'var' : 'VAR',
     'int' : 'INT',
     'bool': 'BOOL',
-    'string':'STRING',
     'double' : 'DOUBLE',
     'print' : 'PRINT',
     'lugstat' : 'LUGSTAT',
@@ -28,6 +26,7 @@ reserved = {
     'plot' : 'PLOT',
     'mean' : 'MEAN',
     'median' : 'MEDIAN',
+    'mode' : 'MODE', 
     'stdv' : 'STDV',
     'kmeans' : 'KMEANS',
     'derl' : 'DERL',
@@ -36,9 +35,13 @@ reserved = {
     'ref' : 'REF',
     'rref' : 'RREF',
     'mont' : 'MONT',
-    'xyfunction' : 'XYFUNCTION' ,
     'char' : 'CHAR',
-    'func' : 'FUNC'
+    'func' : 'FUNC',
+    'fx' : 'FX',
+    'fy' : 'FY',
+    'rotate' : 'ROTATE',
+    'transpose' : 'TRANSPOSE',
+    'inverse' : 'INVERSE'
            }
 
 
@@ -47,7 +50,7 @@ tokens = [
         'CPAREN', 'ID','OBRACKET', 'CBRACKET', 'GREATERTHAN', 
         'LESSTHAN', 'GRE','COLON','SCOLON','COMMA', 'NUMBER',
         'PER','EQ','LESSEQ','GREATEQ','DIFF','LCOR','RCOR',
-        'COMMENT','INTEGER','NUMERIC','LOGICAL','CHARACTER','QUOTE' , 'RELOP','CTEI','CTED','X','Y','MODE','ROTATE','TRANSPOSE','INVERSE'
+        'COMMENT','INTEGER','NUMERIC','LOGICAL','CHARACTER','QUOTE' , 'RELOP','CTEI','CTED'
          ] + list(reserved.values())
 
 # Tokens
@@ -75,7 +78,7 @@ t_COMMA = r','
 t_LCOR = r'\['
 t_RCOR = r'\]' #Revisarlo
 t_QUOTE = r'\"'
-t_STRING = r'\"[+-@#$^&*?!a-z/\s/A-Z][a-z/\s/A-Z0-9+-@#$^&*?!:]*\"'
+t_STRING = r'\".*\"'
 
 #and or not relop ABD OR NOT 
 
@@ -139,34 +142,18 @@ def p_lugstat3(p):
     | modules lugstat3
     | empty'''
 
-#Tengo duda contra el diagrama por tanta recursion
 def p_vars(p):
     '''
-    vars : VAR vars3 COLON tipo SCOLON vars4
+    vars : VAR vars1 COLON tipo SCOLON
     '''
 
-#Apoya a hacer el ciclo de variables
 def p_vars1(p):
     '''
-    vars1 : CTEI COMMA vars1
-    | empty '''
-
-def p_vars2(p):
+    vars1 : ID
+    | ID COMMA vars1
+    | ID asign2
+    | ID asign2 COMMA vars1
     '''
-    vars2 : LCOR vars1 RCOR  
-    | empty '''
-
-def p_vars3(p):
-    '''
-    vars3 : ID COMMA vars3
-    | ID vars2
-    '''
-
-def p_vars4(p):
-    '''
-    vars4 : vars3
-    | empty'''
-
 
 def p_modules(p):
     '''
@@ -211,19 +198,30 @@ def p_estatuto(p):
 
 def p_asign(p):
     '''
-    asign : ID asign2 EQUALS expresion SCOLON
+    asign : ID EQUALS expresion SCOLON
+    | ID EQUALS ID SCOLON
+    | ID EQUALS ID asign2 SCOLON
+    | ID asign2 EQUALS ID SCOLON
+    | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
+    
     '''
 def p_asign2(p):
     '''
-    asign2 : LCOR expresion RCOR asign2
-    | LCOR CTEI RCOR asign2
+    asign2 : LCOR expresion RCOR asign3
+    | LCOR varcte RCOR asign3 
+    '''
+
+def p_asign3(p):
+    '''
+    asign3 : LCOR expresion RCOR
+    | LCOR varcte RCOR 
     | empty'''
+
 
 def p_escrt(p):
     '''escrt : PRINT OPAREN expresion CPAREN SCOLON
 	| PRINT OPAREN CPAREN SCOLON
-	| PRINT OPAREN QUOTE ID QUOTE CPAREN SCOLON
     | PRINT OPAREN ID escrt2 CPAREN SCOLON
     | PRINT OPAREN STRING CPAREN SCOLON
     '''
@@ -245,105 +243,109 @@ def p_cond(p):
     '''
 
 def p_count(p):
-    'count : COUNT ID CPAREN COMMA CTEI COMMA CTEI OPAREN SCOLON'
+    'count : COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON'
 
 def p_countif(p):
-    'countif : COUNTIF OPAREN ID COMMA CTEI COMMA CTEI COMMA cond OPAREN SCOLON'
+    'countif : COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON'
 
 def p_plot(p):
-    '''plot : PLOT OPAREN func CPAREN SCOLON
+    '''plot : PLOT OPAREN xyfunc CPAREN SCOLON
     | PLOT OPAREN plot2 CPAREN SCOLON
     '''
 def p_plot2(p):
     '''
-    plot2 : LCOR plot3 COMMA plot3 RCOR plot2
-    | LCOR plot3 COMMA plot3 RCOR
+    plot2 : LCOR varcte COMMA varcte RCOR
+    | LCOR varcte COMMA varcte RCOR COMMA plot2
+    | empty
     '''
 
-def p_plot3(p):
-    '''
-    plot3 : CTEI
-    | CTED'''
-
-def p_func(p):
-    '''func : X EQUALS exp func2 SCOLON
-    | Y EQUALS exp func2 SCOLON
-    '''
-
-def p_func2(p):
-    '''
-    func2 : func
+def p_xyfunc(p):
+    '''xyfunc : FX EQUALS exp SCOLON xyfunc
+    | FY EQUALS exp SCOLON xyfunc
     | empty
     '''
 
 #RE REVISAR DIAGRAMA
 def p_expresion(p):
     '''expresion : exp 
-    | RELOP exp 
+    | expresion RELOP exp 
     '''
 
 def p_exp(p):
     '''
     exp : termino
-    | PLUS
-    | MINUS 
+    | termino PLUS exp
+    | termino MINUS exp
     '''
 
 def p_termino(p):
     '''
     termino : factor
-    | MULT
-    | DIV
+    | factor MULT termino
+    | factor DIV termino
     '''
 
 
 
 def p_factor(p):
     '''
-    factor : varcte
-    | OPAREN expresion CPAREN
+    factor : OPAREN expresion CPAREN 
+    | PLUS varcte
+    | MINUS varcte
+    | varcte
     '''
 
 def p_varcte(p):
     '''
     varcte : ID
+    | ID asign2
     | NUMBER
+    | DOUBLE
     '''
 
 def p_metodos(p):
     '''
-    metodos : MEAN OPAREN metodos2 CPAREN SCOLON
-    | MEDIAN OPAREN metodos2 CPAREN SCOLON
-    | MODE OPAREN metodos2 CPAREN SCOLON
-    | STDV OPAREN metodos2 CPAREN SCOLON
-    | KMEANS OPAREN metodos2 CPAREN SCOLON
-    | REF OPAREN metodos2 CPAREN SCOLON
-    | RREF OPAREN metodos2 CPAREN SCOLON
-    | MONT OPAREN metodos2 CPAREN SCOLON
-    | DERL OPAREN ID COMMA ID COMMA ID CPAREN SCOLON
-    | DBERN OPAREN ID COMMA ID COMMA ID CPAREN SCOLON
-    | DPOI OPAREN ID COMMA ID CPAREN SCOLON
-    | TRANSPOSE OPAREN metodos2 CPAREN SCOLON
-    | INVERSE OPAREN metodos2 CPAREN SCOLON
-    | ROTATE OPAREN metodos2 CPAREN SCOLON
-    '''
-def p_metodos2(p):
-    '''
-    metodos2 : ID 
-    | metodos3
-    '''
-def p_metodos3(p):
-    '''
-    metodos3 : LCOR metodos4 RCOR metodos3
-    | LCOR metodos4 RCOR
+    metodos : MEAN OPAREN mmmfunc CPAREN SCOLON
+    | MEDIAN OPAREN mmmfunc CPAREN SCOLON
+    | MODE OPAREN mmmfunc CPAREN SCOLON
+    | STDV OPAREN mmmfunc CPAREN SCOLON
+    | KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
+    | DERL OPAREN expfunc CPAREN SCOLON
+    | DBERN OPAREN expfunc CPAREN SCOLON
+    | DPOI OPAREN expfunc2 CPAREN SCOLON
+    | TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
+    | INVERSE OPAREN mmmfunc CPAREN SCOLON
+    | ROTATE OPAREN mmmfunc CPAREN SCOLON
+    | REF OPAREN mmmfunc CPAREN SCOLON
+    | RREF OPAREN mmmfunc CPAREN SCOLON
+    | MONT OPAREN mmmfunc CPAREN SCOLON
     '''
 
-def p_metodos4(p):
+def p_expfunc(p):
     '''
-    metodos4 : CTEI COMMA metodos4
-    | CTEI COMMA
-    | CTED COMMA metodos4
-    | CTED COMMA
+    expfunc : ID COMMA ID COMMA ID
+    | varcte COMMA varcte COMMA varcte
+    '''
+
+def p_expfunc2(p):
+    '''
+    expfunc2 : ID COMMA ID
+    | varcte COMMA varcte
+    '''
+
+def p_mmmfunc(p):
+    '''
+    mmmfunc : ID 
+    | OBRACKET  mmmarray CBRACKET
+	| OBRACKET mmmarray CBRACKET COMMA mmmfunc
+	| empty 
+    '''
+
+def p_mmmarray(p):
+    '''
+    mmmarray : varcte
+    | varcte COMMA mmmarray
+    | empty
     '''
 
 def p_empty(p):
