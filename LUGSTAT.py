@@ -7,7 +7,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-InputF= open("inputf.txt", "r") 
+InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -85,10 +85,17 @@ t_STRING = r'\".*\"'
 
 t_ignore_COMMENT = r'\#.*'
 
+def t_NUMERIC(t):
+    r'\d+[eE][-+]?\d+|(\.\d+|\d+\.\d+)([eE][-+]?\d+)?'
+    t.value = float(t.value)               # Convertimos al float de python
+    return t
+
 def t_NUMBER(t):
         r'\d+'
         t.value = int(t.value)
         return t
+
+
 
     # Ignored characters
 t_ignore = " \t"
@@ -299,8 +306,8 @@ def p_varcte(p):
     '''
     varcte : ID
     | ID asign2
+    | NUMERIC
     | NUMBER
-    | DOUBLE
     '''
 
 def p_metodos(p):
