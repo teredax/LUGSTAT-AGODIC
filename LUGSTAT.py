@@ -1,4 +1,5 @@
 #Gonzalo Garcia A01281414
+#JESUS LUGO A01089769
 # Caso de prueba se pega en inputf.txt
 #usando PLY (Lex / Yacc for python)
 
