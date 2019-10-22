@@ -1,5 +1,6 @@
 #Gonzalo Garcia A01281414
 #JESUS LUGO A01089769
+#VERSION 21/10/2019
 # Caso de prueba se pega en inputf.txt
 #usando PLY (Lex / Yacc for python)
 
@@ -8,7 +9,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
+InputF= open("inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -88,7 +89,7 @@ t_ignore_COMMENT = r'\#.*'
 
 def t_NUMERIC(t):
     r'\d+[eE][-+]?\d+|(\.\d+|\d+\.\d+)([eE][-+]?\d+)?'
-    t.value = float(t.value)               # Convertimos al float de python
+    t.value = float(t.value)              
     return t
 
 def t_NUMBER(t):
