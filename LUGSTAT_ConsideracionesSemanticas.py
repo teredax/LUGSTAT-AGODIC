@@ -137,3 +137,6 @@ class ConsideracionesSemanticas ():
                  }
 
             }
+
+    def get_tipo(self, Izq, Der, operador):
+		return self.Consideracion[Izq][Der][operador]
