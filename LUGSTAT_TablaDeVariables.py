@@ -1,3 +1,6 @@
+#Gonzalo Garcia A01281414
+#Jesus Lugogo   A0
+
 
 class Tabla_de_Variables(object):
 
@@ -5,7 +8,7 @@ class Tabla_de_Variables(object):
         self.lista = {}
 
     #se usa
-    def add(self,vname,vtype,memoryloc = 0): #vid = variable id, vtype = variable type 
+    def add(self,vname,vtype,memoryloc = 0):  
         self.lista[vname] = {
             'name' : vname,
             'type' : vtype,
@@ -16,7 +19,7 @@ class Tabla_de_Variables(object):
         self.lista[variableArr['name']] = variableArr #Revisar como agregar o controlar el uso de id unicos
 
     def search(self,vname):
-        return vname in self.lista.keys()
+        return vname in self.lista
 
     def get(self,vname):
         if self.search(vname): #Buscamos si existe 
@@ -32,3 +35,4 @@ class Tabla_de_Variables(object):
 
     def printTable(self):
         print(self.lista.items())
+
