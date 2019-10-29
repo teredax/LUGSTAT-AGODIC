@@ -1,4 +1,6 @@
 #Gonzalo Garcia A01281414
+#JESUS LUGO A01089769
+#VERSION 21/10/2019
 # Caso de prueba se pega en inputf.txt
 #usando PLY (Lex / Yacc for python)
 
@@ -85,10 +87,17 @@ t_STRING = r'\".*\"'
 
 t_ignore_COMMENT = r'\#.*'
 
+def t_NUMERIC(t):
+    r'\d+[eE][-+]?\d+|(\.\d+|\d+\.\d+)([eE][-+]?\d+)?'
+    t.value = float(t.value)              
+    return t
+
 def t_NUMBER(t):
         r'\d+'
         t.value = int(t.value)
         return t
+
+
 
     # Ignored characters
 t_ignore = " \t"
@@ -299,8 +308,8 @@ def p_varcte(p):
     '''
     varcte : ID
     | ID asign2
+    | NUMERIC
     | NUMBER
-    | DOUBLE
     '''
 
 def p_metodos(p):

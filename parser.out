@@ -9,7 +9,6 @@ Unused terminals:
     DIFF
     COMMENT
     TIPO
-    NUMERIC
     LESSEQ
     GRE
     GREATERTHAN
@@ -101,8 +100,8 @@ Rule 73    factor -> MINUS varcte
 Rule 74    factor -> varcte
 Rule 75    varcte -> ID
 Rule 76    varcte -> ID asign2
-Rule 77    varcte -> NUMBER
-Rule 78    varcte -> DOUBLE
+Rule 77    varcte -> NUMERIC
+Rule 78    varcte -> NUMBER
 Rule 79    metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON
 Rule 80    metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON
 Rule 81    metodos -> MODE OPAREN mmmfunc CPAREN SCOLON
@@ -149,7 +148,7 @@ DBERN                : 85
 DERL                 : 84
 DIFF                 : 
 DIV                  : 70
-DOUBLE               : 21 78
+DOUBLE               : 21
 DPOI                 : 86
 ELSE                 : 52
 EQ                   : 
@@ -177,8 +176,8 @@ MINUS                : 67 73
 MODE                 : 81
 MONT                 : 92
 MULT                 : 69
-NUMBER               : 77
-NUMERIC              : 
+NUMBER               : 78
+NUMERIC              : 77
 OBRACKET             : 15 98 99
 OPAREN               : 12 42 43 44 45 51 52 53 54 55 56 71 79 80 81 82 83 84 85 86 87 88 89 90 91 92
 OR                   : 
@@ -538,8 +537,8 @@ state 22
     (64) expresion -> . expresion RELOP exp
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
     (65) exp -> . termino
     (66) exp -> . termino PLUS exp
     (67) exp -> . termino MINUS exp
@@ -552,8 +551,8 @@ state 22
     (74) factor -> . varcte
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
@@ -1128,15 +1127,15 @@ state 64
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expresion                      shift and go to state 102
     varcte                         shift and go to state 103
@@ -1146,34 +1145,34 @@ state 64
 
 state 65
 
-    (78) varcte -> DOUBLE .
+    (78) varcte -> NUMBER .
 
-    COMMA           reduce using rule 78 (varcte -> DOUBLE .)
-    MULT            reduce using rule 78 (varcte -> DOUBLE .)
-    DIV             reduce using rule 78 (varcte -> DOUBLE .)
-    PLUS            reduce using rule 78 (varcte -> DOUBLE .)
-    MINUS           reduce using rule 78 (varcte -> DOUBLE .)
-    RCOR            reduce using rule 78 (varcte -> DOUBLE .)
-    RELOP           reduce using rule 78 (varcte -> DOUBLE .)
-    CPAREN          reduce using rule 78 (varcte -> DOUBLE .)
-    SCOLON          reduce using rule 78 (varcte -> DOUBLE .)
-    CBRACKET        reduce using rule 78 (varcte -> DOUBLE .)
+    COMMA           reduce using rule 78 (varcte -> NUMBER .)
+    MULT            reduce using rule 78 (varcte -> NUMBER .)
+    DIV             reduce using rule 78 (varcte -> NUMBER .)
+    PLUS            reduce using rule 78 (varcte -> NUMBER .)
+    MINUS           reduce using rule 78 (varcte -> NUMBER .)
+    RCOR            reduce using rule 78 (varcte -> NUMBER .)
+    RELOP           reduce using rule 78 (varcte -> NUMBER .)
+    CPAREN          reduce using rule 78 (varcte -> NUMBER .)
+    SCOLON          reduce using rule 78 (varcte -> NUMBER .)
+    CBRACKET        reduce using rule 78 (varcte -> NUMBER .)
 
 
 state 66
 
-    (77) varcte -> NUMBER .
+    (77) varcte -> NUMERIC .
 
-    COMMA           reduce using rule 77 (varcte -> NUMBER .)
-    MULT            reduce using rule 77 (varcte -> NUMBER .)
-    DIV             reduce using rule 77 (varcte -> NUMBER .)
-    PLUS            reduce using rule 77 (varcte -> NUMBER .)
-    MINUS           reduce using rule 77 (varcte -> NUMBER .)
-    RCOR            reduce using rule 77 (varcte -> NUMBER .)
-    RELOP           reduce using rule 77 (varcte -> NUMBER .)
-    CPAREN          reduce using rule 77 (varcte -> NUMBER .)
-    SCOLON          reduce using rule 77 (varcte -> NUMBER .)
-    CBRACKET        reduce using rule 77 (varcte -> NUMBER .)
+    COMMA           reduce using rule 77 (varcte -> NUMERIC .)
+    MULT            reduce using rule 77 (varcte -> NUMERIC .)
+    DIV             reduce using rule 77 (varcte -> NUMERIC .)
+    PLUS            reduce using rule 77 (varcte -> NUMERIC .)
+    MINUS           reduce using rule 77 (varcte -> NUMERIC .)
+    RCOR            reduce using rule 77 (varcte -> NUMERIC .)
+    RELOP           reduce using rule 77 (varcte -> NUMERIC .)
+    CPAREN          reduce using rule 77 (varcte -> NUMERIC .)
+    SCOLON          reduce using rule 77 (varcte -> NUMERIC .)
+    CBRACKET        reduce using rule 77 (varcte -> NUMERIC .)
 
 
 state 67
@@ -1181,12 +1180,12 @@ state 67
     (73) factor -> MINUS . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 104
 
@@ -1195,12 +1194,12 @@ state 68
     (72) factor -> PLUS . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 105
 
@@ -1297,12 +1296,12 @@ state 75
     (83) metodos -> KMEANS OPAREN . varcte COMMA mmmfunc CPAREN SCOLON
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 115
 
@@ -1320,12 +1319,12 @@ state 77
     (94) expfunc -> . varcte COMMA varcte COMMA varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 119
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expfunc                        shift and go to state 118
     varcte                         shift and go to state 117
@@ -1350,8 +1349,8 @@ state 78
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     CPAREN          shift and go to state 122
     ID              shift and go to state 123
@@ -1359,8 +1358,8 @@ state 78
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expresion                      shift and go to state 120
     varcte                         shift and go to state 103
@@ -1485,12 +1484,12 @@ state 87
     (96) expfunc2 -> . varcte COMMA varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 133
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 131
     expfunc2                       shift and go to state 132
@@ -1523,15 +1522,15 @@ state 89
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 136
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expresion                      shift and go to state 135
     varcte                         shift and go to state 103
@@ -1557,15 +1556,15 @@ state 90
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expresion                      shift and go to state 137
     varcte                         shift and go to state 103
@@ -1649,12 +1648,12 @@ state 95
     (94) expfunc -> . varcte COMMA varcte COMMA varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 119
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expfunc                        shift and go to state 147
     varcte                         shift and go to state 117
@@ -1697,15 +1696,15 @@ state 99
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     termino                        shift and go to state 69
@@ -1828,15 +1827,15 @@ state 106
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     termino                        shift and go to state 69
@@ -1858,15 +1857,15 @@ state 107
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     termino                        shift and go to state 69
@@ -1885,15 +1884,15 @@ state 108
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     termino                        shift and go to state 157
@@ -1911,15 +1910,15 @@ state 109
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     termino                        shift and go to state 158
@@ -1957,13 +1956,13 @@ state 112
     (103) mmmarray -> . empty
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
     (104) empty -> .
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
     CBRACKET        reduce using rule 104 (empty -> .)
 
     empty                          shift and go to state 162
@@ -2176,15 +2175,15 @@ state 134
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 185
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     expresion                      shift and go to state 184
     varcte                         shift and go to state 103
@@ -2253,12 +2252,12 @@ state 140
     (58) plot2 -> LCOR . varcte COMMA varcte RCOR COMMA plot2
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 192
 
@@ -2366,8 +2365,8 @@ state 151
     (64) expresion -> . expresion RELOP exp
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
     (65) exp -> . termino
     (66) exp -> . termino PLUS exp
     (67) exp -> . termino MINUS exp
@@ -2380,8 +2379,8 @@ state 151
     (74) factor -> . varcte
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
@@ -2538,12 +2537,12 @@ state 164
     (54) countif -> COUNTIF OPAREN ID COMMA . varcte COMMA varcte COMMA cond CPAREN SCOLON
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 208
 
@@ -2552,12 +2551,12 @@ state 165
     (94) expfunc -> varcte COMMA . varcte COMMA varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 209
 
@@ -2676,12 +2675,12 @@ state 178
     (53) count -> COUNT OPAREN ID COMMA . varcte COMMA varcte CPAREN SCOLON
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 222
 
@@ -2704,12 +2703,12 @@ state 181
     (96) expfunc2 -> varcte COMMA . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 225
 
@@ -2853,15 +2852,15 @@ state 190
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     exp                            shift and go to state 233
@@ -2883,15 +2882,15 @@ state 191
     (74) factor -> . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     OPAREN          shift and go to state 64
     PLUS            shift and go to state 68
     MINUS           shift and go to state 67
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 103
     exp                            shift and go to state 234
@@ -3031,13 +3030,13 @@ state 205
     (103) mmmarray -> . empty
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
     (104) empty -> .
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
     CBRACKET        reduce using rule 104 (empty -> .)
 
     empty                          shift and go to state 162
@@ -3550,12 +3549,12 @@ state 235
     (58) plot2 -> LCOR varcte COMMA . varcte RCOR COMMA plot2
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 260
 
@@ -3807,12 +3806,12 @@ state 248
     (54) countif -> COUNTIF OPAREN ID COMMA varcte COMMA . varcte COMMA cond CPAREN SCOLON
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 264
 
@@ -3821,12 +3820,12 @@ state 249
     (94) expfunc -> varcte COMMA varcte COMMA . varcte
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 265
 
@@ -3893,12 +3892,12 @@ state 254
     (53) count -> COUNT OPAREN ID COMMA varcte COMMA . varcte CPAREN SCOLON
     (75) varcte -> . ID
     (76) varcte -> . ID asign2
-    (77) varcte -> . NUMBER
-    (78) varcte -> . DOUBLE
+    (77) varcte -> . NUMERIC
+    (78) varcte -> . NUMBER
 
     ID              shift and go to state 72
-    NUMBER          shift and go to state 66
-    DOUBLE          shift and go to state 65
+    NUMERIC         shift and go to state 66
+    NUMBER          shift and go to state 65
 
     varcte                         shift and go to state 268
 
