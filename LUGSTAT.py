@@ -9,7 +9,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-InputF= open("inputf.txt", "r") 
+InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
