@@ -8,6 +8,14 @@
 
 import ply.lex as lex
 import ply.yacc as yacc
+from LUGSTAT_DirFunc import Directorio_de_Variables
+
+DirectorioFunciones = Directorio_de_Variables()
+FuncionMain = ""
+FuncionActual = ""
+VariableActual = ""
+TipoActual = ""
+
 
 InputF= open("inputf.txt", "r") 
 cache=InputF.read()
@@ -138,6 +146,8 @@ def p_lugstat(p):
     '''
     lugstat : LUGSTAT ID SCOLON lugstat2 lugstat3 block
     '''
+    DirectorioFunciones.addf("lugstat",None)
+    FuncionMain = "lugstat"
 
 def p_lugstat2(p):
         '''
@@ -163,10 +173,15 @@ def p_vars1(p):
     | ID asign2
     | ID asign2 COMMA vars1
     '''
+    VariableActual = p[1]
 
 def p_modules(p):
     '''
     modules : FUNC ID COLON tipo OPAREN modules2 CPAREN modules2 block'''
+    DirectorioFunciones.addf(p[2],p[4])
+
+
+
 
 def p_modules2(p):
     '''
@@ -193,6 +208,7 @@ def p_tipo(p):
     | STRING
     | CHAR
     '''
+    p[0] = p[1]
 
 def p_estatuto(p):
     '''
@@ -372,6 +388,8 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 print(result)
+print(DirectorioFunciones.listf())
+
 
 
 # Patch notes - - - - - - - - - - - - - -

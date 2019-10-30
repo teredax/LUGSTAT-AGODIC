@@ -1,5 +1,5 @@
 #Gonzalo Garcia A01281414
-#Jesus Lugo A0
+#Jesus Lugo A01089769
 
 
 from LUGSTAT_TablaDeVariables import Tabla_de_Variables
