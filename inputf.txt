@@ -1,5 +1,5 @@
 lugstat lugstattest;
-var test,test2,test3,test4[1]: int; 
+var test,test2,test3,test4[1]: double; 
 
 func prueba : int ( var test,test2: int; )  
 var test,test2,test3 : int;  

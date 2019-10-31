@@ -11,11 +11,8 @@ import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
 
 DirectorioFunciones = Directorio_de_Variables()
-FuncionMain = ""
-FuncionActual = ""
-VariableActual = ""
-TipoActual = ""
 
+FuncionActual = ""
 
 InputF= open("inputf.txt", "r") 
 cache=InputF.read()
@@ -146,8 +143,7 @@ def p_lugstat(p):
     '''
     lugstat : LUGSTAT ID SCOLON lugstat2 lugstat3 block
     '''
-    DirectorioFunciones.addf("lugstat",None)
-    FuncionMain = "lugstat"
+    DirectorioFunciones.addf(p[1],None)
 
 def p_lugstat2(p):
         '''
@@ -163,31 +159,42 @@ def p_lugstat3(p):
 
 def p_vars(p):
     '''
-    vars : VAR vars1 COLON tipo SCOLON
+    vars : VAR vars1 
     '''
+
 
 def p_vars1(p):
     '''
-    vars1 : ID
+    vars1 : ID COLON tipo SCOLON
     | ID COMMA vars1
-    | ID asign2
+    | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
-    VariableActual = p[1]
+    if p[2] == ":":
+        print(p[-2])
+        print("agrega variable " + p[1] + " del tipo " + p[3])
+    else:
+        pass
+
+
 
 def p_modules(p):
     '''
-    modules : FUNC ID COLON tipo OPAREN modules2 CPAREN modules2 block'''
-    DirectorioFunciones.addf(p[2],p[4])
-
-
+    modules : FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block'''
+    
+def p_addfunction(p):
+    '''addfunction : empty'''
+    DirectorioFunciones.addf(p[-3],p[-1])
+    FuncionActual = p[-3]
+    print(FuncionActual)
 
 
 def p_modules2(p):
     '''
     modules2 : vars
     | empty'''
-
+    p[0] = p[1]
+    
 
 def p_block(p):
     '''
@@ -229,8 +236,8 @@ def p_asign(p):
     | ID asign2 EQUALS ID SCOLON
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
-    
     '''
+
 def p_asign2(p):
     '''
     asign2 : LCOR expresion RCOR asign3
@@ -389,6 +396,7 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 print(result)
 print(DirectorioFunciones.listf())
+print(DirectorioFunciones.getallv("lugstat"))
 
 
 
