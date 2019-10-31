@@ -13,8 +13,9 @@ from LUGSTAT_DirFunc import Directorio_de_Variables
 DirectorioFunciones = Directorio_de_Variables()
 
 FuncionActual = []
+TipoActual = []
 
-InputF= open("inputf.txt", "r") 
+InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -141,9 +142,13 @@ while True:
 
 def p_lugstat(p):
     '''
-    lugstat : LUGSTAT ID SCOLON lugstat2 lugstat3 block
+    lugstat : LUGSTAT ID SCOLON addmain lugstat2 lugstat3 block
     '''
-    DirectorioFunciones.addf(p[1],None)
+
+def p_addmain(p):
+    '''addmain : empty'''
+    DirectorioFunciones.addf(p[-2],None)
+
 
 def p_lugstat2(p):
         '''
@@ -161,33 +166,44 @@ def p_vars(p):
     '''
     vars : VAR vars1 
     '''
-    if p[-3] == "lugstat":
-        pass
+    if p[-4] == "lugstat": #Significa que vengo del main por lo tanto agrego a mi funcion main;
+        for i in range(len(FuncionActual)):
+                DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0])
+        FuncionActual.clear()
+        TipoActual.clear()
     else:
-        if p[-1] == '(':
+        if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             for i in range(len(FuncionActual)):
-                DirectorioFunciones.addv(p[-5],FuncionActual[i],"int")
-                #print()
-            #DirectorioFunciones.addv(p[-5,FuncionActual[i],"int"])
-            #print (p[-5])
-    print(FuncionActual)
-    FuncionActual.clear()
+                DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
+            FuncionActual.clear()
+            TipoActual.clear()
 
 
 def p_vars1(p):
-    '''
-    vars1 : ID COLON tipo SCOLON
-    | ID COMMA savename vars1
+    ''' 
+    vars1 : ID COMMA vars1
+    | ID COLON tipo SCOLON
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
     if p[2] == ":":
-        pass
+        TipoActual.append(p[3]) #Guardamos tipo significa que ya estamos en :int
+
     else:
         FuncionActual.append(p[1])
+        if p[3] != "None":
+            FuncionActual.append(p[3]) #Ultimo Recorrido guardamos posicion final 
+
+        p[0] = p[3] #Matener informacion
+
+    if p[3] == ":":
+        TipoActual.append(p[4]) #En caso de tener valores de arreglo ejem test4[] Update a futuro. 
+    else:
+        pass
     
+    p[0] = p[1]
+
     
-        #Directorio_de_Variables.addv(p[0],p[1],p[3])
 
 def p_savename(p):
     '''savename : empty'''
@@ -198,7 +214,9 @@ def p_modules(p):
     
 def p_addfunction(p):
     '''addfunction : empty'''
+    p[0] = p[-3]
     DirectorioFunciones.addf(p[-3],p[-1])
+    #Agregamos la funcion al tener los datos de tipo y datos 
 
 
 def p_modules2(p):
@@ -408,8 +426,10 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 print(result)
 print(DirectorioFunciones.listf())
+print("variables lugstat")
+print(DirectorioFunciones.getallv("lugstattest"))
+print("variables prueba")
 print(DirectorioFunciones.getallv("prueba"))
-print(FuncionActual)
 
 
 
