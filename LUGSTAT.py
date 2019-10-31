@@ -12,7 +12,7 @@ from LUGSTAT_DirFunc import Directorio_de_Variables
 
 DirectorioFunciones = Directorio_de_Variables()
 
-FuncionActual = ""
+FuncionActual = []
 
 InputF= open("inputf.txt", "r") 
 cache=InputF.read()
@@ -161,22 +161,36 @@ def p_vars(p):
     '''
     vars : VAR vars1 
     '''
+    if p[-3] == "lugstat":
+        pass
+    else:
+        if p[-1] == '(':
+            for i in range(len(FuncionActual)):
+                DirectorioFunciones.addv(p[-5],FuncionActual[i],"int")
+                #print()
+            #DirectorioFunciones.addv(p[-5,FuncionActual[i],"int"])
+            #print (p[-5])
+    print(FuncionActual)
+    FuncionActual.clear()
 
 
 def p_vars1(p):
     '''
     vars1 : ID COLON tipo SCOLON
-    | ID COMMA vars1
+    | ID COMMA savename vars1
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
     if p[2] == ":":
-        print(p[-2])
-        print("agrega variable " + p[1] + " del tipo " + p[3])
-    else:
         pass
+    else:
+        FuncionActual.append(p[1])
+    
+    
+        #Directorio_de_Variables.addv(p[0],p[1],p[3])
 
-
+def p_savename(p):
+    '''savename : empty'''
 
 def p_modules(p):
     '''
@@ -185,8 +199,6 @@ def p_modules(p):
 def p_addfunction(p):
     '''addfunction : empty'''
     DirectorioFunciones.addf(p[-3],p[-1])
-    FuncionActual = p[-3]
-    print(FuncionActual)
 
 
 def p_modules2(p):
@@ -396,7 +408,8 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 print(result)
 print(DirectorioFunciones.listf())
-print(DirectorioFunciones.getallv("lugstat"))
+print(DirectorioFunciones.getallv("prueba"))
+print(FuncionActual)
 
 
 
