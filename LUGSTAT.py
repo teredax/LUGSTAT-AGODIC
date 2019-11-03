@@ -5,7 +5,7 @@
 #usando PLY (Lex / Yacc for python)
 
 
-
+import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
@@ -15,7 +15,19 @@ DirectorioFunciones = Directorio_de_Variables()
 FuncionActual = []
 TipoActual = []
 
-InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
+
+#--------------------
+#Setup of Quadruples
+
+POper = []
+PilaO = []
+Ptype = []
+q = Queue.Queue()
+
+#--------------------
+
+
+InputF= open("inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -182,7 +194,7 @@ def p_vars(p):
 def p_vars1(p):
     ''' 
     vars1 : ID COMMA vars1
-    | ID COLON tipo SCOLON
+    | ID COLON tipo SCOLON lugstat2
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
@@ -230,7 +242,6 @@ def p_block(p):
     '''
     block : OBRACKET block2 CBRACKET
     '''
-
 def p_block2(p):
     '''
     block2 : estatuto
@@ -267,7 +278,7 @@ def p_asign(p):
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
     '''
-
+    #print("!@#",p[1], p[2])
 def p_asign2(p):
     '''
     asign2 : LCOR expresion RCOR asign3
@@ -340,12 +351,19 @@ def p_exp(p):
     | termino MINUS exp
     '''
 
+    #print("exp",p[-1])
+    #POper.append(p[-1])
+
+
+
 def p_termino(p):
     '''
     termino : factor
     | factor MULT termino
     | factor DIV termino
     '''
+    #print("term",p[-1])
+    #POper.append(p[-1])
 
 
 
@@ -356,6 +374,12 @@ def p_factor(p):
     | MINUS varcte
     | varcte
     '''
+    #print("facctor",p[1])
+
+    # @1
+    #print("!@#",p[-4])
+    #print("!@#",p[-1])
+    #PilaO.append()
 
 def p_varcte(p):
     '''
@@ -364,6 +388,9 @@ def p_varcte(p):
     | NUMERIC
     | NUMBER
     '''
+
+    #print("varcte", p[1])
+    #PilaO.append(p[1])
 
 def p_metodos(p):
     '''
@@ -424,18 +451,10 @@ def p_error(p):
 print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
-print(result)
-print(DirectorioFunciones.listf())
+
+
 print("variables lugstat")
 print(DirectorioFunciones.getallv("lugstattest"))
-print("variables prueba")
-print(DirectorioFunciones.getallv("prueba"))
 
 
 
-# Patch notes - - - - - - - - - - - - - -
-
-#Need to check asignacion
-# test2 = (1+1); doesn't work. . . 
-# test2 = 1+1; doesn't work. . .
-# test2 = 1 + test doesn't work . . .

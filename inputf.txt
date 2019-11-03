@@ -1,43 +1,4 @@
-lugstat lugstattest;
-var test,test2,test3,test4[1]: int; 
-
-func prueba : int ( var test,test2: int; )  
-var test,test2,test3 : int;  
-{ print(test, ":", test2);}
-
-func prueba2 : int () { print(test, "-!$%$#$(!0#ASDBSD", test2);}
-
+lugstat lugstattest; var test, var2: int;
 {
-print(test, ":", test2);
-print(test, "+", test2);
-test[1][2] = test2[1][2+test2];
-test = 1+test;
-test2 = (1.3+1.34); 
-test2 = 1+1;
-if ( test[2][2+2]+1 > 3){
-print ("can you even count bro?"); };
-print(test2+test[3][43]);
-count (test,1,3);
-countif (test ,1,2,if ( 1+1 == 2){print ("can you even count bro?"); };);
-
-plot (fx = 2*y+3; fy = 2*x+3;);
-
-plot ([1,2],[2,3]);
-
-mean ({1,2,3,4});
-median ({1,2,3,4});
-mode (test);
-kmeans (3, {1,2,3,4,5});
-derl (test, test, test);
-dbern (1, 2, 3);
-dpoi (test, test);
-
-
-inverse (
-{1,2,3}, 
-{1,2,3}, 
-{3,4,2}
-);
-
+test = 1+2;
 }
-
