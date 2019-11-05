@@ -5,7 +5,7 @@
 #usando PLY (Lex / Yacc for python)
 
 
-
+import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
@@ -15,7 +15,18 @@ DirectorioFunciones = Directorio_de_Variables()
 FuncionActual = []
 TipoActual = []
 
-InputF= open("/Users/lugo/Documents/Clases/Compiladores/CompiladoresAgoDic/inputf.txt", "r") 
+
+#--------------------
+#Setup of Quadruples
+
+POper = []
+PilaO = []
+Ptype = []
+q = Queue.Queue()
+#--------------------
+
+
+InputF= open("inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -148,7 +159,8 @@ def p_lugstat(p):
 def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None)
-
+    global currentf
+    currentf = p[-2]
 
 def p_lugstat2(p):
         '''
@@ -166,32 +178,55 @@ def p_vars(p):
     '''
     vars : VAR vars1 
     '''
-    if p[-4] == "lugstat": #Significa que vengo del main por lo tanto agrego a mi funcion main;
+    #print("C", FuncionActual)
+
+    #print("currentf: ", p[-1])
+    if p[-4] == "lugstat":
+     #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0])
         FuncionActual.clear()
         TipoActual.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
+            global currentf
+            currentf = p[-5]
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
             FuncionActual.clear()
             TipoActual.clear()
+    
+    if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
+        for i in range(len(FuncionActual)):
+            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+        FuncionActual.clear()
+        TipoActual.clear() 
 
+    if p[-1] == ')': # Variables locales de una FUNC
+        #print("12321",FuncionActual)
+        for i in range(len(FuncionActual)):
+            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+        FuncionActual.clear()
+        TipoActual.clear() 
+           
 
 def p_vars1(p):
     ''' 
     vars1 : ID COMMA vars1
-    | ID COLON tipo SCOLON
+    | ID COLON tipo SCOLON lugstat2
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
+    
+    #print("vars: ",p[1],p[2],p[3])
     if p[2] == ":":
-        TipoActual.append(p[3]) #Guardamos tipo significa que ya estamos en :int
 
+        TipoActual.append(p[3]) #Guardamos tipo actual
+        if p[1] not in FuncionActual:
+            FuncionActual.append(p[1])
     else:
         FuncionActual.append(p[1])
-        if p[3] != "None":
+        if p[3] != "None" and p[3] not in FuncionActual:
             FuncionActual.append(p[3]) #Ultimo Recorrido guardamos posicion final 
 
         p[0] = p[3] #Matener informacion
@@ -203,7 +238,7 @@ def p_vars1(p):
     
     p[0] = p[1]
 
-    
+    #print(FuncionActual)
 
 def p_savename(p):
     '''savename : empty'''
@@ -230,7 +265,6 @@ def p_block(p):
     '''
     block : OBRACKET block2 CBRACKET
     '''
-
 def p_block2(p):
     '''
     block2 : estatuto
@@ -267,7 +301,7 @@ def p_asign(p):
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
     '''
-
+    #print("!@#",p[1], p[2])
 def p_asign2(p):
     '''
     asign2 : LCOR expresion RCOR asign3
@@ -340,12 +374,19 @@ def p_exp(p):
     | termino MINUS exp
     '''
 
+    #print("exp",p[-1])
+    #POper.append(p[-1])
+
+
+
 def p_termino(p):
     '''
     termino : factor
     | factor MULT termino
     | factor DIV termino
     '''
+    #print("term",p[-1])
+    #POper.append(p[-1])
 
 
 
@@ -356,6 +397,12 @@ def p_factor(p):
     | MINUS varcte
     | varcte
     '''
+    #print("facctor",p[1])
+
+    # @1
+    #print("!@#",p[-4])
+    #print("!@#",p[-1])
+    #PilaO.append()
 
 def p_varcte(p):
     '''
@@ -424,18 +471,10 @@ def p_error(p):
 print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
-print(result)
-print(DirectorioFunciones.listf())
-print("variables lugstat")
-print(DirectorioFunciones.getallv("lugstattest"))
-print("variables prueba")
-print(DirectorioFunciones.getallv("prueba"))
 
 
-
-# Patch notes - - - - - - - - - - - - - -
-
-#Need to check asignacion
-# test2 = (1+1); doesn't work. . . 
-# test2 = 1+1; doesn't work. . .
-# test2 = 1 + test doesn't work . . .
+print("Variables lugstat MAIN \n")
+DirectorioFunciones.getallv("lugstattest")
+print("\n")
+print("Variables de Modulo Prueba \n")
+DirectorioFunciones.getallv("prueba")
