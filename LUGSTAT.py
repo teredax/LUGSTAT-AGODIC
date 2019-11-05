@@ -23,7 +23,6 @@ POper = []
 PilaO = []
 Ptype = []
 q = Queue.Queue()
-
 #--------------------
 
 
@@ -160,7 +159,8 @@ def p_lugstat(p):
 def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None)
-
+    global currentf
+    currentf = p[-2]
 
 def p_lugstat2(p):
         '''
@@ -178,18 +178,37 @@ def p_vars(p):
     '''
     vars : VAR vars1 
     '''
-    if p[-4] == "lugstat": #Significa que vengo del main por lo tanto agrego a mi funcion main;
+    #print("C", FuncionActual)
+
+    #print("currentf: ", p[-1])
+    if p[-4] == "lugstat":
+     #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0])
         FuncionActual.clear()
         TipoActual.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
+            global currentf
+            currentf = p[-5]
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
             FuncionActual.clear()
             TipoActual.clear()
+    
+    if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
+        for i in range(len(FuncionActual)):
+            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+        FuncionActual.clear()
+        TipoActual.clear() 
 
+    if p[-1] == ')': # Variables locales de una FUNC
+        #print("12321",FuncionActual)
+        for i in range(len(FuncionActual)):
+            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+        FuncionActual.clear()
+        TipoActual.clear() 
+           
 
 def p_vars1(p):
     ''' 
@@ -198,12 +217,16 @@ def p_vars1(p):
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
+    
+    #print("vars: ",p[1],p[2],p[3])
     if p[2] == ":":
-        TipoActual.append(p[3]) #Guardamos tipo significa que ya estamos en :int
 
+        TipoActual.append(p[3]) #Guardamos tipo actual
+        if p[1] not in FuncionActual:
+            FuncionActual.append(p[1])
     else:
         FuncionActual.append(p[1])
-        if p[3] != "None":
+        if p[3] != "None" and p[3] not in FuncionActual:
             FuncionActual.append(p[3]) #Ultimo Recorrido guardamos posicion final 
 
         p[0] = p[3] #Matener informacion
@@ -215,7 +238,7 @@ def p_vars1(p):
     
     p[0] = p[1]
 
-    
+    #print(FuncionActual)
 
 def p_savename(p):
     '''savename : empty'''
@@ -389,9 +412,6 @@ def p_varcte(p):
     | NUMBER
     '''
 
-    #print("varcte", p[1])
-    #PilaO.append(p[1])
-
 def p_metodos(p):
     '''
     metodos : MEAN OPAREN mmmfunc CPAREN SCOLON
@@ -453,8 +473,8 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 
 
-print("variables lugstat")
-print(DirectorioFunciones.getallv("lugstattest"))
-
-
-
+print("Variables lugstat MAIN \n")
+DirectorioFunciones.getallv("lugstattest")
+print("\n")
+print("Variables de Modulo Prueba \n")
+DirectorioFunciones.getallv("prueba")
