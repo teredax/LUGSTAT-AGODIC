@@ -14,7 +14,7 @@ DirectorioFunciones = Directorio_de_Variables()
 
 FuncionActual = []
 TipoActual = []
-
+TemporalCounter = 0
 
 #--------------------
 #Setup of Quadruples
@@ -160,6 +160,8 @@ def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None)
     global currentf
+    global TemporalCounter
+    TemporalCounter = 0
     currentf = p[-2]
 
 def p_lugstat2(p):
@@ -411,11 +413,18 @@ def p_varcte(p):
     | NUMERIC
     | NUMBER
     '''
+    localvar = 'Const'
+    global TemporalCounter
     if float(p[1]).is_integer():
-        print("soy entero ", p[1])
+        localvar += currentf
+        localvar += str(TemporalCounter)
+        DirectorioFunciones.addv(currentf,localvar,"int")
+        TemporalCounter = TemporalCounter + 1 
     else:
-        print("soy flotante ",p[1])
-    print(p[-10])
+        localvar += currentf
+        localvar += str(TemporalCounter)
+        DirectorioFunciones.addv(currentf,localvar,"double")
+        TemporalCounter = TemporalCounter + 1
 
 
 def p_metodos(p):
