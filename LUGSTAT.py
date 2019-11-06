@@ -411,6 +411,12 @@ def p_varcte(p):
     | NUMERIC
     | NUMBER
     '''
+    if float(p[1]).is_integer():
+        print("soy entero ", p[1])
+    else:
+        print("soy flotante ",p[1])
+    print(p[-10])
+
 
 def p_metodos(p):
     '''
