@@ -175,7 +175,9 @@ def p_addmain(p):
     global currentf
     global TemporalCounter
     TemporalCounter = 0
-    currentf = p[-2]
+    currentf = []
+    currentf.append(p[-2])
+
 
 def p_lugstat2(p):
         '''
@@ -204,8 +206,7 @@ def p_vars(p):
         TipoActual.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
-            global currentf
-            currentf = p[-5]
+            currentf.append(p[-5])
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
             FuncionActual.clear()
@@ -213,14 +214,14 @@ def p_vars(p):
     
     if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
-            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
         FuncionActual.clear()
         TipoActual.clear() 
 
     if p[-1] == ')': # Variables locales de una FUNC
         #print("12321",FuncionActual)
         for i in range(len(FuncionActual)):
-            DirectorioFunciones.addv(currentf,FuncionActual[i],TipoActual[0])
+            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
         FuncionActual.clear()
         TipoActual.clear() 
            
@@ -262,6 +263,7 @@ def p_modules(p):
     '''
     modules : FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block'''
     
+
 def p_addfunction(p):
     '''addfunction : empty'''
     p[0] = p[-3]
@@ -280,6 +282,13 @@ def p_block(p):
     '''
     block : OBRACKET block2 CBRACKET
     '''
+    global currentf
+    global TemporalCounter
+    #print("STATUS:", currentf)
+    currentf.pop()
+    TemporalCounter = 0
+    #print("STATUS:", currentf)
+    
 def p_block2(p):
     '''
     block2 : estatuto
@@ -470,14 +479,14 @@ def p_varcte(p):
     global TemporalCounter
     if type(p[1]) is int or type(p[1]) is float: # Verifica primero si es un id o constante
     	if float(p[1]).is_integer():
-        	localvar += currentf
+        	localvar += currentf[-1]
         	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf,localvar,"int")
+        	DirectorioFunciones.addv(currentf[-1],localvar,"int")
         	TemporalCounter = TemporalCounter + 1 
     	else:
-        	localvar += currentf
+        	localvar += currentf[-1]
         	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf,localvar,"double")
+        	DirectorioFunciones.addv(currentf[-1],localvar,"double")
         	TemporalCounter = TemporalCounter + 1
 
 
@@ -485,7 +494,7 @@ def p_varcte(p):
     
     #@1
     PilaO.append(p[1])
-    if type(p[1]) is int or p[1] is float:
+    if type(p[1]) is int or type(p[1]) is float:
     	Ptype.append(type(p[1]))
     else:
     	print("Look in var table for type")
@@ -557,8 +566,8 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 
 
-#print("Variables lugstat MAIN \n")
-#DirectorioFunciones.getallv("lugstattest")
-#print("\n")
-#print("Variables de Modulo Prueba \n")
-#DirectorioFunciones.getallv("prueba")
+print("Variables lugstat MAIN \n")
+DirectorioFunciones.getallv("lugstattest")
+print("\n")
+print("Variables de Modulo Prueba \n")
+DirectorioFunciones.getallv("prueba")
