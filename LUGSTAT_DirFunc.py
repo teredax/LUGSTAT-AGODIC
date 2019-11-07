@@ -47,7 +47,7 @@ class Directorio_de_Variables(object):
     def getallv(self, fname):
         if fname in self.listaf:
             access = self.listaf[fname]
-            access['fvars'].printTable()
+            return access['fvars'].printTable()
 
 
 #def main():

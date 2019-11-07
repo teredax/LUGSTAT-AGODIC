@@ -4,17 +4,30 @@
 # Caso de prueba se pega en inputf.txt
 #usando PLY (Lex / Yacc for python)
 
+#Puntos Neurales marcados con #@1...#@2 etc
 
 import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
-
+from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 DirectorioFunciones = Directorio_de_Variables()
+ConsideracionesSemanticas = ConsideracionesSemanticas()
 
 FuncionActual = []
 TipoActual = []
 TemporalCounter = 0
+
+def typetostr(element):
+	if element is int:
+		return 'int'
+	if element is float:
+		return 'double'
+	if element is str:
+		return 'string'
+	if element is bool:
+		return 'bool'
+
 
 #--------------------
 #Setup of Quadruples
@@ -376,8 +389,31 @@ def p_exp(p):
     | termino MINUS exp
     '''
 
-    #print("exp",p[-1])
-    #POper.append(p[-1])
+
+    #@2
+    if p[-1] is '+' or p[-1] is '-':
+    	POper.append(p[-1])
+    	print("plusminus",p[-1])
+
+    #@4
+    if POper:
+    	if POper[-1] == '+' or POper[-1] == '-':
+    		rOP = PilaO.pop()
+    		rTY = Ptype.pop()
+    		rTY = typetostr(rTY)
+    		lOP = PilaO.pop()
+    		lTY = Ptype.pop()
+    		lTY = typetostr(lTY)
+    		oOP = POper.pop()
+
+    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+    		print(rOP, rTY, lOP, lTY, oOP, fTY)
+
+    		if fTY != 'error':
+    			print("pass")
+    		#Next....
+    		else:
+    			print("Type mismatch")
 
 
 
@@ -387,24 +423,41 @@ def p_termino(p):
     | factor MULT termino
     | factor DIV termino
     '''
-    #print("term",p[-1])
-    #POper.append(p[-1])
 
+
+
+    #@3
+    if p[-1] is '*' or p[-1] is '/':
+    	POper.append(p[-1])
+    	print("muldiv",p[-1])
+   
+    #@5
+    if POper:
+    	if POper[-1] == '*' or POper[-1] == '/':
+    		rOP = PilaO.pop()
+    		rTY = Ptype.pop()
+    		rTY = typetostr(rTY)
+    		lOP = PilaO.pop()
+    		lTY = Ptype.pop()
+    		lTY = typetostr(lTY)
+    		oOP = POper.pop()
+
+    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+    		print(rOP, rTY, lOP, lTY, oOP, fTY)
+
+    		if fTY != 'error':
+    			print("pass")
+    		#Next....
+    		else:
+    			print("Type mismatch")
 
 
 def p_factor(p):
     '''
     factor : OPAREN expresion CPAREN 
-    | PLUS varcte
-    | MINUS varcte
     | varcte
     '''
-    #print("facctor",p[1])
-
-    # @1
-    #print("!@#",p[-4])
-    #print("!@#",p[-1])
-    #PilaO.append()
+    #print("factor", p[1])
 
 def p_varcte(p):
     '''
@@ -415,16 +468,32 @@ def p_varcte(p):
     '''
     localvar = 'Const'
     global TemporalCounter
-    if float(p[1]).is_integer():
-        localvar += currentf
-        localvar += str(TemporalCounter)
-        DirectorioFunciones.addv(currentf,localvar,"int")
-        TemporalCounter = TemporalCounter + 1 
+    if type(p[1]) is int or type(p[1]) is float: # Verifica primero si es un id o constante
+    	if float(p[1]).is_integer():
+        	localvar += currentf
+        	localvar += str(TemporalCounter)
+        	DirectorioFunciones.addv(currentf,localvar,"int")
+        	TemporalCounter = TemporalCounter + 1 
+    	else:
+        	localvar += currentf
+        	localvar += str(TemporalCounter)
+        	DirectorioFunciones.addv(currentf,localvar,"double")
+        	TemporalCounter = TemporalCounter + 1
+
+
+    print("vcte",p[1])
+    
+    #@1
+    PilaO.append(p[1])
+    if type(p[1]) is int or p[1] is float:
+    	Ptype.append(type(p[1]))
     else:
-        localvar += currentf
-        localvar += str(TemporalCounter)
-        DirectorioFunciones.addv(currentf,localvar,"double")
-        TemporalCounter = TemporalCounter + 1
+    	print("Look in var table for type")
+    	#index =DirectorioFunciones.getdir(currentf)
+    	#print(currentf)
+    	#print("ni",index.printTable())
+    	## Falta conectar con la tabla de variables para agarrar el tipo de la variable desde alli
+
 
 
 def p_metodos(p):
@@ -488,8 +557,8 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 
 
-print("Variables lugstat MAIN \n")
-DirectorioFunciones.getallv("lugstattest")
-print("\n")
-print("Variables de Modulo Prueba \n")
-DirectorioFunciones.getallv("prueba")
+#print("Variables lugstat MAIN \n")
+#DirectorioFunciones.getallv("lugstattest")
+#print("\n")
+#print("Variables de Modulo Prueba \n")
+#DirectorioFunciones.getallv("prueba")

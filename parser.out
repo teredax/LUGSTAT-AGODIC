@@ -98,61 +98,59 @@ Rule 71    termino -> factor
 Rule 72    termino -> factor MULT termino
 Rule 73    termino -> factor DIV termino
 Rule 74    factor -> OPAREN expresion CPAREN
-Rule 75    factor -> PLUS varcte
-Rule 76    factor -> MINUS varcte
-Rule 77    factor -> varcte
-Rule 78    varcte -> ID
-Rule 79    varcte -> ID asign2
-Rule 80    varcte -> NUMERIC
-Rule 81    varcte -> NUMBER
-Rule 82    metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON
-Rule 83    metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON
-Rule 84    metodos -> MODE OPAREN mmmfunc CPAREN SCOLON
-Rule 85    metodos -> STDV OPAREN mmmfunc CPAREN SCOLON
-Rule 86    metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
-Rule 87    metodos -> DERL OPAREN expfunc CPAREN SCOLON
-Rule 88    metodos -> DBERN OPAREN expfunc CPAREN SCOLON
-Rule 89    metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON
-Rule 90    metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
-Rule 91    metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON
-Rule 92    metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON
-Rule 93    metodos -> REF OPAREN mmmfunc CPAREN SCOLON
-Rule 94    metodos -> RREF OPAREN mmmfunc CPAREN SCOLON
-Rule 95    metodos -> MONT OPAREN mmmfunc CPAREN SCOLON
-Rule 96    expfunc -> ID COMMA ID COMMA ID
-Rule 97    expfunc -> varcte COMMA varcte COMMA varcte
-Rule 98    expfunc2 -> ID COMMA ID
-Rule 99    expfunc2 -> varcte COMMA varcte
-Rule 100   mmmfunc -> ID
-Rule 101   mmmfunc -> OBRACKET mmmarray CBRACKET
-Rule 102   mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc
-Rule 103   mmmfunc -> empty
-Rule 104   mmmarray -> varcte
-Rule 105   mmmarray -> varcte COMMA mmmarray
-Rule 106   mmmarray -> empty
-Rule 107   empty -> <empty>
+Rule 75    factor -> varcte
+Rule 76    varcte -> ID
+Rule 77    varcte -> ID asign2
+Rule 78    varcte -> NUMERIC
+Rule 79    varcte -> NUMBER
+Rule 80    metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON
+Rule 81    metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON
+Rule 82    metodos -> MODE OPAREN mmmfunc CPAREN SCOLON
+Rule 83    metodos -> STDV OPAREN mmmfunc CPAREN SCOLON
+Rule 84    metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
+Rule 85    metodos -> DERL OPAREN expfunc CPAREN SCOLON
+Rule 86    metodos -> DBERN OPAREN expfunc CPAREN SCOLON
+Rule 87    metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON
+Rule 88    metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
+Rule 89    metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON
+Rule 90    metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON
+Rule 91    metodos -> REF OPAREN mmmfunc CPAREN SCOLON
+Rule 92    metodos -> RREF OPAREN mmmfunc CPAREN SCOLON
+Rule 93    metodos -> MONT OPAREN mmmfunc CPAREN SCOLON
+Rule 94    expfunc -> ID COMMA ID COMMA ID
+Rule 95    expfunc -> varcte COMMA varcte COMMA varcte
+Rule 96    expfunc2 -> ID COMMA ID
+Rule 97    expfunc2 -> varcte COMMA varcte
+Rule 98    mmmfunc -> ID
+Rule 99    mmmfunc -> OBRACKET mmmarray CBRACKET
+Rule 100   mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc
+Rule 101   mmmfunc -> empty
+Rule 102   mmmarray -> varcte
+Rule 103   mmmarray -> varcte COMMA mmmarray
+Rule 104   mmmarray -> empty
+Rule 105   empty -> <empty>
 
 Terminals, with rules where they appear
 
 AND                  : 
 BOOL                 : 23
-CBRACKET             : 18 101 102
+CBRACKET             : 18 99 100
 CHAR                 : 26
 CHARACTER            : 
 COLON                : 10 11 14
-COMMA                : 9 12 49 56 56 57 57 57 60 61 61 86 96 96 97 97 98 99 102 105
+COMMA                : 9 12 49 56 56 57 57 57 60 61 61 84 94 94 95 95 96 97 100 103
 COMMENT              : 
 COUNT                : 56
 COUNTIF              : 57
-CPAREN               : 14 45 46 47 48 54 55 56 57 58 59 74 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+CPAREN               : 14 45 46 47 48 54 55 56 57 58 59 74 80 81 82 83 84 85 86 87 88 89 90 91 92 93
 CTED                 : 
 CTEI                 : 
-DBERN                : 88
-DERL                 : 87
+DBERN                : 86
+DERL                 : 85
 DIFF                 : 
 DIV                  : 73
 DOUBLE               : 24
-DPOI                 : 89
+DPOI                 : 87
 ELSE                 : 55
 EQ                   : 
 EQUALS               : 34 35 36 37 38 39 63 64
@@ -162,43 +160,43 @@ FY                   : 64
 GRE                  : 
 GREATEQ              : 
 GREATERTHAN          : 
-ID                   : 1 9 10 11 12 14 34 35 35 36 36 37 37 38 39 39 47 51 52 56 57 78 79 96 96 96 98 98 100
+ID                   : 1 9 10 11 12 14 34 35 35 36 36 37 37 38 39 39 47 51 52 56 57 76 77 94 94 94 96 96 98
 IF                   : 54 55
 INT                  : 22
 INTEGER              : 
-INVERSE              : 91
-KMEANS               : 86
+INVERSE              : 89
+KMEANS               : 84
 LCOR                 : 40 41 42 43 60 61
 LESSEQ               : 
 LESSTHAN             : 
 LOGICAL              : 
 LUGSTAT              : 1
-MEAN                 : 82
-MEDIAN               : 83
-MINUS                : 70 76
-MODE                 : 84
-MONT                 : 95
+MEAN                 : 80
+MEDIAN               : 81
+MINUS                : 70
+MODE                 : 82
+MONT                 : 93
 MULT                 : 72
-NUMBER               : 81
-NUMERIC              : 80
-OBRACKET             : 18 101 102
-OPAREN               : 14 45 46 47 48 54 55 56 57 58 59 74 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+NUMBER               : 79
+NUMERIC              : 78
+OBRACKET             : 18 99 100
+OPAREN               : 14 45 46 47 48 54 55 56 57 58 59 74 80 81 82 83 84 85 86 87 88 89 90 91 92 93
 OR                   : 
 PER                  : 
 PLOT                 : 58 59
-PLUS                 : 69 75
+PLUS                 : 69
 PRINT                : 45 46 47 48
 QUOTE                : 
 RCOR                 : 40 41 42 43 60 61
-REF                  : 93
+REF                  : 91
 RELOP                : 67
-ROTATE               : 92
-RREF                 : 94
-SCOLON               : 1 10 11 34 35 36 37 38 39 45 46 47 48 54 55 56 57 58 59 63 64 82 83 84 85 86 87 88 89 90 91 92 93 94 95
-STDV                 : 85
+ROTATE               : 90
+RREF                 : 92
+SCOLON               : 1 10 11 34 35 36 37 38 39 45 46 47 48 54 55 56 57 58 59 63 64 80 81 82 83 84 85 86 87 88 89 90 91 92 93
+STDV                 : 83
 STRING               : 25 48 53
 TIPO                 : 
-TRANSPOSE            : 90
+TRANSPOSE            : 88
 VAR                  : 8
 error                : 
 
@@ -207,29 +205,29 @@ Nonterminals, with rules where they appear
 addfunction          : 14
 addmain              : 1
 asign                : 27
-asign2               : 11 12 36 37 38 39 39 79
+asign2               : 11 12 36 37 38 39 39 77
 asign3               : 40 41
 block                : 1 14 54 55 55
 block2               : 18 20
 cond                 : 28 57
 count                : 31
 countif              : 32
-empty                : 2 4 7 13 15 17 21 44 50 62 65 103 106
+empty                : 2 4 7 13 15 17 21 44 50 62 65 101 104
 escrt                : 29
 escrt2               : 47 51 53 53
 escrt3               : 49
 estatuto             : 19 20
 exp                  : 63 64 66 67 69 70
-expfunc              : 87 88
-expfunc2             : 89
+expfunc              : 85 86
+expfunc2             : 87
 expresion            : 34 38 40 42 45 54 55 67 74
 factor               : 71 72 73
 lugstat              : 0
 lugstat2             : 1 10
 lugstat3             : 1 6
 metodos              : 33
-mmmarray             : 101 102 105
-mmmfunc              : 82 83 84 85 86 90 91 92 93 94 95 102
+mmmarray             : 99 100 103
+mmmfunc              : 80 81 82 83 84 88 89 90 91 92 93 100
 modules              : 5 6
 modules2             : 14 14
 plot                 : 30
@@ -237,7 +235,7 @@ plot2                : 59 61
 savename             : 
 termino              : 68 69 70 72 73
 tipo                 : 10 11 14
-varcte               : 41 43 56 56 57 57 60 60 61 61 75 76 77 86 97 97 97 99 99 104 105
+varcte               : 41 43 56 56 57 57 60 60 61 61 75 84 95 95 95 97 97 102 103
 vars                 : 3 16
 vars1                : 8 9 12
 xyfunc               : 58 63 64
@@ -277,11 +275,11 @@ state 4
 
     (1) lugstat -> LUGSTAT ID SCOLON . addmain lugstat2 lugstat3 block
     (2) addmain -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    VAR             reduce using rule 107 (empty -> .)
-    FUNC            reduce using rule 107 (empty -> .)
-    OBRACKET        reduce using rule 107 (empty -> .)
+    VAR             reduce using rule 105 (empty -> .)
+    FUNC            reduce using rule 105 (empty -> .)
+    OBRACKET        reduce using rule 105 (empty -> .)
 
     addmain                        shift and go to state 5
     empty                          shift and go to state 6
@@ -292,11 +290,11 @@ state 5
     (3) lugstat2 -> . vars
     (4) lugstat2 -> . empty
     (8) vars -> . VAR vars1
-    (107) empty -> .
+    (105) empty -> .
 
     VAR             shift and go to state 10
-    FUNC            reduce using rule 107 (empty -> .)
-    OBRACKET        reduce using rule 107 (empty -> .)
+    FUNC            reduce using rule 105 (empty -> .)
+    OBRACKET        reduce using rule 105 (empty -> .)
 
     lugstat2                       shift and go to state 7
     vars                           shift and go to state 8
@@ -318,10 +316,10 @@ state 7
     (6) lugstat3 -> . modules lugstat3
     (7) lugstat3 -> . empty
     (14) modules -> . FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block
-    (107) empty -> .
+    (105) empty -> .
 
     FUNC            shift and go to state 14
-    OBRACKET        reduce using rule 107 (empty -> .)
+    OBRACKET        reduce using rule 105 (empty -> .)
 
     lugstat3                       shift and go to state 11
     modules                        shift and go to state 12
@@ -374,13 +372,13 @@ state 12
     (6) lugstat3 -> . modules lugstat3
     (7) lugstat3 -> . empty
     (14) modules -> . FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block
-    (107) empty -> .
+    (105) empty -> .
 
   ! reduce/reduce conflict for OBRACKET resolved using rule 5 (lugstat3 -> modules .)
     OBRACKET        reduce using rule 5 (lugstat3 -> modules .)
     FUNC            shift and go to state 14
 
-  ! OBRACKET        [ reduce using rule 107 (empty -> .) ]
+  ! OBRACKET        [ reduce using rule 105 (empty -> .) ]
 
     modules                        shift and go to state 12
     lugstat3                       shift and go to state 19
@@ -444,7 +442,7 @@ state 18
     (31) estatuto -> . count
     (32) estatuto -> . countif
     (33) estatuto -> . metodos
-    (107) empty -> .
+    (105) empty -> .
     (34) asign -> . ID EQUALS expresion SCOLON
     (35) asign -> . ID EQUALS ID SCOLON
     (36) asign -> . ID EQUALS ID asign2 SCOLON
@@ -461,22 +459,22 @@ state 18
     (59) plot -> . PLOT OPAREN plot2 CPAREN SCOLON
     (56) count -> . COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON
     (57) countif -> . COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON
-    (82) metodos -> . MEAN OPAREN mmmfunc CPAREN SCOLON
-    (83) metodos -> . MEDIAN OPAREN mmmfunc CPAREN SCOLON
-    (84) metodos -> . MODE OPAREN mmmfunc CPAREN SCOLON
-    (85) metodos -> . STDV OPAREN mmmfunc CPAREN SCOLON
-    (86) metodos -> . KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
-    (87) metodos -> . DERL OPAREN expfunc CPAREN SCOLON
-    (88) metodos -> . DBERN OPAREN expfunc CPAREN SCOLON
-    (89) metodos -> . DPOI OPAREN expfunc2 CPAREN SCOLON
-    (90) metodos -> . TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
-    (91) metodos -> . INVERSE OPAREN mmmfunc CPAREN SCOLON
-    (92) metodos -> . ROTATE OPAREN mmmfunc CPAREN SCOLON
-    (93) metodos -> . REF OPAREN mmmfunc CPAREN SCOLON
-    (94) metodos -> . RREF OPAREN mmmfunc CPAREN SCOLON
-    (95) metodos -> . MONT OPAREN mmmfunc CPAREN SCOLON
+    (80) metodos -> . MEAN OPAREN mmmfunc CPAREN SCOLON
+    (81) metodos -> . MEDIAN OPAREN mmmfunc CPAREN SCOLON
+    (82) metodos -> . MODE OPAREN mmmfunc CPAREN SCOLON
+    (83) metodos -> . STDV OPAREN mmmfunc CPAREN SCOLON
+    (84) metodos -> . KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
+    (85) metodos -> . DERL OPAREN expfunc CPAREN SCOLON
+    (86) metodos -> . DBERN OPAREN expfunc CPAREN SCOLON
+    (87) metodos -> . DPOI OPAREN expfunc2 CPAREN SCOLON
+    (88) metodos -> . TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
+    (89) metodos -> . INVERSE OPAREN mmmfunc CPAREN SCOLON
+    (90) metodos -> . ROTATE OPAREN mmmfunc CPAREN SCOLON
+    (91) metodos -> . REF OPAREN mmmfunc CPAREN SCOLON
+    (92) metodos -> . RREF OPAREN mmmfunc CPAREN SCOLON
+    (93) metodos -> . MONT OPAREN mmmfunc CPAREN SCOLON
 
-    CBRACKET        reduce using rule 107 (empty -> .)
+    CBRACKET        reduce using rule 105 (empty -> .)
     ID              shift and go to state 35
     IF              shift and go to state 36
     PRINT           shift and go to state 37
@@ -567,10 +565,10 @@ state 24
     (41) asign2 -> LCOR . varcte RCOR asign3
     (66) expresion -> . exp
     (67) expresion -> . expresion RELOP exp
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
     (68) exp -> . termino
     (69) exp -> . termino PLUS exp
     (70) exp -> . termino MINUS exp
@@ -578,28 +576,24 @@ state 24
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
+    (75) factor -> . varcte
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
 
     expresion                      shift and go to state 65
     varcte                         shift and go to state 66
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
+    factor                         shift and go to state 72
 
 state 25
 
     (18) block -> OBRACKET block2 . CBRACKET
 
-    CBRACKET        shift and go to state 76
+    CBRACKET        shift and go to state 74
 
 
 state 26
@@ -616,7 +610,7 @@ state 26
     (31) estatuto -> . count
     (32) estatuto -> . countif
     (33) estatuto -> . metodos
-    (107) empty -> .
+    (105) empty -> .
     (34) asign -> . ID EQUALS expresion SCOLON
     (35) asign -> . ID EQUALS ID SCOLON
     (36) asign -> . ID EQUALS ID asign2 SCOLON
@@ -633,20 +627,20 @@ state 26
     (59) plot -> . PLOT OPAREN plot2 CPAREN SCOLON
     (56) count -> . COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON
     (57) countif -> . COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON
-    (82) metodos -> . MEAN OPAREN mmmfunc CPAREN SCOLON
-    (83) metodos -> . MEDIAN OPAREN mmmfunc CPAREN SCOLON
-    (84) metodos -> . MODE OPAREN mmmfunc CPAREN SCOLON
-    (85) metodos -> . STDV OPAREN mmmfunc CPAREN SCOLON
-    (86) metodos -> . KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
-    (87) metodos -> . DERL OPAREN expfunc CPAREN SCOLON
-    (88) metodos -> . DBERN OPAREN expfunc CPAREN SCOLON
-    (89) metodos -> . DPOI OPAREN expfunc2 CPAREN SCOLON
-    (90) metodos -> . TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
-    (91) metodos -> . INVERSE OPAREN mmmfunc CPAREN SCOLON
-    (92) metodos -> . ROTATE OPAREN mmmfunc CPAREN SCOLON
-    (93) metodos -> . REF OPAREN mmmfunc CPAREN SCOLON
-    (94) metodos -> . RREF OPAREN mmmfunc CPAREN SCOLON
-    (95) metodos -> . MONT OPAREN mmmfunc CPAREN SCOLON
+    (80) metodos -> . MEAN OPAREN mmmfunc CPAREN SCOLON
+    (81) metodos -> . MEDIAN OPAREN mmmfunc CPAREN SCOLON
+    (82) metodos -> . MODE OPAREN mmmfunc CPAREN SCOLON
+    (83) metodos -> . STDV OPAREN mmmfunc CPAREN SCOLON
+    (84) metodos -> . KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
+    (85) metodos -> . DERL OPAREN expfunc CPAREN SCOLON
+    (86) metodos -> . DBERN OPAREN expfunc CPAREN SCOLON
+    (87) metodos -> . DPOI OPAREN expfunc2 CPAREN SCOLON
+    (88) metodos -> . TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
+    (89) metodos -> . INVERSE OPAREN mmmfunc CPAREN SCOLON
+    (90) metodos -> . ROTATE OPAREN mmmfunc CPAREN SCOLON
+    (91) metodos -> . REF OPAREN mmmfunc CPAREN SCOLON
+    (92) metodos -> . RREF OPAREN mmmfunc CPAREN SCOLON
+    (93) metodos -> . MONT OPAREN mmmfunc CPAREN SCOLON
 
   ! reduce/reduce conflict for CBRACKET resolved using rule 19 (block2 -> estatuto .)
     CBRACKET        reduce using rule 19 (block2 -> estatuto .)
@@ -671,10 +665,10 @@ state 26
     RREF            shift and go to state 53
     MONT            shift and go to state 54
 
-  ! CBRACKET        [ reduce using rule 107 (empty -> .) ]
+  ! CBRACKET        [ reduce using rule 105 (empty -> .) ]
 
     estatuto                       shift and go to state 26
-    block2                         shift and go to state 77
+    block2                         shift and go to state 75
     empty                          shift and go to state 27
     asign                          shift and go to state 28
     cond                           shift and go to state 29
@@ -891,17 +885,17 @@ state 35
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
 
-    EQUALS          shift and go to state 78
+    EQUALS          shift and go to state 76
     LCOR            shift and go to state 24
 
-    asign2                         shift and go to state 79
+    asign2                         shift and go to state 77
 
 state 36
 
     (54) cond -> IF . OPAREN expresion CPAREN block SCOLON
     (55) cond -> IF . OPAREN expresion CPAREN block ELSE block SCOLON
 
-    OPAREN          shift and go to state 80
+    OPAREN          shift and go to state 78
 
 
 state 37
@@ -911,7 +905,7 @@ state 37
     (47) escrt -> PRINT . OPAREN ID escrt2 CPAREN SCOLON
     (48) escrt -> PRINT . OPAREN STRING CPAREN SCOLON
 
-    OPAREN          shift and go to state 81
+    OPAREN          shift and go to state 79
 
 
 state 38
@@ -919,119 +913,119 @@ state 38
     (58) plot -> PLOT . OPAREN xyfunc CPAREN SCOLON
     (59) plot -> PLOT . OPAREN plot2 CPAREN SCOLON
 
-    OPAREN          shift and go to state 82
+    OPAREN          shift and go to state 80
 
 
 state 39
 
     (56) count -> COUNT . OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON
 
-    OPAREN          shift and go to state 83
+    OPAREN          shift and go to state 81
 
 
 state 40
 
     (57) countif -> COUNTIF . OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON
 
-    OPAREN          shift and go to state 84
+    OPAREN          shift and go to state 82
 
 
 state 41
 
-    (82) metodos -> MEAN . OPAREN mmmfunc CPAREN SCOLON
+    (80) metodos -> MEAN . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 85
+    OPAREN          shift and go to state 83
 
 
 state 42
 
-    (83) metodos -> MEDIAN . OPAREN mmmfunc CPAREN SCOLON
+    (81) metodos -> MEDIAN . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 86
+    OPAREN          shift and go to state 84
 
 
 state 43
 
-    (84) metodos -> MODE . OPAREN mmmfunc CPAREN SCOLON
+    (82) metodos -> MODE . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 87
+    OPAREN          shift and go to state 85
 
 
 state 44
 
-    (85) metodos -> STDV . OPAREN mmmfunc CPAREN SCOLON
+    (83) metodos -> STDV . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 88
+    OPAREN          shift and go to state 86
 
 
 state 45
 
-    (86) metodos -> KMEANS . OPAREN varcte COMMA mmmfunc CPAREN SCOLON
+    (84) metodos -> KMEANS . OPAREN varcte COMMA mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 89
+    OPAREN          shift and go to state 87
 
 
 state 46
 
-    (87) metodos -> DERL . OPAREN expfunc CPAREN SCOLON
+    (85) metodos -> DERL . OPAREN expfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 90
+    OPAREN          shift and go to state 88
 
 
 state 47
 
-    (88) metodos -> DBERN . OPAREN expfunc CPAREN SCOLON
+    (86) metodos -> DBERN . OPAREN expfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 91
+    OPAREN          shift and go to state 89
 
 
 state 48
 
-    (89) metodos -> DPOI . OPAREN expfunc2 CPAREN SCOLON
+    (87) metodos -> DPOI . OPAREN expfunc2 CPAREN SCOLON
 
-    OPAREN          shift and go to state 92
+    OPAREN          shift and go to state 90
 
 
 state 49
 
-    (90) metodos -> TRANSPOSE . OPAREN mmmfunc CPAREN SCOLON
+    (88) metodos -> TRANSPOSE . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 93
+    OPAREN          shift and go to state 91
 
 
 state 50
 
-    (91) metodos -> INVERSE . OPAREN mmmfunc CPAREN SCOLON
+    (89) metodos -> INVERSE . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 94
+    OPAREN          shift and go to state 92
 
 
 state 51
 
-    (92) metodos -> ROTATE . OPAREN mmmfunc CPAREN SCOLON
+    (90) metodos -> ROTATE . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 95
+    OPAREN          shift and go to state 93
 
 
 state 52
 
-    (93) metodos -> REF . OPAREN mmmfunc CPAREN SCOLON
+    (91) metodos -> REF . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 96
+    OPAREN          shift and go to state 94
 
 
 state 53
 
-    (94) metodos -> RREF . OPAREN mmmfunc CPAREN SCOLON
+    (92) metodos -> RREF . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 97
+    OPAREN          shift and go to state 95
 
 
 state 54
 
-    (95) metodos -> MONT . OPAREN mmmfunc CPAREN SCOLON
+    (93) metodos -> MONT . OPAREN mmmfunc CPAREN SCOLON
 
-    OPAREN          shift and go to state 98
+    OPAREN          shift and go to state 96
 
 
 state 55
@@ -1049,7 +1043,7 @@ state 55
     STRING          shift and go to state 61
     CHAR            shift and go to state 62
 
-    tipo                           shift and go to state 99
+    tipo                           shift and go to state 97
 
 state 56
 
@@ -1064,7 +1058,7 @@ state 57
 
     (10) vars1 -> ID COLON tipo . SCOLON lugstat2
 
-    SCOLON          shift and go to state 100
+    SCOLON          shift and go to state 98
 
 
 state 58
@@ -1122,7 +1116,7 @@ state 63
     STRING          shift and go to state 61
     CHAR            shift and go to state 62
 
-    tipo                           shift and go to state 101
+    tipo                           shift and go to state 99
 
 state 64
 
@@ -1134,31 +1128,31 @@ state 64
 
     ID              shift and go to state 16
 
-    vars1                          shift and go to state 102
+    vars1                          shift and go to state 100
 
 state 65
 
     (40) asign2 -> LCOR expresion . RCOR asign3
     (67) expresion -> expresion . RELOP exp
 
-    RCOR            shift and go to state 103
-    RELOP           shift and go to state 104
+    RCOR            shift and go to state 101
+    RELOP           shift and go to state 102
 
 
 state 66
 
     (41) asign2 -> LCOR varcte . RCOR asign3
-    (77) factor -> varcte .
+    (75) factor -> varcte .
 
   ! shift/reduce conflict for RCOR resolved as shift
-    RCOR            shift and go to state 105
-    MULT            reduce using rule 77 (factor -> varcte .)
-    DIV             reduce using rule 77 (factor -> varcte .)
-    PLUS            reduce using rule 77 (factor -> varcte .)
-    MINUS           reduce using rule 77 (factor -> varcte .)
-    RELOP           reduce using rule 77 (factor -> varcte .)
+    RCOR            shift and go to state 103
+    MULT            reduce using rule 75 (factor -> varcte .)
+    DIV             reduce using rule 75 (factor -> varcte .)
+    PLUS            reduce using rule 75 (factor -> varcte .)
+    MINUS           reduce using rule 75 (factor -> varcte .)
+    RELOP           reduce using rule 75 (factor -> varcte .)
 
-  ! RCOR            [ reduce using rule 77 (factor -> varcte .) ]
+  ! RCOR            [ reduce using rule 75 (factor -> varcte .) ]
 
 
 state 67
@@ -1173,55 +1167,55 @@ state 67
 
 state 68
 
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
 
-    RCOR            reduce using rule 78 (varcte -> ID .)
-    MULT            reduce using rule 78 (varcte -> ID .)
-    DIV             reduce using rule 78 (varcte -> ID .)
-    PLUS            reduce using rule 78 (varcte -> ID .)
-    MINUS           reduce using rule 78 (varcte -> ID .)
-    RELOP           reduce using rule 78 (varcte -> ID .)
-    CPAREN          reduce using rule 78 (varcte -> ID .)
-    SCOLON          reduce using rule 78 (varcte -> ID .)
-    COMMA           reduce using rule 78 (varcte -> ID .)
-    CBRACKET        reduce using rule 78 (varcte -> ID .)
+    RCOR            reduce using rule 76 (varcte -> ID .)
+    MULT            reduce using rule 76 (varcte -> ID .)
+    DIV             reduce using rule 76 (varcte -> ID .)
+    PLUS            reduce using rule 76 (varcte -> ID .)
+    MINUS           reduce using rule 76 (varcte -> ID .)
+    RELOP           reduce using rule 76 (varcte -> ID .)
+    CPAREN          reduce using rule 76 (varcte -> ID .)
+    COMMA           reduce using rule 76 (varcte -> ID .)
+    SCOLON          reduce using rule 76 (varcte -> ID .)
+    CBRACKET        reduce using rule 76 (varcte -> ID .)
     LCOR            shift and go to state 24
 
-    asign2                         shift and go to state 106
+    asign2                         shift and go to state 104
 
 state 69
 
-    (80) varcte -> NUMERIC .
+    (78) varcte -> NUMERIC .
 
-    RCOR            reduce using rule 80 (varcte -> NUMERIC .)
-    MULT            reduce using rule 80 (varcte -> NUMERIC .)
-    DIV             reduce using rule 80 (varcte -> NUMERIC .)
-    PLUS            reduce using rule 80 (varcte -> NUMERIC .)
-    MINUS           reduce using rule 80 (varcte -> NUMERIC .)
-    RELOP           reduce using rule 80 (varcte -> NUMERIC .)
-    CPAREN          reduce using rule 80 (varcte -> NUMERIC .)
-    SCOLON          reduce using rule 80 (varcte -> NUMERIC .)
-    COMMA           reduce using rule 80 (varcte -> NUMERIC .)
-    CBRACKET        reduce using rule 80 (varcte -> NUMERIC .)
+    RCOR            reduce using rule 78 (varcte -> NUMERIC .)
+    MULT            reduce using rule 78 (varcte -> NUMERIC .)
+    DIV             reduce using rule 78 (varcte -> NUMERIC .)
+    PLUS            reduce using rule 78 (varcte -> NUMERIC .)
+    MINUS           reduce using rule 78 (varcte -> NUMERIC .)
+    RELOP           reduce using rule 78 (varcte -> NUMERIC .)
+    CPAREN          reduce using rule 78 (varcte -> NUMERIC .)
+    SCOLON          reduce using rule 78 (varcte -> NUMERIC .)
+    COMMA           reduce using rule 78 (varcte -> NUMERIC .)
+    CBRACKET        reduce using rule 78 (varcte -> NUMERIC .)
 
 
 state 70
 
-    (81) varcte -> NUMBER .
+    (79) varcte -> NUMBER .
 
-    RCOR            reduce using rule 81 (varcte -> NUMBER .)
-    MULT            reduce using rule 81 (varcte -> NUMBER .)
-    DIV             reduce using rule 81 (varcte -> NUMBER .)
-    PLUS            reduce using rule 81 (varcte -> NUMBER .)
-    MINUS           reduce using rule 81 (varcte -> NUMBER .)
-    RELOP           reduce using rule 81 (varcte -> NUMBER .)
-    CPAREN          reduce using rule 81 (varcte -> NUMBER .)
-    SCOLON          reduce using rule 81 (varcte -> NUMBER .)
-    COMMA           reduce using rule 81 (varcte -> NUMBER .)
-    CBRACKET        reduce using rule 81 (varcte -> NUMBER .)
+    RCOR            reduce using rule 79 (varcte -> NUMBER .)
+    MULT            reduce using rule 79 (varcte -> NUMBER .)
+    DIV             reduce using rule 79 (varcte -> NUMBER .)
+    PLUS            reduce using rule 79 (varcte -> NUMBER .)
+    MINUS           reduce using rule 79 (varcte -> NUMBER .)
+    RELOP           reduce using rule 79 (varcte -> NUMBER .)
+    CPAREN          reduce using rule 79 (varcte -> NUMBER .)
+    SCOLON          reduce using rule 79 (varcte -> NUMBER .)
+    COMMA           reduce using rule 79 (varcte -> NUMBER .)
+    CBRACKET        reduce using rule 79 (varcte -> NUMBER .)
 
 
 state 71
@@ -1234,39 +1228,11 @@ state 71
     RELOP           reduce using rule 68 (exp -> termino .)
     CPAREN          reduce using rule 68 (exp -> termino .)
     SCOLON          reduce using rule 68 (exp -> termino .)
-    PLUS            shift and go to state 107
-    MINUS           shift and go to state 108
+    PLUS            shift and go to state 105
+    MINUS           shift and go to state 106
 
 
 state 72
-
-    (75) factor -> PLUS . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
-
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
-
-    varcte                         shift and go to state 109
-
-state 73
-
-    (76) factor -> MINUS . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
-
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
-
-    varcte                         shift and go to state 110
-
-state 74
 
     (71) termino -> factor .
     (72) termino -> factor . MULT termino
@@ -1278,11 +1244,11 @@ state 74
     RELOP           reduce using rule 71 (termino -> factor .)
     CPAREN          reduce using rule 71 (termino -> factor .)
     SCOLON          reduce using rule 71 (termino -> factor .)
-    MULT            shift and go to state 111
-    DIV             shift and go to state 112
+    MULT            shift and go to state 107
+    DIV             shift and go to state 108
 
 
-state 75
+state 73
 
     (74) factor -> OPAREN . expresion CPAREN
     (66) expresion -> . exp
@@ -1294,28 +1260,24 @@ state 75
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expresion                      shift and go to state 113
+    expresion                      shift and go to state 109
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 76
+state 74
 
     (18) block -> OBRACKET block2 CBRACKET .
 
@@ -1326,14 +1288,14 @@ state 76
     OBRACKET        reduce using rule 18 (block -> OBRACKET block2 CBRACKET .)
 
 
-state 77
+state 75
 
     (20) block2 -> estatuto block2 .
 
     CBRACKET        reduce using rule 20 (block2 -> estatuto block2 .)
 
 
-state 78
+state 76
 
     (34) asign -> ID EQUALS . expresion SCOLON
     (35) asign -> ID EQUALS . ID SCOLON
@@ -1347,37 +1309,33 @@ state 78
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    ID              shift and go to state 115
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    ID              shift and go to state 111
+    OPAREN          shift and go to state 73
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expresion                      shift and go to state 116
+    expresion                      shift and go to state 112
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 79
+state 77
 
     (37) asign -> ID asign2 . EQUALS ID SCOLON
     (38) asign -> ID asign2 . EQUALS expresion SCOLON
     (39) asign -> ID asign2 . EQUALS ID asign2 SCOLON
 
-    EQUALS          shift and go to state 117
+    EQUALS          shift and go to state 113
 
 
-state 80
+state 78
 
     (54) cond -> IF OPAREN . expresion CPAREN block SCOLON
     (55) cond -> IF OPAREN . expresion CPAREN block ELSE block SCOLON
@@ -1390,28 +1348,24 @@ state 80
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expresion                      shift and go to state 118
+    expresion                      shift and go to state 114
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 81
+state 79
 
     (45) escrt -> PRINT OPAREN . expresion CPAREN SCOLON
     (46) escrt -> PRINT OPAREN . CPAREN SCOLON
@@ -1426,30 +1380,26 @@ state 81
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    CPAREN          shift and go to state 120
-    ID              shift and go to state 121
-    STRING          shift and go to state 122
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    CPAREN          shift and go to state 116
+    ID              shift and go to state 117
+    STRING          shift and go to state 118
+    OPAREN          shift and go to state 73
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expresion                      shift and go to state 119
+    expresion                      shift and go to state 115
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 82
+state 80
 
     (58) plot -> PLOT OPAREN . xyfunc CPAREN SCOLON
     (59) plot -> PLOT OPAREN . plot2 CPAREN SCOLON
@@ -1459,292 +1409,292 @@ state 82
     (60) plot2 -> . LCOR varcte COMMA varcte RCOR
     (61) plot2 -> . LCOR varcte COMMA varcte RCOR COMMA plot2
     (62) plot2 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    FX              shift and go to state 125
-    FY              shift and go to state 126
-    LCOR            shift and go to state 128
-    CPAREN          reduce using rule 107 (empty -> .)
+    FX              shift and go to state 121
+    FY              shift and go to state 122
+    LCOR            shift and go to state 124
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    xyfunc                         shift and go to state 123
-    plot2                          shift and go to state 124
-    empty                          shift and go to state 127
+    xyfunc                         shift and go to state 119
+    plot2                          shift and go to state 120
+    empty                          shift and go to state 123
 
-state 83
+state 81
 
     (56) count -> COUNT OPAREN . ID COMMA varcte COMMA varcte CPAREN SCOLON
 
-    ID              shift and go to state 129
+    ID              shift and go to state 125
 
 
-state 84
+state 82
 
     (57) countif -> COUNTIF OPAREN . ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON
 
-    ID              shift and go to state 130
+    ID              shift and go to state 126
 
+
+state 83
+
+    (80) metodos -> MEAN OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
+
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
+
+    mmmfunc                        shift and go to state 127
+    empty                          shift and go to state 130
+
+state 84
+
+    (81) metodos -> MEDIAN OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
+
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
+
+    mmmfunc                        shift and go to state 131
+    empty                          shift and go to state 130
 
 state 85
 
-    (82) metodos -> MEAN OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (82) metodos -> MODE OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 131
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 132
+    empty                          shift and go to state 130
 
 state 86
 
-    (83) metodos -> MEDIAN OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (83) metodos -> STDV OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 135
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 133
+    empty                          shift and go to state 130
 
 state 87
 
-    (84) metodos -> MODE OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
-
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
-
-    mmmfunc                        shift and go to state 136
-    empty                          shift and go to state 134
-
-state 88
-
-    (85) metodos -> STDV OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
-
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
-
-    mmmfunc                        shift and go to state 137
-    empty                          shift and go to state 134
-
-state 89
-
-    (86) metodos -> KMEANS OPAREN . varcte COMMA mmmfunc CPAREN SCOLON
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (84) metodos -> KMEANS OPAREN . varcte COMMA mmmfunc CPAREN SCOLON
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    varcte                         shift and go to state 138
+    varcte                         shift and go to state 134
+
+state 88
+
+    (85) metodos -> DERL OPAREN . expfunc CPAREN SCOLON
+    (94) expfunc -> . ID COMMA ID COMMA ID
+    (95) expfunc -> . varcte COMMA varcte COMMA varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 136
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    expfunc                        shift and go to state 135
+    varcte                         shift and go to state 137
+
+state 89
+
+    (86) metodos -> DBERN OPAREN . expfunc CPAREN SCOLON
+    (94) expfunc -> . ID COMMA ID COMMA ID
+    (95) expfunc -> . varcte COMMA varcte COMMA varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 136
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    expfunc                        shift and go to state 138
+    varcte                         shift and go to state 137
 
 state 90
 
-    (87) metodos -> DERL OPAREN . expfunc CPAREN SCOLON
-    (96) expfunc -> . ID COMMA ID COMMA ID
-    (97) expfunc -> . varcte COMMA varcte COMMA varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (87) metodos -> DPOI OPAREN . expfunc2 CPAREN SCOLON
+    (96) expfunc2 -> . ID COMMA ID
+    (97) expfunc2 -> . varcte COMMA varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 140
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expfunc                        shift and go to state 139
+    expfunc2                       shift and go to state 139
     varcte                         shift and go to state 141
 
 state 91
 
-    (88) metodos -> DBERN OPAREN . expfunc CPAREN SCOLON
-    (96) expfunc -> . ID COMMA ID COMMA ID
-    (97) expfunc -> . varcte COMMA varcte COMMA varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (88) metodos -> TRANSPOSE OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 140
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    expfunc                        shift and go to state 142
-    varcte                         shift and go to state 141
+    mmmfunc                        shift and go to state 142
+    empty                          shift and go to state 130
 
 state 92
 
-    (89) metodos -> DPOI OPAREN . expfunc2 CPAREN SCOLON
-    (98) expfunc2 -> . ID COMMA ID
-    (99) expfunc2 -> . varcte COMMA varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (89) metodos -> INVERSE OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 144
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    expfunc2                       shift and go to state 143
-    varcte                         shift and go to state 145
+    mmmfunc                        shift and go to state 143
+    empty                          shift and go to state 130
 
 state 93
 
-    (90) metodos -> TRANSPOSE OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (90) metodos -> ROTATE OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 146
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 144
+    empty                          shift and go to state 130
 
 state 94
 
-    (91) metodos -> INVERSE OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (91) metodos -> REF OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 147
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 145
+    empty                          shift and go to state 130
 
 state 95
 
-    (92) metodos -> ROTATE OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (92) metodos -> RREF OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 148
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 146
+    empty                          shift and go to state 130
 
 state 96
 
-    (93) metodos -> REF OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (93) metodos -> MONT OPAREN . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    mmmfunc                        shift and go to state 149
-    empty                          shift and go to state 134
+    mmmfunc                        shift and go to state 147
+    empty                          shift and go to state 130
 
 state 97
 
-    (94) metodos -> RREF OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
-
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
-
-    mmmfunc                        shift and go to state 150
-    empty                          shift and go to state 134
-
-state 98
-
-    (95) metodos -> MONT OPAREN . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
-
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
-
-    mmmfunc                        shift and go to state 151
-    empty                          shift and go to state 134
-
-state 99
-
     (14) modules -> FUNC ID COLON tipo . addfunction OPAREN modules2 CPAREN modules2 block
     (15) addfunction -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    OPAREN          reduce using rule 107 (empty -> .)
+    OPAREN          reduce using rule 105 (empty -> .)
 
-    addfunction                    shift and go to state 152
-    empty                          shift and go to state 153
+    addfunction                    shift and go to state 148
+    empty                          shift and go to state 149
 
-state 100
+state 98
 
     (10) vars1 -> ID COLON tipo SCOLON . lugstat2
     (3) lugstat2 -> . vars
     (4) lugstat2 -> . empty
     (8) vars -> . VAR vars1
-    (107) empty -> .
+    (105) empty -> .
 
     VAR             shift and go to state 10
-    FUNC            reduce using rule 107 (empty -> .)
-    OBRACKET        reduce using rule 107 (empty -> .)
-    CPAREN          reduce using rule 107 (empty -> .)
+    FUNC            reduce using rule 105 (empty -> .)
+    OBRACKET        reduce using rule 105 (empty -> .)
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    lugstat2                       shift and go to state 154
+    lugstat2                       shift and go to state 150
     vars                           shift and go to state 8
     empty                          shift and go to state 9
 
-state 101
+state 99
 
     (11) vars1 -> ID asign2 COLON tipo . SCOLON
 
-    SCOLON          shift and go to state 155
+    SCOLON          shift and go to state 151
 
 
-state 102
+state 100
 
     (12) vars1 -> ID asign2 COMMA vars1 .
 
@@ -1753,32 +1703,32 @@ state 102
     CPAREN          reduce using rule 12 (vars1 -> ID asign2 COMMA vars1 .)
 
 
-state 103
+state 101
 
     (40) asign2 -> LCOR expresion RCOR . asign3
     (42) asign3 -> . LCOR expresion RCOR
     (43) asign3 -> . LCOR varcte RCOR
     (44) asign3 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    LCOR            shift and go to state 156
-    COLON           reduce using rule 107 (empty -> .)
-    COMMA           reduce using rule 107 (empty -> .)
-    EQUALS          reduce using rule 107 (empty -> .)
-    RCOR            reduce using rule 107 (empty -> .)
-    MULT            reduce using rule 107 (empty -> .)
-    DIV             reduce using rule 107 (empty -> .)
-    PLUS            reduce using rule 107 (empty -> .)
-    MINUS           reduce using rule 107 (empty -> .)
-    RELOP           reduce using rule 107 (empty -> .)
-    CPAREN          reduce using rule 107 (empty -> .)
-    SCOLON          reduce using rule 107 (empty -> .)
-    CBRACKET        reduce using rule 107 (empty -> .)
+    LCOR            shift and go to state 152
+    COLON           reduce using rule 105 (empty -> .)
+    COMMA           reduce using rule 105 (empty -> .)
+    EQUALS          reduce using rule 105 (empty -> .)
+    RCOR            reduce using rule 105 (empty -> .)
+    MULT            reduce using rule 105 (empty -> .)
+    DIV             reduce using rule 105 (empty -> .)
+    PLUS            reduce using rule 105 (empty -> .)
+    MINUS           reduce using rule 105 (empty -> .)
+    RELOP           reduce using rule 105 (empty -> .)
+    CPAREN          reduce using rule 105 (empty -> .)
+    SCOLON          reduce using rule 105 (empty -> .)
+    CBRACKET        reduce using rule 105 (empty -> .)
 
-    asign3                         shift and go to state 157
-    empty                          shift and go to state 158
+    asign3                         shift and go to state 153
+    empty                          shift and go to state 154
 
-state 104
+state 102
 
     (67) expresion -> expresion RELOP . exp
     (68) exp -> . termino
@@ -1788,68 +1738,64 @@ state 104
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    exp                            shift and go to state 159
+    exp                            shift and go to state 155
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 105
+state 103
 
     (41) asign2 -> LCOR varcte RCOR . asign3
     (42) asign3 -> . LCOR expresion RCOR
     (43) asign3 -> . LCOR varcte RCOR
     (44) asign3 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    LCOR            shift and go to state 156
-    COLON           reduce using rule 107 (empty -> .)
-    COMMA           reduce using rule 107 (empty -> .)
-    EQUALS          reduce using rule 107 (empty -> .)
-    RCOR            reduce using rule 107 (empty -> .)
-    MULT            reduce using rule 107 (empty -> .)
-    DIV             reduce using rule 107 (empty -> .)
-    PLUS            reduce using rule 107 (empty -> .)
-    MINUS           reduce using rule 107 (empty -> .)
-    RELOP           reduce using rule 107 (empty -> .)
-    CPAREN          reduce using rule 107 (empty -> .)
-    SCOLON          reduce using rule 107 (empty -> .)
-    CBRACKET        reduce using rule 107 (empty -> .)
+    LCOR            shift and go to state 152
+    COLON           reduce using rule 105 (empty -> .)
+    COMMA           reduce using rule 105 (empty -> .)
+    EQUALS          reduce using rule 105 (empty -> .)
+    RCOR            reduce using rule 105 (empty -> .)
+    MULT            reduce using rule 105 (empty -> .)
+    DIV             reduce using rule 105 (empty -> .)
+    PLUS            reduce using rule 105 (empty -> .)
+    MINUS           reduce using rule 105 (empty -> .)
+    RELOP           reduce using rule 105 (empty -> .)
+    CPAREN          reduce using rule 105 (empty -> .)
+    SCOLON          reduce using rule 105 (empty -> .)
+    CBRACKET        reduce using rule 105 (empty -> .)
 
-    asign3                         shift and go to state 160
-    empty                          shift and go to state 158
+    asign3                         shift and go to state 156
+    empty                          shift and go to state 154
 
-state 106
+state 104
 
-    (79) varcte -> ID asign2 .
+    (77) varcte -> ID asign2 .
 
-    RCOR            reduce using rule 79 (varcte -> ID asign2 .)
-    MULT            reduce using rule 79 (varcte -> ID asign2 .)
-    DIV             reduce using rule 79 (varcte -> ID asign2 .)
-    PLUS            reduce using rule 79 (varcte -> ID asign2 .)
-    MINUS           reduce using rule 79 (varcte -> ID asign2 .)
-    RELOP           reduce using rule 79 (varcte -> ID asign2 .)
-    CPAREN          reduce using rule 79 (varcte -> ID asign2 .)
-    SCOLON          reduce using rule 79 (varcte -> ID asign2 .)
-    COMMA           reduce using rule 79 (varcte -> ID asign2 .)
-    CBRACKET        reduce using rule 79 (varcte -> ID asign2 .)
+    RCOR            reduce using rule 77 (varcte -> ID asign2 .)
+    MULT            reduce using rule 77 (varcte -> ID asign2 .)
+    DIV             reduce using rule 77 (varcte -> ID asign2 .)
+    PLUS            reduce using rule 77 (varcte -> ID asign2 .)
+    MINUS           reduce using rule 77 (varcte -> ID asign2 .)
+    RELOP           reduce using rule 77 (varcte -> ID asign2 .)
+    CPAREN          reduce using rule 77 (varcte -> ID asign2 .)
+    COMMA           reduce using rule 77 (varcte -> ID asign2 .)
+    SCOLON          reduce using rule 77 (varcte -> ID asign2 .)
+    CBRACKET        reduce using rule 77 (varcte -> ID asign2 .)
 
 
-state 107
+state 105
 
     (69) exp -> termino PLUS . exp
     (68) exp -> . termino
@@ -1859,27 +1805,23 @@ state 107
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
     termino                        shift and go to state 71
-    exp                            shift and go to state 161
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    exp                            shift and go to state 157
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 108
+state 106
 
     (70) exp -> termino MINUS . exp
     (68) exp -> . termino
@@ -1889,161 +1831,121 @@ state 108
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
     termino                        shift and go to state 71
-    exp                            shift and go to state 162
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    exp                            shift and go to state 158
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 109
-
-    (75) factor -> PLUS varcte .
-
-    MULT            reduce using rule 75 (factor -> PLUS varcte .)
-    DIV             reduce using rule 75 (factor -> PLUS varcte .)
-    PLUS            reduce using rule 75 (factor -> PLUS varcte .)
-    MINUS           reduce using rule 75 (factor -> PLUS varcte .)
-    RCOR            reduce using rule 75 (factor -> PLUS varcte .)
-    RELOP           reduce using rule 75 (factor -> PLUS varcte .)
-    CPAREN          reduce using rule 75 (factor -> PLUS varcte .)
-    SCOLON          reduce using rule 75 (factor -> PLUS varcte .)
-
-
-state 110
-
-    (76) factor -> MINUS varcte .
-
-    MULT            reduce using rule 76 (factor -> MINUS varcte .)
-    DIV             reduce using rule 76 (factor -> MINUS varcte .)
-    PLUS            reduce using rule 76 (factor -> MINUS varcte .)
-    MINUS           reduce using rule 76 (factor -> MINUS varcte .)
-    RCOR            reduce using rule 76 (factor -> MINUS varcte .)
-    RELOP           reduce using rule 76 (factor -> MINUS varcte .)
-    CPAREN          reduce using rule 76 (factor -> MINUS varcte .)
-    SCOLON          reduce using rule 76 (factor -> MINUS varcte .)
-
-
-state 111
+state 107
 
     (72) termino -> factor MULT . termino
     (71) termino -> . factor
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    factor                         shift and go to state 74
-    termino                        shift and go to state 163
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    termino                        shift and go to state 159
+    varcte                         shift and go to state 110
 
-state 112
+state 108
 
     (73) termino -> factor DIV . termino
     (71) termino -> . factor
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    factor                         shift and go to state 74
-    termino                        shift and go to state 164
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    termino                        shift and go to state 160
+    varcte                         shift and go to state 110
 
-state 113
+state 109
 
     (74) factor -> OPAREN expresion . CPAREN
     (67) expresion -> expresion . RELOP exp
 
-    CPAREN          shift and go to state 165
-    RELOP           shift and go to state 104
+    CPAREN          shift and go to state 161
+    RELOP           shift and go to state 102
 
 
-state 114
+state 110
 
-    (77) factor -> varcte .
+    (75) factor -> varcte .
 
-    MULT            reduce using rule 77 (factor -> varcte .)
-    DIV             reduce using rule 77 (factor -> varcte .)
-    PLUS            reduce using rule 77 (factor -> varcte .)
-    MINUS           reduce using rule 77 (factor -> varcte .)
-    CPAREN          reduce using rule 77 (factor -> varcte .)
-    RELOP           reduce using rule 77 (factor -> varcte .)
-    SCOLON          reduce using rule 77 (factor -> varcte .)
-    RCOR            reduce using rule 77 (factor -> varcte .)
+    MULT            reduce using rule 75 (factor -> varcte .)
+    DIV             reduce using rule 75 (factor -> varcte .)
+    PLUS            reduce using rule 75 (factor -> varcte .)
+    MINUS           reduce using rule 75 (factor -> varcte .)
+    CPAREN          reduce using rule 75 (factor -> varcte .)
+    RELOP           reduce using rule 75 (factor -> varcte .)
+    SCOLON          reduce using rule 75 (factor -> varcte .)
+    RCOR            reduce using rule 75 (factor -> varcte .)
 
 
-state 115
+state 111
 
     (35) asign -> ID EQUALS ID . SCOLON
     (36) asign -> ID EQUALS ID . asign2 SCOLON
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
 
   ! shift/reduce conflict for SCOLON resolved as shift
-    SCOLON          shift and go to state 166
-    MULT            reduce using rule 78 (varcte -> ID .)
-    DIV             reduce using rule 78 (varcte -> ID .)
-    PLUS            reduce using rule 78 (varcte -> ID .)
-    MINUS           reduce using rule 78 (varcte -> ID .)
-    RELOP           reduce using rule 78 (varcte -> ID .)
+    SCOLON          shift and go to state 162
+    MULT            reduce using rule 76 (varcte -> ID .)
+    DIV             reduce using rule 76 (varcte -> ID .)
+    PLUS            reduce using rule 76 (varcte -> ID .)
+    MINUS           reduce using rule 76 (varcte -> ID .)
+    RELOP           reduce using rule 76 (varcte -> ID .)
     LCOR            shift and go to state 24
 
-  ! SCOLON          [ reduce using rule 78 (varcte -> ID .) ]
+  ! SCOLON          [ reduce using rule 76 (varcte -> ID .) ]
 
-    asign2                         shift and go to state 167
+    asign2                         shift and go to state 163
 
-state 116
+state 112
 
     (34) asign -> ID EQUALS expresion . SCOLON
     (67) expresion -> expresion . RELOP exp
 
-    SCOLON          shift and go to state 168
-    RELOP           shift and go to state 104
+    SCOLON          shift and go to state 164
+    RELOP           shift and go to state 102
 
 
-state 117
+state 113
 
     (37) asign -> ID asign2 EQUALS . ID SCOLON
     (38) asign -> ID asign2 EQUALS . expresion SCOLON
@@ -2057,116 +1959,112 @@ state 117
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    ID              shift and go to state 169
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    ID              shift and go to state 165
+    OPAREN          shift and go to state 73
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    expresion                      shift and go to state 170
+    expresion                      shift and go to state 166
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 118
+state 114
 
     (54) cond -> IF OPAREN expresion . CPAREN block SCOLON
     (55) cond -> IF OPAREN expresion . CPAREN block ELSE block SCOLON
     (67) expresion -> expresion . RELOP exp
 
-    CPAREN          shift and go to state 171
-    RELOP           shift and go to state 104
+    CPAREN          shift and go to state 167
+    RELOP           shift and go to state 102
 
 
-state 119
+state 115
 
     (45) escrt -> PRINT OPAREN expresion . CPAREN SCOLON
     (67) expresion -> expresion . RELOP exp
 
-    CPAREN          shift and go to state 172
-    RELOP           shift and go to state 104
+    CPAREN          shift and go to state 168
+    RELOP           shift and go to state 102
 
 
-state 120
+state 116
 
     (46) escrt -> PRINT OPAREN CPAREN . SCOLON
 
-    SCOLON          shift and go to state 173
+    SCOLON          shift and go to state 169
 
 
-state 121
+state 117
 
     (47) escrt -> PRINT OPAREN ID . escrt2 CPAREN SCOLON
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
     (49) escrt2 -> . COMMA escrt3
     (50) escrt2 -> . empty
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
-    (107) empty -> .
+    (105) empty -> .
 
-  ! reduce/reduce conflict for CPAREN resolved using rule 78 (varcte -> ID .)
-    MULT            reduce using rule 78 (varcte -> ID .)
-    DIV             reduce using rule 78 (varcte -> ID .)
-    PLUS            reduce using rule 78 (varcte -> ID .)
-    MINUS           reduce using rule 78 (varcte -> ID .)
-    CPAREN          reduce using rule 78 (varcte -> ID .)
-    RELOP           reduce using rule 78 (varcte -> ID .)
-    COMMA           shift and go to state 175
+  ! reduce/reduce conflict for CPAREN resolved using rule 76 (varcte -> ID .)
+    MULT            reduce using rule 76 (varcte -> ID .)
+    DIV             reduce using rule 76 (varcte -> ID .)
+    PLUS            reduce using rule 76 (varcte -> ID .)
+    MINUS           reduce using rule 76 (varcte -> ID .)
+    CPAREN          reduce using rule 76 (varcte -> ID .)
+    RELOP           reduce using rule 76 (varcte -> ID .)
+    COMMA           shift and go to state 171
     LCOR            shift and go to state 24
 
-  ! CPAREN          [ reduce using rule 107 (empty -> .) ]
+  ! CPAREN          [ reduce using rule 105 (empty -> .) ]
 
-    escrt2                         shift and go to state 174
-    asign2                         shift and go to state 106
-    empty                          shift and go to state 176
+    escrt2                         shift and go to state 170
+    asign2                         shift and go to state 104
+    empty                          shift and go to state 172
 
-state 122
+state 118
 
     (48) escrt -> PRINT OPAREN STRING . CPAREN SCOLON
 
-    CPAREN          shift and go to state 177
+    CPAREN          shift and go to state 173
 
 
-state 123
+state 119
 
     (58) plot -> PLOT OPAREN xyfunc . CPAREN SCOLON
 
-    CPAREN          shift and go to state 178
+    CPAREN          shift and go to state 174
 
 
-state 124
+state 120
 
     (59) plot -> PLOT OPAREN plot2 . CPAREN SCOLON
 
-    CPAREN          shift and go to state 179
+    CPAREN          shift and go to state 175
 
 
-state 125
+state 121
 
     (63) xyfunc -> FX . EQUALS exp SCOLON xyfunc
 
-    EQUALS          shift and go to state 180
+    EQUALS          shift and go to state 176
 
 
-state 126
+state 122
 
     (64) xyfunc -> FY . EQUALS exp SCOLON xyfunc
 
-    EQUALS          shift and go to state 181
+    EQUALS          shift and go to state 177
 
 
-state 127
+state 123
 
     (65) xyfunc -> empty .
     (62) plot2 -> empty .
@@ -2177,118 +2075,155 @@ state 127
   ! CPAREN          [ reduce using rule 65 (xyfunc -> empty .) ]
 
 
-state 128
+state 124
 
     (60) plot2 -> LCOR . varcte COMMA varcte RCOR
     (61) plot2 -> LCOR . varcte COMMA varcte RCOR COMMA plot2
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    varcte                         shift and go to state 182
+    varcte                         shift and go to state 178
 
-state 129
+state 125
 
     (56) count -> COUNT OPAREN ID . COMMA varcte COMMA varcte CPAREN SCOLON
 
-    COMMA           shift and go to state 183
+    COMMA           shift and go to state 179
 
 
-state 130
+state 126
 
     (57) countif -> COUNTIF OPAREN ID . COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON
 
-    COMMA           shift and go to state 184
+    COMMA           shift and go to state 180
+
+
+state 127
+
+    (80) metodos -> MEAN OPAREN mmmfunc . CPAREN SCOLON
+
+    CPAREN          shift and go to state 181
+
+
+state 128
+
+    (98) mmmfunc -> ID .
+
+    CPAREN          reduce using rule 98 (mmmfunc -> ID .)
+
+
+state 129
+
+    (99) mmmfunc -> OBRACKET . mmmarray CBRACKET
+    (100) mmmfunc -> OBRACKET . mmmarray CBRACKET COMMA mmmfunc
+    (102) mmmarray -> . varcte
+    (103) mmmarray -> . varcte COMMA mmmarray
+    (104) mmmarray -> . empty
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+    (105) empty -> .
+
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+    CBRACKET        reduce using rule 105 (empty -> .)
+
+    mmmarray                       shift and go to state 182
+    varcte                         shift and go to state 183
+    empty                          shift and go to state 184
+
+state 130
+
+    (101) mmmfunc -> empty .
+
+    CPAREN          reduce using rule 101 (mmmfunc -> empty .)
 
 
 state 131
 
-    (82) metodos -> MEAN OPAREN mmmfunc . CPAREN SCOLON
+    (81) metodos -> MEDIAN OPAREN mmmfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 185
 
 
 state 132
 
-    (100) mmmfunc -> ID .
+    (82) metodos -> MODE OPAREN mmmfunc . CPAREN SCOLON
 
-    CPAREN          reduce using rule 100 (mmmfunc -> ID .)
+    CPAREN          shift and go to state 186
 
 
 state 133
 
-    (101) mmmfunc -> OBRACKET . mmmarray CBRACKET
-    (102) mmmfunc -> OBRACKET . mmmarray CBRACKET COMMA mmmfunc
-    (104) mmmarray -> . varcte
-    (105) mmmarray -> . varcte COMMA mmmarray
-    (106) mmmarray -> . empty
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
-    (107) empty -> .
+    (83) metodos -> STDV OPAREN mmmfunc . CPAREN SCOLON
 
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
-    CBRACKET        reduce using rule 107 (empty -> .)
+    CPAREN          shift and go to state 187
 
-    mmmarray                       shift and go to state 186
-    varcte                         shift and go to state 187
-    empty                          shift and go to state 188
 
 state 134
 
-    (103) mmmfunc -> empty .
+    (84) metodos -> KMEANS OPAREN varcte . COMMA mmmfunc CPAREN SCOLON
 
-    CPAREN          reduce using rule 103 (mmmfunc -> empty .)
+    COMMA           shift and go to state 188
 
 
 state 135
 
-    (83) metodos -> MEDIAN OPAREN mmmfunc . CPAREN SCOLON
+    (85) metodos -> DERL OPAREN expfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 189
 
 
 state 136
 
-    (84) metodos -> MODE OPAREN mmmfunc . CPAREN SCOLON
+    (94) expfunc -> ID . COMMA ID COMMA ID
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
+    (40) asign2 -> . LCOR expresion RCOR asign3
+    (41) asign2 -> . LCOR varcte RCOR asign3
 
-    CPAREN          shift and go to state 190
+  ! shift/reduce conflict for COMMA resolved as shift
+    COMMA           shift and go to state 190
+    LCOR            shift and go to state 24
 
+  ! COMMA           [ reduce using rule 76 (varcte -> ID .) ]
+
+    asign2                         shift and go to state 104
 
 state 137
 
-    (85) metodos -> STDV OPAREN mmmfunc . CPAREN SCOLON
+    (95) expfunc -> varcte . COMMA varcte COMMA varcte
 
-    CPAREN          shift and go to state 191
+    COMMA           shift and go to state 191
 
 
 state 138
 
-    (86) metodos -> KMEANS OPAREN varcte . COMMA mmmfunc CPAREN SCOLON
+    (86) metodos -> DBERN OPAREN expfunc . CPAREN SCOLON
 
-    COMMA           shift and go to state 192
+    CPAREN          shift and go to state 192
 
 
 state 139
 
-    (87) metodos -> DERL OPAREN expfunc . CPAREN SCOLON
+    (87) metodos -> DPOI OPAREN expfunc2 . CPAREN SCOLON
 
     CPAREN          shift and go to state 193
 
 
 state 140
 
-    (96) expfunc -> ID . COMMA ID COMMA ID
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
+    (96) expfunc2 -> ID . COMMA ID
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
 
@@ -2296,111 +2231,74 @@ state 140
     COMMA           shift and go to state 194
     LCOR            shift and go to state 24
 
-  ! COMMA           [ reduce using rule 78 (varcte -> ID .) ]
+  ! COMMA           [ reduce using rule 76 (varcte -> ID .) ]
 
-    asign2                         shift and go to state 106
+    asign2                         shift and go to state 104
 
 state 141
 
-    (97) expfunc -> varcte . COMMA varcte COMMA varcte
+    (97) expfunc2 -> varcte . COMMA varcte
 
     COMMA           shift and go to state 195
 
 
 state 142
 
-    (88) metodos -> DBERN OPAREN expfunc . CPAREN SCOLON
+    (88) metodos -> TRANSPOSE OPAREN mmmfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 196
 
 
 state 143
 
-    (89) metodos -> DPOI OPAREN expfunc2 . CPAREN SCOLON
+    (89) metodos -> INVERSE OPAREN mmmfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 197
 
 
 state 144
 
-    (98) expfunc2 -> ID . COMMA ID
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
-    (40) asign2 -> . LCOR expresion RCOR asign3
-    (41) asign2 -> . LCOR varcte RCOR asign3
+    (90) metodos -> ROTATE OPAREN mmmfunc . CPAREN SCOLON
 
-  ! shift/reduce conflict for COMMA resolved as shift
-    COMMA           shift and go to state 198
-    LCOR            shift and go to state 24
+    CPAREN          shift and go to state 198
 
-  ! COMMA           [ reduce using rule 78 (varcte -> ID .) ]
-
-    asign2                         shift and go to state 106
 
 state 145
 
-    (99) expfunc2 -> varcte . COMMA varcte
+    (91) metodos -> REF OPAREN mmmfunc . CPAREN SCOLON
 
-    COMMA           shift and go to state 199
+    CPAREN          shift and go to state 199
 
 
 state 146
 
-    (90) metodos -> TRANSPOSE OPAREN mmmfunc . CPAREN SCOLON
+    (92) metodos -> RREF OPAREN mmmfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 200
 
 
 state 147
 
-    (91) metodos -> INVERSE OPAREN mmmfunc . CPAREN SCOLON
+    (93) metodos -> MONT OPAREN mmmfunc . CPAREN SCOLON
 
     CPAREN          shift and go to state 201
 
 
 state 148
 
-    (92) metodos -> ROTATE OPAREN mmmfunc . CPAREN SCOLON
+    (14) modules -> FUNC ID COLON tipo addfunction . OPAREN modules2 CPAREN modules2 block
 
-    CPAREN          shift and go to state 202
+    OPAREN          shift and go to state 202
 
 
 state 149
-
-    (93) metodos -> REF OPAREN mmmfunc . CPAREN SCOLON
-
-    CPAREN          shift and go to state 203
-
-
-state 150
-
-    (94) metodos -> RREF OPAREN mmmfunc . CPAREN SCOLON
-
-    CPAREN          shift and go to state 204
-
-
-state 151
-
-    (95) metodos -> MONT OPAREN mmmfunc . CPAREN SCOLON
-
-    CPAREN          shift and go to state 205
-
-
-state 152
-
-    (14) modules -> FUNC ID COLON tipo addfunction . OPAREN modules2 CPAREN modules2 block
-
-    OPAREN          shift and go to state 206
-
-
-state 153
 
     (15) addfunction -> empty .
 
     OPAREN          reduce using rule 15 (addfunction -> empty .)
 
 
-state 154
+state 150
 
     (10) vars1 -> ID COLON tipo SCOLON lugstat2 .
 
@@ -2409,7 +2307,7 @@ state 154
     CPAREN          reduce using rule 10 (vars1 -> ID COLON tipo SCOLON lugstat2 .)
 
 
-state 155
+state 151
 
     (11) vars1 -> ID asign2 COLON tipo SCOLON .
 
@@ -2418,16 +2316,16 @@ state 155
     CPAREN          reduce using rule 11 (vars1 -> ID asign2 COLON tipo SCOLON .)
 
 
-state 156
+state 152
 
     (42) asign3 -> LCOR . expresion RCOR
     (43) asign3 -> LCOR . varcte RCOR
     (66) expresion -> . exp
     (67) expresion -> . expresion RELOP exp
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
     (68) exp -> . termino
     (69) exp -> . termino PLUS exp
     (70) exp -> . termino MINUS exp
@@ -2435,24 +2333,20 @@ state 156
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
+    (75) factor -> . varcte
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
 
-    expresion                      shift and go to state 207
-    varcte                         shift and go to state 208
+    expresion                      shift and go to state 203
+    varcte                         shift and go to state 204
     exp                            shift and go to state 67
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
+    factor                         shift and go to state 72
 
-state 157
+state 153
 
     (40) asign2 -> LCOR expresion RCOR asign3 .
 
@@ -2470,7 +2364,7 @@ state 157
     CBRACKET        reduce using rule 40 (asign2 -> LCOR expresion RCOR asign3 .)
 
 
-state 158
+state 154
 
     (44) asign3 -> empty .
 
@@ -2488,7 +2382,7 @@ state 158
     CBRACKET        reduce using rule 44 (asign3 -> empty .)
 
 
-state 159
+state 155
 
     (67) expresion -> expresion RELOP exp .
 
@@ -2498,7 +2392,7 @@ state 159
     SCOLON          reduce using rule 67 (expresion -> expresion RELOP exp .)
 
 
-state 160
+state 156
 
     (41) asign2 -> LCOR varcte RCOR asign3 .
 
@@ -2516,7 +2410,7 @@ state 160
     CBRACKET        reduce using rule 41 (asign2 -> LCOR varcte RCOR asign3 .)
 
 
-state 161
+state 157
 
     (69) exp -> termino PLUS exp .
 
@@ -2526,7 +2420,7 @@ state 161
     SCOLON          reduce using rule 69 (exp -> termino PLUS exp .)
 
 
-state 162
+state 158
 
     (70) exp -> termino MINUS exp .
 
@@ -2536,7 +2430,7 @@ state 162
     SCOLON          reduce using rule 70 (exp -> termino MINUS exp .)
 
 
-state 163
+state 159
 
     (72) termino -> factor MULT termino .
 
@@ -2548,7 +2442,7 @@ state 163
     SCOLON          reduce using rule 72 (termino -> factor MULT termino .)
 
 
-state 164
+state 160
 
     (73) termino -> factor DIV termino .
 
@@ -2560,7 +2454,7 @@ state 164
     SCOLON          reduce using rule 73 (termino -> factor DIV termino .)
 
 
-state 165
+state 161
 
     (74) factor -> OPAREN expresion CPAREN .
 
@@ -2574,7 +2468,7 @@ state 165
     SCOLON          reduce using rule 74 (factor -> OPAREN expresion CPAREN .)
 
 
-state 166
+state 162
 
     (35) asign -> ID EQUALS ID SCOLON .
 
@@ -2601,23 +2495,23 @@ state 166
     CBRACKET        reduce using rule 35 (asign -> ID EQUALS ID SCOLON .)
 
 
-state 167
+state 163
 
     (36) asign -> ID EQUALS ID asign2 . SCOLON
-    (79) varcte -> ID asign2 .
+    (77) varcte -> ID asign2 .
 
   ! shift/reduce conflict for SCOLON resolved as shift
-    SCOLON          shift and go to state 209
-    MULT            reduce using rule 79 (varcte -> ID asign2 .)
-    DIV             reduce using rule 79 (varcte -> ID asign2 .)
-    PLUS            reduce using rule 79 (varcte -> ID asign2 .)
-    MINUS           reduce using rule 79 (varcte -> ID asign2 .)
-    RELOP           reduce using rule 79 (varcte -> ID asign2 .)
+    SCOLON          shift and go to state 205
+    MULT            reduce using rule 77 (varcte -> ID asign2 .)
+    DIV             reduce using rule 77 (varcte -> ID asign2 .)
+    PLUS            reduce using rule 77 (varcte -> ID asign2 .)
+    MINUS           reduce using rule 77 (varcte -> ID asign2 .)
+    RELOP           reduce using rule 77 (varcte -> ID asign2 .)
 
-  ! SCOLON          [ reduce using rule 79 (varcte -> ID asign2 .) ]
+  ! SCOLON          [ reduce using rule 77 (varcte -> ID asign2 .) ]
 
 
-state 168
+state 164
 
     (34) asign -> ID EQUALS expresion SCOLON .
 
@@ -2644,38 +2538,38 @@ state 168
     CBRACKET        reduce using rule 34 (asign -> ID EQUALS expresion SCOLON .)
 
 
-state 169
+state 165
 
     (37) asign -> ID asign2 EQUALS ID . SCOLON
     (39) asign -> ID asign2 EQUALS ID . asign2 SCOLON
-    (78) varcte -> ID .
-    (79) varcte -> ID . asign2
+    (76) varcte -> ID .
+    (77) varcte -> ID . asign2
     (40) asign2 -> . LCOR expresion RCOR asign3
     (41) asign2 -> . LCOR varcte RCOR asign3
 
   ! shift/reduce conflict for SCOLON resolved as shift
-    SCOLON          shift and go to state 211
-    MULT            reduce using rule 78 (varcte -> ID .)
-    DIV             reduce using rule 78 (varcte -> ID .)
-    PLUS            reduce using rule 78 (varcte -> ID .)
-    MINUS           reduce using rule 78 (varcte -> ID .)
-    RELOP           reduce using rule 78 (varcte -> ID .)
+    SCOLON          shift and go to state 207
+    MULT            reduce using rule 76 (varcte -> ID .)
+    DIV             reduce using rule 76 (varcte -> ID .)
+    PLUS            reduce using rule 76 (varcte -> ID .)
+    MINUS           reduce using rule 76 (varcte -> ID .)
+    RELOP           reduce using rule 76 (varcte -> ID .)
     LCOR            shift and go to state 24
 
-  ! SCOLON          [ reduce using rule 78 (varcte -> ID .) ]
+  ! SCOLON          [ reduce using rule 76 (varcte -> ID .) ]
 
-    asign2                         shift and go to state 210
+    asign2                         shift and go to state 206
 
-state 170
+state 166
 
     (38) asign -> ID asign2 EQUALS expresion . SCOLON
     (67) expresion -> expresion . RELOP exp
 
-    SCOLON          shift and go to state 212
-    RELOP           shift and go to state 104
+    SCOLON          shift and go to state 208
+    RELOP           shift and go to state 102
 
 
-state 171
+state 167
 
     (54) cond -> IF OPAREN expresion CPAREN . block SCOLON
     (55) cond -> IF OPAREN expresion CPAREN . block ELSE block SCOLON
@@ -2683,16 +2577,16 @@ state 171
 
     OBRACKET        shift and go to state 18
 
-    block                          shift and go to state 213
+    block                          shift and go to state 209
 
-state 172
+state 168
 
     (45) escrt -> PRINT OPAREN expresion CPAREN . SCOLON
 
-    SCOLON          shift and go to state 214
+    SCOLON          shift and go to state 210
 
 
-state 173
+state 169
 
     (46) escrt -> PRINT OPAREN CPAREN SCOLON .
 
@@ -2719,26 +2613,26 @@ state 173
     CBRACKET        reduce using rule 46 (escrt -> PRINT OPAREN CPAREN SCOLON .)
 
 
-state 174
+state 170
 
     (47) escrt -> PRINT OPAREN ID escrt2 . CPAREN SCOLON
 
-    CPAREN          shift and go to state 215
+    CPAREN          shift and go to state 211
 
 
-state 175
+state 171
 
     (49) escrt2 -> COMMA . escrt3
     (51) escrt3 -> . ID escrt2
     (52) escrt3 -> . ID
     (53) escrt3 -> . STRING escrt2 escrt2
 
-    ID              shift and go to state 217
-    STRING          shift and go to state 218
+    ID              shift and go to state 213
+    STRING          shift and go to state 214
 
-    escrt3                         shift and go to state 216
+    escrt3                         shift and go to state 212
 
-state 176
+state 172
 
     (50) escrt2 -> empty .
 
@@ -2746,28 +2640,28 @@ state 176
     COMMA           reduce using rule 50 (escrt2 -> empty .)
 
 
-state 177
+state 173
 
     (48) escrt -> PRINT OPAREN STRING CPAREN . SCOLON
 
-    SCOLON          shift and go to state 219
+    SCOLON          shift and go to state 215
 
 
-state 178
+state 174
 
     (58) plot -> PLOT OPAREN xyfunc CPAREN . SCOLON
 
-    SCOLON          shift and go to state 220
+    SCOLON          shift and go to state 216
 
 
-state 179
+state 175
 
     (59) plot -> PLOT OPAREN plot2 CPAREN . SCOLON
 
-    SCOLON          shift and go to state 221
+    SCOLON          shift and go to state 217
 
 
-state 180
+state 176
 
     (63) xyfunc -> FX EQUALS . exp SCOLON xyfunc
     (68) exp -> . termino
@@ -2777,27 +2671,23 @@ state 180
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    exp                            shift and go to state 222
+    exp                            shift and go to state 218
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 181
+state 177
 
     (64) xyfunc -> FY EQUALS . exp SCOLON xyfunc
     (68) exp -> . termino
@@ -2807,151 +2697,182 @@ state 181
     (72) termino -> . factor MULT termino
     (73) termino -> . factor DIV termino
     (74) factor -> . OPAREN expresion CPAREN
-    (75) factor -> . PLUS varcte
-    (76) factor -> . MINUS varcte
-    (77) factor -> . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (75) factor -> . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    OPAREN          shift and go to state 75
-    PLUS            shift and go to state 72
-    MINUS           shift and go to state 73
+    OPAREN          shift and go to state 73
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    exp                            shift and go to state 223
+    exp                            shift and go to state 219
     termino                        shift and go to state 71
-    factor                         shift and go to state 74
-    varcte                         shift and go to state 114
+    factor                         shift and go to state 72
+    varcte                         shift and go to state 110
 
-state 182
+state 178
 
     (60) plot2 -> LCOR varcte . COMMA varcte RCOR
     (61) plot2 -> LCOR varcte . COMMA varcte RCOR COMMA plot2
 
-    COMMA           shift and go to state 224
+    COMMA           shift and go to state 220
+
+
+state 179
+
+    (56) count -> COUNT OPAREN ID COMMA . varcte COMMA varcte CPAREN SCOLON
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    varcte                         shift and go to state 221
+
+state 180
+
+    (57) countif -> COUNTIF OPAREN ID COMMA . varcte COMMA varcte COMMA cond CPAREN SCOLON
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    varcte                         shift and go to state 222
+
+state 181
+
+    (80) metodos -> MEAN OPAREN mmmfunc CPAREN . SCOLON
+
+    SCOLON          shift and go to state 223
+
+
+state 182
+
+    (99) mmmfunc -> OBRACKET mmmarray . CBRACKET
+    (100) mmmfunc -> OBRACKET mmmarray . CBRACKET COMMA mmmfunc
+
+    CBRACKET        shift and go to state 224
 
 
 state 183
 
-    (56) count -> COUNT OPAREN ID COMMA . varcte COMMA varcte CPAREN SCOLON
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (102) mmmarray -> varcte .
+    (103) mmmarray -> varcte . COMMA mmmarray
 
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
+    CBRACKET        reduce using rule 102 (mmmarray -> varcte .)
+    COMMA           shift and go to state 225
 
-    varcte                         shift and go to state 225
 
 state 184
 
-    (57) countif -> COUNTIF OPAREN ID COMMA . varcte COMMA varcte COMMA cond CPAREN SCOLON
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (104) mmmarray -> empty .
 
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
+    CBRACKET        reduce using rule 104 (mmmarray -> empty .)
 
-    varcte                         shift and go to state 226
 
 state 185
 
-    (82) metodos -> MEAN OPAREN mmmfunc CPAREN . SCOLON
+    (81) metodos -> MEDIAN OPAREN mmmfunc CPAREN . SCOLON
 
-    SCOLON          shift and go to state 227
+    SCOLON          shift and go to state 226
 
 
 state 186
 
-    (101) mmmfunc -> OBRACKET mmmarray . CBRACKET
-    (102) mmmfunc -> OBRACKET mmmarray . CBRACKET COMMA mmmfunc
+    (82) metodos -> MODE OPAREN mmmfunc CPAREN . SCOLON
 
-    CBRACKET        shift and go to state 228
+    SCOLON          shift and go to state 227
 
 
 state 187
 
-    (104) mmmarray -> varcte .
-    (105) mmmarray -> varcte . COMMA mmmarray
+    (83) metodos -> STDV OPAREN mmmfunc CPAREN . SCOLON
 
-    CBRACKET        reduce using rule 104 (mmmarray -> varcte .)
-    COMMA           shift and go to state 229
+    SCOLON          shift and go to state 228
 
 
 state 188
 
-    (106) mmmarray -> empty .
+    (84) metodos -> KMEANS OPAREN varcte COMMA . mmmfunc CPAREN SCOLON
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
 
-    CBRACKET        reduce using rule 106 (mmmarray -> empty .)
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
 
+    mmmfunc                        shift and go to state 229
+    empty                          shift and go to state 130
 
 state 189
 
-    (83) metodos -> MEDIAN OPAREN mmmfunc CPAREN . SCOLON
+    (85) metodos -> DERL OPAREN expfunc CPAREN . SCOLON
 
     SCOLON          shift and go to state 230
 
 
 state 190
 
-    (84) metodos -> MODE OPAREN mmmfunc CPAREN . SCOLON
+    (94) expfunc -> ID COMMA . ID COMMA ID
 
-    SCOLON          shift and go to state 231
+    ID              shift and go to state 231
 
 
 state 191
 
-    (85) metodos -> STDV OPAREN mmmfunc CPAREN . SCOLON
+    (95) expfunc -> varcte COMMA . varcte COMMA varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
-    SCOLON          shift and go to state 232
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
 
+    varcte                         shift and go to state 232
 
 state 192
 
-    (86) metodos -> KMEANS OPAREN varcte COMMA . mmmfunc CPAREN SCOLON
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
+    (86) metodos -> DBERN OPAREN expfunc CPAREN . SCOLON
 
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
+    SCOLON          shift and go to state 233
 
-    mmmfunc                        shift and go to state 233
-    empty                          shift and go to state 134
 
 state 193
 
-    (87) metodos -> DERL OPAREN expfunc CPAREN . SCOLON
+    (87) metodos -> DPOI OPAREN expfunc2 CPAREN . SCOLON
 
     SCOLON          shift and go to state 234
 
 
 state 194
 
-    (96) expfunc -> ID COMMA . ID COMMA ID
+    (96) expfunc2 -> ID COMMA . ID
 
     ID              shift and go to state 235
 
 
 state 195
 
-    (97) expfunc -> varcte COMMA . varcte COMMA varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (97) expfunc2 -> varcte COMMA . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
@@ -2961,122 +2882,87 @@ state 195
 
 state 196
 
-    (88) metodos -> DBERN OPAREN expfunc CPAREN . SCOLON
+    (88) metodos -> TRANSPOSE OPAREN mmmfunc CPAREN . SCOLON
 
     SCOLON          shift and go to state 237
 
 
 state 197
 
-    (89) metodos -> DPOI OPAREN expfunc2 CPAREN . SCOLON
+    (89) metodos -> INVERSE OPAREN mmmfunc CPAREN . SCOLON
 
     SCOLON          shift and go to state 238
 
 
 state 198
 
-    (98) expfunc2 -> ID COMMA . ID
+    (90) metodos -> ROTATE OPAREN mmmfunc CPAREN . SCOLON
 
-    ID              shift and go to state 239
+    SCOLON          shift and go to state 239
 
 
 state 199
 
-    (99) expfunc2 -> varcte COMMA . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (91) metodos -> REF OPAREN mmmfunc CPAREN . SCOLON
 
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
+    SCOLON          shift and go to state 240
 
-    varcte                         shift and go to state 240
 
 state 200
 
-    (90) metodos -> TRANSPOSE OPAREN mmmfunc CPAREN . SCOLON
+    (92) metodos -> RREF OPAREN mmmfunc CPAREN . SCOLON
 
     SCOLON          shift and go to state 241
 
 
 state 201
 
-    (91) metodos -> INVERSE OPAREN mmmfunc CPAREN . SCOLON
+    (93) metodos -> MONT OPAREN mmmfunc CPAREN . SCOLON
 
     SCOLON          shift and go to state 242
 
 
 state 202
 
-    (92) metodos -> ROTATE OPAREN mmmfunc CPAREN . SCOLON
-
-    SCOLON          shift and go to state 243
-
-
-state 203
-
-    (93) metodos -> REF OPAREN mmmfunc CPAREN . SCOLON
-
-    SCOLON          shift and go to state 244
-
-
-state 204
-
-    (94) metodos -> RREF OPAREN mmmfunc CPAREN . SCOLON
-
-    SCOLON          shift and go to state 245
-
-
-state 205
-
-    (95) metodos -> MONT OPAREN mmmfunc CPAREN . SCOLON
-
-    SCOLON          shift and go to state 246
-
-
-state 206
-
     (14) modules -> FUNC ID COLON tipo addfunction OPAREN . modules2 CPAREN modules2 block
     (16) modules2 -> . vars
     (17) modules2 -> . empty
     (8) vars -> . VAR vars1
-    (107) empty -> .
+    (105) empty -> .
 
     VAR             shift and go to state 10
-    CPAREN          reduce using rule 107 (empty -> .)
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    modules2                       shift and go to state 247
-    vars                           shift and go to state 248
-    empty                          shift and go to state 249
+    modules2                       shift and go to state 243
+    vars                           shift and go to state 244
+    empty                          shift and go to state 245
 
-state 207
+state 203
 
     (42) asign3 -> LCOR expresion . RCOR
     (67) expresion -> expresion . RELOP exp
 
-    RCOR            shift and go to state 250
-    RELOP           shift and go to state 104
+    RCOR            shift and go to state 246
+    RELOP           shift and go to state 102
 
 
-state 208
+state 204
 
     (43) asign3 -> LCOR varcte . RCOR
-    (77) factor -> varcte .
+    (75) factor -> varcte .
 
   ! shift/reduce conflict for RCOR resolved as shift
-    RCOR            shift and go to state 251
-    MULT            reduce using rule 77 (factor -> varcte .)
-    DIV             reduce using rule 77 (factor -> varcte .)
-    PLUS            reduce using rule 77 (factor -> varcte .)
-    MINUS           reduce using rule 77 (factor -> varcte .)
-    RELOP           reduce using rule 77 (factor -> varcte .)
+    RCOR            shift and go to state 247
+    MULT            reduce using rule 75 (factor -> varcte .)
+    DIV             reduce using rule 75 (factor -> varcte .)
+    PLUS            reduce using rule 75 (factor -> varcte .)
+    MINUS           reduce using rule 75 (factor -> varcte .)
+    RELOP           reduce using rule 75 (factor -> varcte .)
 
-  ! RCOR            [ reduce using rule 77 (factor -> varcte .) ]
+  ! RCOR            [ reduce using rule 75 (factor -> varcte .) ]
 
 
-state 209
+state 205
 
     (36) asign -> ID EQUALS ID asign2 SCOLON .
 
@@ -3103,23 +2989,23 @@ state 209
     CBRACKET        reduce using rule 36 (asign -> ID EQUALS ID asign2 SCOLON .)
 
 
-state 210
+state 206
 
     (39) asign -> ID asign2 EQUALS ID asign2 . SCOLON
-    (79) varcte -> ID asign2 .
+    (77) varcte -> ID asign2 .
 
   ! shift/reduce conflict for SCOLON resolved as shift
-    SCOLON          shift and go to state 252
-    MULT            reduce using rule 79 (varcte -> ID asign2 .)
-    DIV             reduce using rule 79 (varcte -> ID asign2 .)
-    PLUS            reduce using rule 79 (varcte -> ID asign2 .)
-    MINUS           reduce using rule 79 (varcte -> ID asign2 .)
-    RELOP           reduce using rule 79 (varcte -> ID asign2 .)
+    SCOLON          shift and go to state 248
+    MULT            reduce using rule 77 (varcte -> ID asign2 .)
+    DIV             reduce using rule 77 (varcte -> ID asign2 .)
+    PLUS            reduce using rule 77 (varcte -> ID asign2 .)
+    MINUS           reduce using rule 77 (varcte -> ID asign2 .)
+    RELOP           reduce using rule 77 (varcte -> ID asign2 .)
 
-  ! SCOLON          [ reduce using rule 79 (varcte -> ID asign2 .) ]
+  ! SCOLON          [ reduce using rule 77 (varcte -> ID asign2 .) ]
 
 
-state 211
+state 207
 
     (37) asign -> ID asign2 EQUALS ID SCOLON .
 
@@ -3146,7 +3032,7 @@ state 211
     CBRACKET        reduce using rule 37 (asign -> ID asign2 EQUALS ID SCOLON .)
 
 
-state 212
+state 208
 
     (38) asign -> ID asign2 EQUALS expresion SCOLON .
 
@@ -3173,16 +3059,16 @@ state 212
     CBRACKET        reduce using rule 38 (asign -> ID asign2 EQUALS expresion SCOLON .)
 
 
-state 213
+state 209
 
     (54) cond -> IF OPAREN expresion CPAREN block . SCOLON
     (55) cond -> IF OPAREN expresion CPAREN block . ELSE block SCOLON
 
-    SCOLON          shift and go to state 253
-    ELSE            shift and go to state 254
+    SCOLON          shift and go to state 249
+    ELSE            shift and go to state 250
 
 
-state 214
+state 210
 
     (45) escrt -> PRINT OPAREN expresion CPAREN SCOLON .
 
@@ -3209,14 +3095,14 @@ state 214
     CBRACKET        reduce using rule 45 (escrt -> PRINT OPAREN expresion CPAREN SCOLON .)
 
 
-state 215
+state 211
 
     (47) escrt -> PRINT OPAREN ID escrt2 CPAREN . SCOLON
 
-    SCOLON          shift and go to state 255
+    SCOLON          shift and go to state 251
 
 
-state 216
+state 212
 
     (49) escrt2 -> COMMA escrt3 .
 
@@ -3224,44 +3110,44 @@ state 216
     COMMA           reduce using rule 49 (escrt2 -> COMMA escrt3 .)
 
 
-state 217
+state 213
 
     (51) escrt3 -> ID . escrt2
     (52) escrt3 -> ID .
     (49) escrt2 -> . COMMA escrt3
     (50) escrt2 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
   ! shift/reduce conflict for COMMA resolved as shift
   ! reduce/reduce conflict for CPAREN resolved using rule 52 (escrt3 -> ID .)
   ! shift/reduce conflict for COMMA resolved as shift
     CPAREN          reduce using rule 52 (escrt3 -> ID .)
-    COMMA           shift and go to state 175
+    COMMA           shift and go to state 171
 
   ! COMMA           [ reduce using rule 52 (escrt3 -> ID .) ]
-  ! CPAREN          [ reduce using rule 107 (empty -> .) ]
-  ! COMMA           [ reduce using rule 107 (empty -> .) ]
+  ! CPAREN          [ reduce using rule 105 (empty -> .) ]
+  ! COMMA           [ reduce using rule 105 (empty -> .) ]
 
-    escrt2                         shift and go to state 256
-    empty                          shift and go to state 176
+    escrt2                         shift and go to state 252
+    empty                          shift and go to state 172
 
-state 218
+state 214
 
     (53) escrt3 -> STRING . escrt2 escrt2
     (49) escrt2 -> . COMMA escrt3
     (50) escrt2 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
   ! shift/reduce conflict for COMMA resolved as shift
-    COMMA           shift and go to state 175
-    CPAREN          reduce using rule 107 (empty -> .)
+    COMMA           shift and go to state 171
+    CPAREN          reduce using rule 105 (empty -> .)
 
-  ! COMMA           [ reduce using rule 107 (empty -> .) ]
+  ! COMMA           [ reduce using rule 105 (empty -> .) ]
 
-    escrt2                         shift and go to state 257
-    empty                          shift and go to state 176
+    escrt2                         shift and go to state 253
+    empty                          shift and go to state 172
 
-state 219
+state 215
 
     (48) escrt -> PRINT OPAREN STRING CPAREN SCOLON .
 
@@ -3288,7 +3174,7 @@ state 219
     CBRACKET        reduce using rule 48 (escrt -> PRINT OPAREN STRING CPAREN SCOLON .)
 
 
-state 220
+state 216
 
     (58) plot -> PLOT OPAREN xyfunc CPAREN SCOLON .
 
@@ -3315,7 +3201,7 @@ state 220
     CBRACKET        reduce using rule 58 (plot -> PLOT OPAREN xyfunc CPAREN SCOLON .)
 
 
-state 221
+state 217
 
     (59) plot -> PLOT OPAREN plot2 CPAREN SCOLON .
 
@@ -3342,473 +3228,473 @@ state 221
     CBRACKET        reduce using rule 59 (plot -> PLOT OPAREN plot2 CPAREN SCOLON .)
 
 
-state 222
+state 218
 
     (63) xyfunc -> FX EQUALS exp . SCOLON xyfunc
 
-    SCOLON          shift and go to state 258
+    SCOLON          shift and go to state 254
+
+
+state 219
+
+    (64) xyfunc -> FY EQUALS exp . SCOLON xyfunc
+
+    SCOLON          shift and go to state 255
+
+
+state 220
+
+    (60) plot2 -> LCOR varcte COMMA . varcte RCOR
+    (61) plot2 -> LCOR varcte COMMA . varcte RCOR COMMA plot2
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    varcte                         shift and go to state 256
+
+state 221
+
+    (56) count -> COUNT OPAREN ID COMMA varcte . COMMA varcte CPAREN SCOLON
+
+    COMMA           shift and go to state 257
+
+
+state 222
+
+    (57) countif -> COUNTIF OPAREN ID COMMA varcte . COMMA varcte COMMA cond CPAREN SCOLON
+
+    COMMA           shift and go to state 258
 
 
 state 223
 
-    (64) xyfunc -> FY EQUALS exp . SCOLON xyfunc
+    (80) metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .
 
-    SCOLON          shift and go to state 259
+    ID              reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 80 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 224
 
-    (60) plot2 -> LCOR varcte COMMA . varcte RCOR
-    (61) plot2 -> LCOR varcte COMMA . varcte RCOR COMMA plot2
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (99) mmmfunc -> OBRACKET mmmarray CBRACKET .
+    (100) mmmfunc -> OBRACKET mmmarray CBRACKET . COMMA mmmfunc
+
+    CPAREN          reduce using rule 99 (mmmfunc -> OBRACKET mmmarray CBRACKET .)
+    COMMA           shift and go to state 259
+
+
+state 225
+
+    (103) mmmarray -> varcte COMMA . mmmarray
+    (102) mmmarray -> . varcte
+    (103) mmmarray -> . varcte COMMA mmmarray
+    (104) mmmarray -> . empty
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+    (105) empty -> .
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
+    CBRACKET        reduce using rule 105 (empty -> .)
 
-    varcte                         shift and go to state 260
-
-state 225
-
-    (56) count -> COUNT OPAREN ID COMMA varcte . COMMA varcte CPAREN SCOLON
-
-    COMMA           shift and go to state 261
-
+    varcte                         shift and go to state 183
+    mmmarray                       shift and go to state 260
+    empty                          shift and go to state 184
 
 state 226
 
-    (57) countif -> COUNTIF OPAREN ID COMMA varcte . COMMA varcte COMMA cond CPAREN SCOLON
+    (81) metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .
 
-    COMMA           shift and go to state 262
+    ID              reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 81 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 227
 
-    (82) metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .
+    (82) metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .
 
-    ID              reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 82 (metodos -> MEAN OPAREN mmmfunc CPAREN SCOLON .)
+    ID              reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 82 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 228
 
-    (101) mmmfunc -> OBRACKET mmmarray CBRACKET .
-    (102) mmmfunc -> OBRACKET mmmarray CBRACKET . COMMA mmmfunc
+    (83) metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .
 
-    CPAREN          reduce using rule 101 (mmmfunc -> OBRACKET mmmarray CBRACKET .)
-    COMMA           shift and go to state 263
+    ID              reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 83 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 229
 
-    (105) mmmarray -> varcte COMMA . mmmarray
-    (104) mmmarray -> . varcte
-    (105) mmmarray -> . varcte COMMA mmmarray
-    (106) mmmarray -> . empty
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
-    (107) empty -> .
+    (84) metodos -> KMEANS OPAREN varcte COMMA mmmfunc . CPAREN SCOLON
 
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
-    CBRACKET        reduce using rule 107 (empty -> .)
+    CPAREN          shift and go to state 261
 
-    varcte                         shift and go to state 187
-    mmmarray                       shift and go to state 264
-    empty                          shift and go to state 188
 
 state 230
 
-    (83) metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .
+    (85) metodos -> DERL OPAREN expfunc CPAREN SCOLON .
 
-    ID              reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 83 (metodos -> MEDIAN OPAREN mmmfunc CPAREN SCOLON .)
+    ID              reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    IF              reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    MODE            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    STDV            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    DERL            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    REF             reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    RREF            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    MONT            reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 85 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
 
 
 state 231
 
-    (84) metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .
+    (94) expfunc -> ID COMMA ID . COMMA ID
 
-    ID              reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 84 (metodos -> MODE OPAREN mmmfunc CPAREN SCOLON .)
+    COMMA           shift and go to state 262
 
 
 state 232
 
-    (85) metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .
+    (95) expfunc -> varcte COMMA varcte . COMMA varcte
 
-    ID              reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 85 (metodos -> STDV OPAREN mmmfunc CPAREN SCOLON .)
+    COMMA           shift and go to state 263
 
 
 state 233
 
-    (86) metodos -> KMEANS OPAREN varcte COMMA mmmfunc . CPAREN SCOLON
+    (86) metodos -> DBERN OPAREN expfunc CPAREN SCOLON .
 
-    CPAREN          shift and go to state 265
+    ID              reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    IF              reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    MODE            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    STDV            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    DERL            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    REF             reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    RREF            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    MONT            reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 86 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
 
 
 state 234
 
-    (87) metodos -> DERL OPAREN expfunc CPAREN SCOLON .
+    (87) metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .
 
-    ID              reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    IF              reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    MODE            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    STDV            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    DERL            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    REF             reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    RREF            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    MONT            reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 87 (metodos -> DERL OPAREN expfunc CPAREN SCOLON .)
+    ID              reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    IF              reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    PRINT           reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    PLOT            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    COUNT           reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    COUNTIF         reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    MEAN            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    MEDIAN          reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    MODE            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    STDV            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    KMEANS          reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    DERL            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    DBERN           reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    DPOI            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    INVERSE         reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    ROTATE          reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    REF             reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    RREF            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    MONT            reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    CBRACKET        reduce using rule 87 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
 
 
 state 235
 
-    (96) expfunc -> ID COMMA ID . COMMA ID
+    (96) expfunc2 -> ID COMMA ID .
 
-    COMMA           shift and go to state 266
+    CPAREN          reduce using rule 96 (expfunc2 -> ID COMMA ID .)
 
 
 state 236
 
-    (97) expfunc -> varcte COMMA varcte . COMMA varcte
+    (97) expfunc2 -> varcte COMMA varcte .
 
-    COMMA           shift and go to state 267
+    CPAREN          reduce using rule 97 (expfunc2 -> varcte COMMA varcte .)
 
 
 state 237
 
-    (88) metodos -> DBERN OPAREN expfunc CPAREN SCOLON .
+    (88) metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .
 
-    ID              reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    IF              reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    MODE            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    STDV            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    DERL            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    REF             reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    RREF            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    MONT            reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 88 (metodos -> DBERN OPAREN expfunc CPAREN SCOLON .)
+    ID              reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 88 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 238
 
-    (89) metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .
+    (89) metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .
 
-    ID              reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    IF              reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    PRINT           reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    PLOT            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    COUNT           reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    COUNTIF         reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    MEAN            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    MEDIAN          reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    MODE            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    STDV            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    KMEANS          reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    DERL            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    DBERN           reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    DPOI            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    INVERSE         reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    ROTATE          reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    REF             reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    RREF            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    MONT            reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
-    CBRACKET        reduce using rule 89 (metodos -> DPOI OPAREN expfunc2 CPAREN SCOLON .)
+    ID              reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 89 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 239
 
-    (98) expfunc2 -> ID COMMA ID .
+    (90) metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .
 
-    CPAREN          reduce using rule 98 (expfunc2 -> ID COMMA ID .)
+    ID              reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 90 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 240
 
-    (99) expfunc2 -> varcte COMMA varcte .
+    (91) metodos -> REF OPAREN mmmfunc CPAREN SCOLON .
 
-    CPAREN          reduce using rule 99 (expfunc2 -> varcte COMMA varcte .)
+    ID              reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 91 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 241
 
-    (90) metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .
+    (92) metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .
 
-    ID              reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 90 (metodos -> TRANSPOSE OPAREN mmmfunc CPAREN SCOLON .)
+    ID              reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 92 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 242
 
-    (91) metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .
+    (93) metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .
 
-    ID              reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 91 (metodos -> INVERSE OPAREN mmmfunc CPAREN SCOLON .)
+    ID              reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 93 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
 
 
 state 243
 
-    (92) metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .
+    (14) modules -> FUNC ID COLON tipo addfunction OPAREN modules2 . CPAREN modules2 block
 
-    ID              reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 92 (metodos -> ROTATE OPAREN mmmfunc CPAREN SCOLON .)
+    CPAREN          shift and go to state 264
 
 
 state 244
-
-    (93) metodos -> REF OPAREN mmmfunc CPAREN SCOLON .
-
-    ID              reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 93 (metodos -> REF OPAREN mmmfunc CPAREN SCOLON .)
-
-
-state 245
-
-    (94) metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .
-
-    ID              reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 94 (metodos -> RREF OPAREN mmmfunc CPAREN SCOLON .)
-
-
-state 246
-
-    (95) metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .
-
-    ID              reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 95 (metodos -> MONT OPAREN mmmfunc CPAREN SCOLON .)
-
-
-state 247
-
-    (14) modules -> FUNC ID COLON tipo addfunction OPAREN modules2 . CPAREN modules2 block
-
-    CPAREN          shift and go to state 268
-
-
-state 248
 
     (16) modules2 -> vars .
 
@@ -3816,7 +3702,7 @@ state 248
     OBRACKET        reduce using rule 16 (modules2 -> vars .)
 
 
-state 249
+state 245
 
     (17) modules2 -> empty .
 
@@ -3824,7 +3710,7 @@ state 249
     OBRACKET        reduce using rule 17 (modules2 -> empty .)
 
 
-state 250
+state 246
 
     (42) asign3 -> LCOR expresion RCOR .
 
@@ -3842,7 +3728,7 @@ state 250
     CBRACKET        reduce using rule 42 (asign3 -> LCOR expresion RCOR .)
 
 
-state 251
+state 247
 
     (43) asign3 -> LCOR varcte RCOR .
 
@@ -3860,7 +3746,7 @@ state 251
     CBRACKET        reduce using rule 43 (asign3 -> LCOR varcte RCOR .)
 
 
-state 252
+state 248
 
     (39) asign -> ID asign2 EQUALS ID asign2 SCOLON .
 
@@ -3887,7 +3773,7 @@ state 252
     CBRACKET        reduce using rule 39 (asign -> ID asign2 EQUALS ID asign2 SCOLON .)
 
 
-state 253
+state 249
 
     (54) cond -> IF OPAREN expresion CPAREN block SCOLON .
 
@@ -3915,16 +3801,16 @@ state 253
     CPAREN          reduce using rule 54 (cond -> IF OPAREN expresion CPAREN block SCOLON .)
 
 
-state 254
+state 250
 
     (55) cond -> IF OPAREN expresion CPAREN block ELSE . block SCOLON
     (18) block -> . OBRACKET block2 CBRACKET
 
     OBRACKET        shift and go to state 18
 
-    block                          shift and go to state 269
+    block                          shift and go to state 265
 
-state 255
+state 251
 
     (47) escrt -> PRINT OPAREN ID escrt2 CPAREN SCOLON .
 
@@ -3951,7 +3837,7 @@ state 255
     CBRACKET        reduce using rule 47 (escrt -> PRINT OPAREN ID escrt2 CPAREN SCOLON .)
 
 
-state 256
+state 252
 
     (51) escrt3 -> ID escrt2 .
 
@@ -3959,81 +3845,132 @@ state 256
     COMMA           reduce using rule 51 (escrt3 -> ID escrt2 .)
 
 
-state 257
+state 253
 
     (53) escrt3 -> STRING escrt2 . escrt2
     (49) escrt2 -> . COMMA escrt3
     (50) escrt2 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
   ! shift/reduce conflict for COMMA resolved as shift
-    COMMA           shift and go to state 175
-    CPAREN          reduce using rule 107 (empty -> .)
+    COMMA           shift and go to state 171
+    CPAREN          reduce using rule 105 (empty -> .)
 
-  ! COMMA           [ reduce using rule 107 (empty -> .) ]
+  ! COMMA           [ reduce using rule 105 (empty -> .) ]
 
-    escrt2                         shift and go to state 270
-    empty                          shift and go to state 176
+    escrt2                         shift and go to state 266
+    empty                          shift and go to state 172
 
-state 258
+state 254
 
     (63) xyfunc -> FX EQUALS exp SCOLON . xyfunc
     (63) xyfunc -> . FX EQUALS exp SCOLON xyfunc
     (64) xyfunc -> . FY EQUALS exp SCOLON xyfunc
     (65) xyfunc -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    FX              shift and go to state 125
-    FY              shift and go to state 126
-    CPAREN          reduce using rule 107 (empty -> .)
+    FX              shift and go to state 121
+    FY              shift and go to state 122
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    xyfunc                         shift and go to state 271
-    empty                          shift and go to state 272
+    xyfunc                         shift and go to state 267
+    empty                          shift and go to state 268
 
-state 259
+state 255
 
     (64) xyfunc -> FY EQUALS exp SCOLON . xyfunc
     (63) xyfunc -> . FX EQUALS exp SCOLON xyfunc
     (64) xyfunc -> . FY EQUALS exp SCOLON xyfunc
     (65) xyfunc -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    FX              shift and go to state 125
-    FY              shift and go to state 126
-    CPAREN          reduce using rule 107 (empty -> .)
+    FX              shift and go to state 121
+    FY              shift and go to state 122
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    xyfunc                         shift and go to state 273
-    empty                          shift and go to state 272
+    xyfunc                         shift and go to state 269
+    empty                          shift and go to state 268
 
-state 260
+state 256
 
     (60) plot2 -> LCOR varcte COMMA varcte . RCOR
     (61) plot2 -> LCOR varcte COMMA varcte . RCOR COMMA plot2
 
-    RCOR            shift and go to state 274
+    RCOR            shift and go to state 270
 
 
-state 261
+state 257
 
     (56) count -> COUNT OPAREN ID COMMA varcte COMMA . varcte CPAREN SCOLON
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
     NUMBER          shift and go to state 70
 
-    varcte                         shift and go to state 275
+    varcte                         shift and go to state 271
+
+state 258
+
+    (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA . varcte COMMA cond CPAREN SCOLON
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
+
+    ID              shift and go to state 68
+    NUMERIC         shift and go to state 69
+    NUMBER          shift and go to state 70
+
+    varcte                         shift and go to state 272
+
+state 259
+
+    (100) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA . mmmfunc
+    (98) mmmfunc -> . ID
+    (99) mmmfunc -> . OBRACKET mmmarray CBRACKET
+    (100) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    (101) mmmfunc -> . empty
+    (105) empty -> .
+
+    ID              shift and go to state 128
+    OBRACKET        shift and go to state 129
+    CPAREN          reduce using rule 105 (empty -> .)
+
+    mmmfunc                        shift and go to state 273
+    empty                          shift and go to state 130
+
+state 260
+
+    (103) mmmarray -> varcte COMMA mmmarray .
+
+    CBRACKET        reduce using rule 103 (mmmarray -> varcte COMMA mmmarray .)
+
+
+state 261
+
+    (84) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN . SCOLON
+
+    SCOLON          shift and go to state 274
+
 
 state 262
 
-    (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA . varcte COMMA cond CPAREN SCOLON
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
+    (94) expfunc -> ID COMMA ID COMMA . ID
+
+    ID              shift and go to state 275
+
+
+state 263
+
+    (95) expfunc -> varcte COMMA varcte COMMA . varcte
+    (76) varcte -> . ID
+    (77) varcte -> . ID asign2
+    (78) varcte -> . NUMERIC
+    (79) varcte -> . NUMBER
 
     ID              shift and go to state 68
     NUMERIC         shift and go to state 69
@@ -4041,80 +3978,29 @@ state 262
 
     varcte                         shift and go to state 276
 
-state 263
-
-    (102) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA . mmmfunc
-    (100) mmmfunc -> . ID
-    (101) mmmfunc -> . OBRACKET mmmarray CBRACKET
-    (102) mmmfunc -> . OBRACKET mmmarray CBRACKET COMMA mmmfunc
-    (103) mmmfunc -> . empty
-    (107) empty -> .
-
-    ID              shift and go to state 132
-    OBRACKET        shift and go to state 133
-    CPAREN          reduce using rule 107 (empty -> .)
-
-    mmmfunc                        shift and go to state 277
-    empty                          shift and go to state 134
-
 state 264
-
-    (105) mmmarray -> varcte COMMA mmmarray .
-
-    CBRACKET        reduce using rule 105 (mmmarray -> varcte COMMA mmmarray .)
-
-
-state 265
-
-    (86) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN . SCOLON
-
-    SCOLON          shift and go to state 278
-
-
-state 266
-
-    (96) expfunc -> ID COMMA ID COMMA . ID
-
-    ID              shift and go to state 279
-
-
-state 267
-
-    (97) expfunc -> varcte COMMA varcte COMMA . varcte
-    (78) varcte -> . ID
-    (79) varcte -> . ID asign2
-    (80) varcte -> . NUMERIC
-    (81) varcte -> . NUMBER
-
-    ID              shift and go to state 68
-    NUMERIC         shift and go to state 69
-    NUMBER          shift and go to state 70
-
-    varcte                         shift and go to state 280
-
-state 268
 
     (14) modules -> FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN . modules2 block
     (16) modules2 -> . vars
     (17) modules2 -> . empty
     (8) vars -> . VAR vars1
-    (107) empty -> .
+    (105) empty -> .
 
     VAR             shift and go to state 10
-    OBRACKET        reduce using rule 107 (empty -> .)
+    OBRACKET        reduce using rule 105 (empty -> .)
 
-    modules2                       shift and go to state 281
-    vars                           shift and go to state 248
-    empty                          shift and go to state 249
+    modules2                       shift and go to state 277
+    vars                           shift and go to state 244
+    empty                          shift and go to state 245
 
-state 269
+state 265
 
     (55) cond -> IF OPAREN expresion CPAREN block ELSE block . SCOLON
 
-    SCOLON          shift and go to state 282
+    SCOLON          shift and go to state 278
 
 
-state 270
+state 266
 
     (53) escrt3 -> STRING escrt2 escrt2 .
 
@@ -4122,108 +4008,108 @@ state 270
     COMMA           reduce using rule 53 (escrt3 -> STRING escrt2 escrt2 .)
 
 
-state 271
+state 267
 
     (63) xyfunc -> FX EQUALS exp SCOLON xyfunc .
 
     CPAREN          reduce using rule 63 (xyfunc -> FX EQUALS exp SCOLON xyfunc .)
 
 
-state 272
+state 268
 
     (65) xyfunc -> empty .
 
     CPAREN          reduce using rule 65 (xyfunc -> empty .)
 
 
-state 273
+state 269
 
     (64) xyfunc -> FY EQUALS exp SCOLON xyfunc .
 
     CPAREN          reduce using rule 64 (xyfunc -> FY EQUALS exp SCOLON xyfunc .)
 
 
-state 274
+state 270
 
     (60) plot2 -> LCOR varcte COMMA varcte RCOR .
     (61) plot2 -> LCOR varcte COMMA varcte RCOR . COMMA plot2
 
     CPAREN          reduce using rule 60 (plot2 -> LCOR varcte COMMA varcte RCOR .)
-    COMMA           shift and go to state 283
+    COMMA           shift and go to state 279
+
+
+state 271
+
+    (56) count -> COUNT OPAREN ID COMMA varcte COMMA varcte . CPAREN SCOLON
+
+    CPAREN          shift and go to state 280
+
+
+state 272
+
+    (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte . COMMA cond CPAREN SCOLON
+
+    COMMA           shift and go to state 281
+
+
+state 273
+
+    (100) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .
+
+    CPAREN          reduce using rule 100 (mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .)
+
+
+state 274
+
+    (84) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .
+
+    ID              reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    IF              reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    PRINT           reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    PLOT            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    COUNT           reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    COUNTIF         reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    MEAN            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    MEDIAN          reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    MODE            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    STDV            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    KMEANS          reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    DERL            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    DBERN           reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    DPOI            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    TRANSPOSE       reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    INVERSE         reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    ROTATE          reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    REF             reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    RREF            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    MONT            reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
+    CBRACKET        reduce using rule 84 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
 
 
 state 275
 
-    (56) count -> COUNT OPAREN ID COMMA varcte COMMA varcte . CPAREN SCOLON
+    (94) expfunc -> ID COMMA ID COMMA ID .
 
-    CPAREN          shift and go to state 284
+    CPAREN          reduce using rule 94 (expfunc -> ID COMMA ID COMMA ID .)
 
 
 state 276
 
-    (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte . COMMA cond CPAREN SCOLON
+    (95) expfunc -> varcte COMMA varcte COMMA varcte .
 
-    COMMA           shift and go to state 285
+    CPAREN          reduce using rule 95 (expfunc -> varcte COMMA varcte COMMA varcte .)
 
 
 state 277
-
-    (102) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .
-
-    CPAREN          reduce using rule 102 (mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .)
-
-
-state 278
-
-    (86) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .
-
-    ID              reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    IF              reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    PRINT           reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    PLOT            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    COUNT           reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    COUNTIF         reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    MEAN            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    MEDIAN          reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    MODE            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    STDV            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    KMEANS          reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    DERL            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    DBERN           reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    DPOI            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    TRANSPOSE       reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    INVERSE         reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    ROTATE          reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    REF             reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    RREF            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    MONT            reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-    CBRACKET        reduce using rule 86 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
-
-
-state 279
-
-    (96) expfunc -> ID COMMA ID COMMA ID .
-
-    CPAREN          reduce using rule 96 (expfunc -> ID COMMA ID COMMA ID .)
-
-
-state 280
-
-    (97) expfunc -> varcte COMMA varcte COMMA varcte .
-
-    CPAREN          reduce using rule 97 (expfunc -> varcte COMMA varcte COMMA varcte .)
-
-
-state 281
 
     (14) modules -> FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 . block
     (18) block -> . OBRACKET block2 CBRACKET
 
     OBRACKET        shift and go to state 18
 
-    block                          shift and go to state 286
+    block                          shift and go to state 282
 
-state 282
+state 278
 
     (55) cond -> IF OPAREN expresion CPAREN block ELSE block SCOLON .
 
@@ -4251,28 +4137,28 @@ state 282
     CPAREN          reduce using rule 55 (cond -> IF OPAREN expresion CPAREN block ELSE block SCOLON .)
 
 
-state 283
+state 279
 
     (61) plot2 -> LCOR varcte COMMA varcte RCOR COMMA . plot2
     (60) plot2 -> . LCOR varcte COMMA varcte RCOR
     (61) plot2 -> . LCOR varcte COMMA varcte RCOR COMMA plot2
     (62) plot2 -> . empty
-    (107) empty -> .
+    (105) empty -> .
 
-    LCOR            shift and go to state 128
-    CPAREN          reduce using rule 107 (empty -> .)
+    LCOR            shift and go to state 124
+    CPAREN          reduce using rule 105 (empty -> .)
 
-    plot2                          shift and go to state 287
-    empty                          shift and go to state 288
+    plot2                          shift and go to state 283
+    empty                          shift and go to state 284
 
-state 284
+state 280
 
     (56) count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN . SCOLON
 
-    SCOLON          shift and go to state 289
+    SCOLON          shift and go to state 285
 
 
-state 285
+state 281
 
     (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA . cond CPAREN SCOLON
     (54) cond -> . IF OPAREN expresion CPAREN block SCOLON
@@ -4280,9 +4166,9 @@ state 285
 
     IF              shift and go to state 36
 
-    cond                           shift and go to state 290
+    cond                           shift and go to state 286
 
-state 286
+state 282
 
     (14) modules -> FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block .
 
@@ -4290,21 +4176,21 @@ state 286
     OBRACKET        reduce using rule 14 (modules -> FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block .)
 
 
-state 287
+state 283
 
     (61) plot2 -> LCOR varcte COMMA varcte RCOR COMMA plot2 .
 
     CPAREN          reduce using rule 61 (plot2 -> LCOR varcte COMMA varcte RCOR COMMA plot2 .)
 
 
-state 288
+state 284
 
     (62) plot2 -> empty .
 
     CPAREN          reduce using rule 62 (plot2 -> empty .)
 
 
-state 289
+state 285
 
     (56) count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON .
 
@@ -4331,21 +4217,21 @@ state 289
     CBRACKET        reduce using rule 56 (count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON .)
 
 
-state 290
+state 286
 
     (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond . CPAREN SCOLON
 
-    CPAREN          shift and go to state 291
+    CPAREN          shift and go to state 287
 
 
-state 291
+state 287
 
     (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN . SCOLON
 
-    SCOLON          shift and go to state 292
+    SCOLON          shift and go to state 288
 
 
-state 292
+state 288
 
     (57) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON .
 
@@ -4375,24 +4261,24 @@ WARNING:
 WARNING: Conflicts:
 WARNING: 
 WARNING: shift/reduce conflict for RCOR in state 66 resolved as shift
-WARNING: shift/reduce conflict for SCOLON in state 115 resolved as shift
+WARNING: shift/reduce conflict for SCOLON in state 111 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 136 resolved as shift
 WARNING: shift/reduce conflict for COMMA in state 140 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 144 resolved as shift
-WARNING: shift/reduce conflict for SCOLON in state 167 resolved as shift
-WARNING: shift/reduce conflict for SCOLON in state 169 resolved as shift
-WARNING: shift/reduce conflict for RCOR in state 208 resolved as shift
-WARNING: shift/reduce conflict for SCOLON in state 210 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 217 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 217 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 218 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 257 resolved as shift
+WARNING: shift/reduce conflict for SCOLON in state 163 resolved as shift
+WARNING: shift/reduce conflict for SCOLON in state 165 resolved as shift
+WARNING: shift/reduce conflict for RCOR in state 204 resolved as shift
+WARNING: shift/reduce conflict for SCOLON in state 206 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 213 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 213 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 214 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 253 resolved as shift
 WARNING: reduce/reduce conflict in state 12 resolved using rule (lugstat3 -> modules)
 WARNING: rejected rule (empty -> <empty>) in state 12
 WARNING: reduce/reduce conflict in state 26 resolved using rule (block2 -> estatuto)
 WARNING: rejected rule (empty -> <empty>) in state 26
-WARNING: reduce/reduce conflict in state 121 resolved using rule (varcte -> ID)
-WARNING: rejected rule (empty -> <empty>) in state 121
-WARNING: reduce/reduce conflict in state 127 resolved using rule (plot2 -> empty)
-WARNING: rejected rule (xyfunc -> empty) in state 127
-WARNING: reduce/reduce conflict in state 217 resolved using rule (escrt3 -> ID)
-WARNING: rejected rule (empty -> <empty>) in state 217
+WARNING: reduce/reduce conflict in state 117 resolved using rule (varcte -> ID)
+WARNING: rejected rule (empty -> <empty>) in state 117
+WARNING: reduce/reduce conflict in state 123 resolved using rule (plot2 -> empty)
+WARNING: rejected rule (xyfunc -> empty) in state 123
+WARNING: reduce/reduce conflict in state 213 resolved using rule (escrt3 -> ID)
+WARNING: rejected rule (empty -> <empty>) in state 213
