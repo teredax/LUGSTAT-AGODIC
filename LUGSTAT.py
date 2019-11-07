@@ -14,6 +14,7 @@ from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 DirectorioFunciones = Directorio_de_Variables()
 ConsideracionesSemanticas = ConsideracionesSemanticas()
 
+
 FuncionActual = []
 TipoActual = []
 TemporalCounter = 0
@@ -28,6 +29,15 @@ def typetostr(element):
 	if element is bool:
 		return 'bool'
 
+class AVAIL(object):
+	def __init__(self):
+		self.AvailC = 0
+		self.Temp = "t"
+
+	def next(self):
+		self.AvailC+=1
+		return self.Temp + str(self.AvailC)
+
 
 #--------------------
 #Setup of Quadruples
@@ -36,6 +46,7 @@ POper = []
 PilaO = []
 Ptype = []
 q = Queue.Queue()
+AVAIL = AVAIL()
 #--------------------
 
 
