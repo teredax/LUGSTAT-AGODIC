@@ -6,18 +6,7 @@
 
 #Puntos Neurales marcados con #@1...#@2 etc
 
-#Todo
-#Nadamas deje que AVAIL generara el nombre de tx (t1..t2..t3 etc)
-#No se si se supone que AVAIL tambien guarde el valor del resultado del quadruplo, o si se hace en memoria
-#En caso de que si, nadamas es de agregarlo a la clase y pegarle el eval del quadruplo
-#En casso de que no, pues asi dejalo lol
-#En el codigo de elda no se a que se refiere con If any operand were a temporal space, returnit to AVAIL
-#En si ya estan los puntos neurales hasta el 6 y 7 pero no los he podido probar porque no se como hacer jalar lo de los parentesis tipo 1+(1+1)
-#Faltan Puntos Neurales 8 y 9, la regla de relop no esta agarrando nada con p[1] ni p[-1], no se si estoy escribiendo mal el caso..
-
 #En resumen:
-#Aun falta conectar el punto neural #@1 con la tabla de variables para conseguir tipo y poder hacer int3 = int2+int1;
-#Ya estan los puntos neurales hasta el 6 y 7 pero no puedo probarlos porque no jala caso 1+(1+1)
 #Faltan puntos 8 y 9, la regla de relop no agarra nada por alguna razon, y creo que falta un reset para que no agarre lo que va antes de || de 1||11+
 
 
@@ -36,14 +25,21 @@ TipoActual = []
 TemporalCounter = 0
 
 def typetostr(element):
-	if element is int:
-		return 'int'
-	if element is float:
-		return 'double'
-	if element is str:
-		return 'string'
-	if element is bool:
-		return 'bool'
+
+	#print(element)
+	stringvalues = {'int', 'double', 'float', 'string', 'bool'}
+	if element in stringvalues:
+		return element
+
+	else:
+		if element is int:
+			return 'int'
+		if element is float:
+			return 'double'
+		if element is str:
+			return 'string'
+		if element is bool:
+			return 'bool'
 
 class AVAIL(object):
 	def __init__(self):
@@ -417,7 +413,34 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
-	#print ("relop", p[0],p[0],p[1],p[-1]	)
+    #@9
+    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
+    if POper:
+    	if POper[-1] in relopindex:
+    		rOP = PilaO.pop()
+    		rTY = Ptype.pop()
+    		#print("typetostr", rTY)
+    		rTY = typetostr(rTY)
+    		#print("typetostr", rTY)
+    		lOP = PilaO.pop()
+    		lTY = Ptype.pop()
+    		lTY = typetostr(lTY)
+    		oOP = POper.pop()
+    		#print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP)
+    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
+
+    		if fTY != 'error':
+    			#print("pass")
+    			RFI = AVAIL.next()
+    			quad = (oOP, lOP, rOP, RFI)
+    			Quad.put(quad)
+    			PilaO.append(RFI)
+    			Ptype.append(fTY)
+    			# if any operand were a temporal space return it to AVAIL??
+    			#Next....
+    		else:
+    			print("Type mismatch")
 
 def p_exp(p):
     '''
@@ -430,24 +453,26 @@ def p_exp(p):
     #@2
     if p[-1] is '+' or p[-1] is '-':
     	POper.append(p[-1])
-    	print("plusminus",p[-1])
+    	#print("plusminus",p[-1])
 
     #@4
     if POper:
     	if POper[-1] == '+' or POper[-1] == '-':
     		rOP = PilaO.pop()
     		rTY = Ptype.pop()
+    		#print("typetostr", rTY)
     		rTY = typetostr(rTY)
+    		#print("typetostr", rTY)
     		lOP = PilaO.pop()
     		lTY = Ptype.pop()
     		lTY = typetostr(lTY)
     		oOP = POper.pop()
-
+    		#print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP)
     		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-    		print(rOP, rTY, lOP, lTY, oOP, fTY)
+    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
 
     		if fTY != 'error':
-    			print("pass")
+    			#print("pass")
     			RFI = AVAIL.next()
     			quad = (oOP, lOP, rOP, RFI)
     			Quad.put(quad)
@@ -458,6 +483,10 @@ def p_exp(p):
     		else:
     			print("Type mismatch")
 
+    #@8
+    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
+    if p[-1] in relopindex:
+    	POper.append(p[-1])
 
 
 def p_termino(p):
@@ -472,7 +501,7 @@ def p_termino(p):
     #@3
     if p[-1] is '*' or p[-1] is '/':
     	POper.append(p[-1])
-    	print("muldiv",p[-1])
+    	#print("muldiv",p[-1])
    
     #@5
     if POper:
@@ -486,10 +515,10 @@ def p_termino(p):
     		oOP = POper.pop()
 
     		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-    		print(rOP, rTY, lOP, lTY, oOP, fTY)
+    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
 
     		if fTY != 'error':
-    			print("pass")
+    			#print("pass")
     			RFI = AVAIL.next()
     			quad = (oOP, lOP, rOP, RFI)
     			Quad.put(quad)
@@ -539,19 +568,23 @@ def p_varcte(p):
         	TemporalCounter = TemporalCounter + 1
 
 
-    print("vcte",p[1])
+    print("vcte",p[1], type(p[1]))
     
     #@1
     PilaO.append(p[1])
     if type(p[1]) is int or type(p[1]) is float:
     	Ptype.append(type(p[1]))
     else:
-    	print("Look in var table for type")
-    	#index =DirectorioFunciones.getdir(currentf)
-    	#print(currentf)
-    	#print("ni",index.printTable())
-    	## Falta conectar con la tabla de variables para agarrar el tipo de la variable desde alli
-
+    	print("Looking in var table for type")
+    	index=DirectorioFunciones.getdir(currentf[0])
+    	tar=index['fvars'].get(p[1])
+    	if tar == None:
+    		print("Variable doesn't exist!")
+    	else:
+    		tarfilter = tar['type']
+    		#print("tarfilter",tarfilter)
+    		Ptype.append(tarfilter)
+    	#print(index)
 
 
 def p_metodos(p):
