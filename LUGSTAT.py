@@ -6,11 +6,6 @@
 
 #Puntos Neurales marcados con #@1...#@2 etc
 
-#En resumen:
-#Faltan puntos 8 y 9, la regla de relop no agarra nada por alguna razon, y creo que falta un reset para que no agarre lo que va antes de || de 1||11+
-
-
-
 import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
