@@ -3,6 +3,15 @@ lugstat lugstattest;
 var bool1 , bool2, bool3, bool4: bool;
 var int1, int2, int3 : int;
 var double1, double2: double;
+
+func prueba : int ( var param1, param2: int; )  
+var var1,var12,var3 : int;
+{
+print(var1, ":",var2);
+var1 = 9.2;
+}
+
 {
 int1 = 1+1;
+int2 = 2*2;
 }
