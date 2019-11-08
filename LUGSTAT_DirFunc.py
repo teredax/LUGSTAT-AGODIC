@@ -50,17 +50,18 @@ class Directorio_de_Variables(object):
             return access['fvars'].printTable()
 
 
-#def main():
-#    print("reee")
-#    test = Directorio_de_Variables()
-#    test.addf("func1", bool)
-#    test.listf()
-#    print("-------------")
-#    result=test.search("func1")
-#    print(result)
-#    test.addv("func1", "var1" , bool)
-#    test.addv("func1", "var2" , bool)
-#    test.getallv("func1")
-#if __name__== "__main__":
-#  main()
+def main():
+    print("reee")
+    test = Directorio_de_Variables()
+    test.addf("func1", bool)
+    test.listf()
+    print("-------------")
+    result=test.search("func1")
+    print(result)
+    test.addv("func1", "var1" , bool)
+    test.addv("func1", "var2" , bool)
+    mytest=test.getdir("func1")
+    mytest['fvars'].printTable()
+if __name__== "__main__":
+  main()
 
