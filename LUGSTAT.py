@@ -6,11 +6,6 @@
 
 #Puntos Neurales marcados con #@1...#@2 etc
 
-#En resumen:
-#Faltan puntos 8 y 9, la regla de relop no agarra nada por alguna razon, y creo que falta un reset para que no agarre lo que va antes de || de 1||11+
-
-
-
 import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
@@ -23,6 +18,7 @@ ConsideracionesSemanticas = ConsideracionesSemanticas()
 FuncionActual = []
 TipoActual = []
 TemporalCounter = 0
+IfCond = False
 
 def typetostr(element):
 
@@ -307,10 +303,14 @@ def p_block(p):
     '''
     global currentf
     global TemporalCounter
-    #print("STATUS:", currentf)
-    currentf.pop()
-    TemporalCounter = 0
-    #print("STATUS:", currentf)
+    global IfCond
+    if IfCond:
+    	IfCond = False
+    else:
+    	#print("STATUS:", currentf)
+    	currentf.pop()
+    	TemporalCounter = 0
+    	#print("STATUS:", currentf)
     
 def p_block2(p):
     '''
@@ -413,6 +413,10 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
+    global IfCond
+    if p[-2] == 'if':
+    	#print(p[-2])
+    	IfCond = True
     #@9
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
     if POper:
@@ -648,8 +652,8 @@ parser = yacc.yacc()
 result = parser.parse(cache)
 
 
-#print("Variables lugstat MAIN \n")
-#DirectorioFunciones.getallv("lugstattest")
-#print("\n")
-#print("Variables de Modulo Prueba \n")
-#DirectorioFunciones.getallv("prueba")
+print("Variables lugstat MAIN \n")
+DirectorioFunciones.getallv("lugstattest")
+print("\n")
+print("Variables de Modulo Prueba \n")
+DirectorioFunciones.getallv("prueba")
