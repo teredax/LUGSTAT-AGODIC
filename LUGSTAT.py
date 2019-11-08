@@ -6,6 +6,22 @@
 
 #Puntos Neurales marcados con #@1...#@2 etc
 
+#Todo
+#Nadamas deje que AVAIL generara el nombre de tx (t1..t2..t3 etc)
+#No se si se supone que AVAIL tambien guarde el valor del resultado del quadruplo, o si se hace en memoria
+#En caso de que si, nadamas es de agregarlo a la clase y pegarle el eval del quadruplo
+#En casso de que no, pues asi dejalo lol
+#En el codigo de elda no se a que se refiere con If any operand were a temporal space, returnit to AVAIL
+#En si ya estan los puntos neurales hasta el 6 y 7 pero no los he podido probar porque no se como hacer jalar lo de los parentesis tipo 1+(1+1)
+#Faltan Puntos Neurales 8 y 9, la regla de relop no esta agarrando nada con p[1] ni p[-1], no se si estoy escribiendo mal el caso..
+
+#En resumen:
+#Aun falta conectar el punto neural #@1 con la tabla de variables para conseguir tipo y poder hacer int3 = int2+int1;
+#Ya estan los puntos neurales hasta el 6 y 7 pero no puedo probarlos porque no jala caso 1+(1+1)
+#Faltan puntos 8 y 9, la regla de relop no agarra nada por alguna razon, y creo que falta un reset para que no agarre lo que va antes de || de 1||11+
+
+
+
 import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
@@ -45,7 +61,7 @@ class AVAIL(object):
 POper = []
 PilaO = []
 Ptype = []
-q = Queue.Queue()
+Quad = Queue.Queue()
 AVAIL = AVAIL()
 #--------------------
 
@@ -392,6 +408,7 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
+	#print ("relop", p[0],p[0],p[1],p[-1]	)
 
 def p_exp(p):
     '''
@@ -422,7 +439,13 @@ def p_exp(p):
 
     		if fTY != 'error':
     			print("pass")
-    		#Next....
+    			RFI = AVAIL.next()
+    			quad = (oOP, lOP, rOP, RFI)
+    			Quad.put(quad)
+    			PilaO.append(RFI)
+    			Ptype.append(fTY)
+    			# if any operand were a temporal space return it to AVAIL??
+    			#Next....
     		else:
     			print("Type mismatch")
 
@@ -458,7 +481,13 @@ def p_termino(p):
 
     		if fTY != 'error':
     			print("pass")
-    		#Next....
+    			RFI = AVAIL.next()
+    			quad = (oOP, lOP, rOP, RFI)
+    			Quad.put(quad)
+    			PilaO.append(RFI)
+    			Ptype.append(fTY)
+    			# if any operand were a temporal space return it to AVAIL??
+    			#Next....
     		else:
     			print("Type mismatch")
 
@@ -468,7 +497,16 @@ def p_factor(p):
     factor : OPAREN expresion CPAREN 
     | varcte
     '''
-    #print("factor", p[1])
+    #print("factor", p[1], p[-1])
+
+    #@6
+    if (p[-1] == '('):
+    	POper.append("|")
+    	#pls help? no se si va a faltar un reset para que ignore lo que esta antes
+
+    #@7
+    if (p[-1] == ')'):
+    	POper.pop()
 
 def p_varcte(p):
     '''
