@@ -11,8 +11,10 @@ import ply.lex as lex
 import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
+from LUGSTAT_Memory import Memoria
 DirectorioFunciones = Directorio_de_Variables()
 ConsideracionesSemanticas = ConsideracionesSemanticas()
+memory = Memoria()
 
 
 FuncionActual = []

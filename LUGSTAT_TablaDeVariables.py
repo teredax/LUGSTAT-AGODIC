@@ -1,5 +1,5 @@
 #Gonzalo Garcia A01281414
-#Jesus Lugogo   A0
+#Jesus Lugogo   A01089769
 
 
 class Tabla_de_Variables(object):
