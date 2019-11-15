@@ -64,6 +64,8 @@ InputF= open("inputf.txt", "r")
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
+    'do' : 'DO',
+    'while' : 'WHILE',
     'else' : 'ELSE',
     'var' : 'VAR',
     'int' : 'INT',
@@ -228,6 +230,7 @@ def p_vars(p):
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             currentf.append(p[-5])
+            #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
             FuncionActual.clear()
@@ -339,6 +342,7 @@ def p_estatuto(p):
     | count
     | countif
     | metodos
+    | dwhile
     '''
 
 def p_asign(p):
@@ -351,6 +355,54 @@ def p_asign(p):
     | ID asign2 EQUALS ID asign2 SCOLON
     '''
     #print("!@#",p[1], p[2])
+
+    if p[2] is '=':
+        POper.append(p[2])
+        #print("equals",p[-1])
+
+    PilaO.append(p[1])
+    if type(p[1]) is int or type(p[1]) is float:
+        Ptype.append(type(p[1]))
+    else:
+        print("Looking in var table for type")
+        #print(currentf, "#$#@$")
+        index=DirectorioFunciones.getdir(currentf[-1])
+        tar=index['fvars'].get(p[1])
+        if tar == None:
+            print("Variable doesn't exist!")
+        else:
+            tarfilter = tar['type']
+            #print("tarfilter",tarfilter)
+            Ptype.append(tarfilter)
+        #print(index)
+
+
+    if POper:
+        if POper[-1] == '=':
+            rOP = PilaO.pop()
+            rTY = Ptype.pop()
+            rTY = typetostr(rTY)
+            lOP = PilaO.pop()
+            lTY = Ptype.pop()
+            lTY = typetostr(lTY)
+            oOP = POper.pop()
+
+            fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+            print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
+
+            if fTY != 'error':
+                #print("pass")
+                RFI = AVAIL.next()
+                quad = (oOP, lOP, rOP, RFI)
+                Quad.put(quad)
+                PilaO.append(RFI)
+                Ptype.append(fTY)
+                # if any operand were a temporal space return it to AVAIL??
+                #Next....
+            else:
+                print("Type mismatch")    
+
+
 def p_asign2(p):
     '''
     asign2 : LCOR expresion RCOR asign3
@@ -582,7 +634,7 @@ def p_varcte(p):
     	Ptype.append(type(p[1]))
     else:
     	print("Looking in var table for type")
-    	index=DirectorioFunciones.getdir(currentf[0])
+    	index=DirectorioFunciones.getdir(currentf[-1])
     	tar=index['fvars'].get(p[1])
     	if tar == None:
     		print("Variable doesn't exist!")
@@ -591,6 +643,25 @@ def p_varcte(p):
     		#print("tarfilter",tarfilter)
     		Ptype.append(tarfilter)
     	#print(index)
+
+
+def p_dwhile(p):
+    '''
+    dwhile : DO wblock WHILE OPAREN dwhileconds CPAREN SCOLON
+    '''
+
+def p_wblock(p):
+    '''
+    wblock : OBRACKET block2 CBRACKET   
+    '''
+
+def p_dwhileconds(p):
+    '''
+    dwhileconds : expresion dwhileconds
+    | expresion AND dwhileconds
+    | expresion OR dwhileconds
+    | empty
+    '''
 
 
 def p_metodos(p):
