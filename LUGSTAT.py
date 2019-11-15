@@ -230,6 +230,7 @@ def p_vars(p):
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             currentf.append(p[-5])
+            #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
             FuncionActual.clear()
@@ -364,7 +365,8 @@ def p_asign(p):
         Ptype.append(type(p[1]))
     else:
         print("Looking in var table for type")
-        index=DirectorioFunciones.getdir(currentf[0])
+        #print(currentf, "#$#@$")
+        index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
         if tar == None:
             print("Variable doesn't exist!")
@@ -632,7 +634,7 @@ def p_varcte(p):
     	Ptype.append(type(p[1]))
     else:
     	print("Looking in var table for type")
-    	index=DirectorioFunciones.getdir(currentf[0])
+    	index=DirectorioFunciones.getdir(currentf[-1])
     	tar=index['fvars'].get(p[1])
     	if tar == None:
     		print("Variable doesn't exist!")
