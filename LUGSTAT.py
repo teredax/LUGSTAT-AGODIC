@@ -20,8 +20,6 @@ memory = Memoria()
 FuncionActual = []
 TipoActual = []
 TemporalCounter = 0
-IfCond = False
-
 
 
 def typetostr(element):
@@ -329,14 +327,10 @@ def p_block(p):
     '''
     global currentf
     global TemporalCounter
-    global IfCond
-    if IfCond:
-    	IfCond = False
-    else:
-    	#print("STATUS:", currentf)
-    	currentf.pop()
-    	TemporalCounter = 0
-    	#print("STATUS:", currentf)
+    #print("STATUS:", currentf)
+    currentf.pop()
+    TemporalCounter = 0
+    #print("STATUS:", currentf)
     
 def p_block2(p):
     '''
@@ -389,6 +383,12 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
+
+        if tar == None:
+            print("Variable not found locally. Checking global scope..")
+            index=DirectorioFunciones.getdir(currentf[0])
+            tar=index['fvars'].get(p[1])
+
         if tar == None:
             print("Variable doesn't exist!")
         else:
@@ -411,15 +411,11 @@ def p_asign(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
-
+            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
-                #print("pass")
-                RFI = AVAIL.next()
-                quad = (oOP, lOP, rOP, RFI)
+                quad = (oOP, lOP, rOP)
                 Quad.put(quad)
-                PilaO.append(RFI)
-                Ptype.append(fTY)
+
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
@@ -458,20 +454,22 @@ def p_escrt3(p):
     '''
 
 def p_cond(p):
-    '''cond : IF OPAREN expresion cn1 CPAREN block SCOLON cn2
-    | IF OPAREN expresion cn1 CPAREN block ELSE cn3 cn3 cn3 block SCOLON cn2
+    '''cond : IF OPAREN expresion cn1 CPAREN ifblock SCOLON cn2
+    | IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 ifblock SCOLON cn2
     '''
 
 def p_cn1(p):
     '''cn1 : empty'''
     exp_type = Ptype.pop()
     exp_type = typetostr(exp_type)
+    global LineC
+    LineC +=1
     if exp_type != 'bool':
         print("Type Mismatch!")
     else:
         res = PilaO.pop()
         PJumps.append(LineC)
-        print("Your Quad is: ", LineC, "GOTOF", res, 0)
+        print("Your Quad is: [[", LineC, "]]", "GOTOF", res, 0)
         quad = (LineC, "GOTOF", res, 0)
         Quad.put(quad)
 
@@ -479,13 +477,31 @@ def p_cn1(p):
 def p_cn2(p):
     '''cn2 : empty'''
     cend = PJumps.pop()
-    print(LineC+1, "----------")
+    print(LineC+1, "----Im exiting the if into this line----")
     FILL(cend, LineC+1)
     #print(Quad.queue)
 
 def p_cn3(p):
     '''cn3 : empty'''
-
+    global LineC
+    LineC +=1
+    quad = (LineC, "GOTO", 0, 0)
+    Quad.put(quad)
+    print("Your Quad is: [[", LineC, "]]", "GOTO", 0, 0)
+    false = PJumps.pop()
+    PJumps.append(LineC)
+    FILL(false, LineC+1)
+    #print(LineC+1, "----Im exiting the else into this line----")
+    #print(Quad.queue)
+def p_ifblock(p):
+    '''
+    ifblock : OBRACKET ifblock2 CBRACKET
+    '''    
+def p_ifblock2(p):
+    '''
+    ifblock2 : estatuto
+    | estatuto ifblock2
+    | empty'''
 
 def p_count(p):
     'count : COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON'
@@ -515,10 +531,6 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
-    global IfCond
-    if p[-2] == 'if':
-    	#print(p[-2])
-    	IfCond = True
     #@9
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
     if POper:
@@ -533,7 +545,7 @@ def p_expresion(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
                 quad = (oOP, lOP, rOP, RFI)
@@ -571,10 +583,10 @@ def p_exp(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
-                quad = (oOP, lOP, rOP, RFI)
+                quad = (oOP, rOP, lOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
                 Ptype.append(fTY)
@@ -616,7 +628,7 @@ def p_termino(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
                 quad = (oOP, lOP, rOP, RFI)
@@ -674,17 +686,23 @@ def p_varcte(p):
     if type(p[1]) is int or type(p[1]) is float:
     	Ptype.append(type(p[1]))
     else:
-    	print("Looking in var table for type")
-    	index=DirectorioFunciones.getdir(currentf[-1])
-    	tar=index['fvars'].get(p[1])
-    	if tar == None:
-    		print("Variable doesn't exist!")
-    	else:
-    		tarfilter = tar['type']
-    		#print("tarfilter",tarfilter)
-    		Ptype.append(tarfilter)
-    	#print(index)
+        print("Looking in var table for type")
+        #print(currentf, "#$#@$")
+        index=DirectorioFunciones.getdir(currentf[-1])
+        tar=index['fvars'].get(p[1])
 
+        if tar == None:
+            print("Variable not found locally. Checking global scope..")
+            index=DirectorioFunciones.getdir(currentf[0])
+            tar=index['fvars'].get(p[1])
+
+        if tar == None:
+            print("Variable doesn't exist!")
+        else:
+            tarfilter = tar['type']
+            #print("tarfilter",tarfilter)
+            Ptype.append(tarfilter)
+        #print(index)
 
 def p_dwhile(p):
     '''
@@ -780,7 +798,9 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-
+print("")
+print(Quad.queue)
+print("")
 print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
