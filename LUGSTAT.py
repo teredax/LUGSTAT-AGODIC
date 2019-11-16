@@ -22,6 +22,8 @@ TipoActual = []
 TemporalCounter = 0
 IfCond = False
 
+
+
 def typetostr(element):
 
 	#print(element)
@@ -57,7 +59,26 @@ PilaO = []
 Ptype = []
 Quad = Queue.Queue()
 AVAIL = AVAIL()
+LineC = 0;
+
 #--------------------
+#Setup of Non-Linear Statements
+PJumps = []
+exp_type = "";
+nresult = "";
+
+def FILL(elem1, elem2):
+
+    for i in range ( 0, Quad.qsize()):
+        if Quad.queue[i][0] == elem1:
+            #print("Found it!")
+            #print(Quad.queue[i][0], "#", Quad.queue[i][1])
+            a = Quad.queue[i][0]
+            b = Quad.queue[i][1]
+            c = Quad.queue[i][2]
+            d = Quad.queue[i][3]
+            Quad.queue[i] = (a, b, c, elem2)
+
 
 
 InputF= open("inputf.txt", "r") 
@@ -387,8 +408,10 @@ def p_asign(p):
             lTY = typetostr(lTY)
             oOP = POper.pop()
 
+            global LineC
+            LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
+            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
 
             if fTY != 'error':
                 #print("pass")
@@ -435,9 +458,34 @@ def p_escrt3(p):
     '''
 
 def p_cond(p):
-    '''cond : IF OPAREN expresion CPAREN block SCOLON
-    | IF OPAREN expresion CPAREN block ELSE block SCOLON
+    '''cond : IF OPAREN expresion cn1 CPAREN block SCOLON cn2
+    | IF OPAREN expresion cn1 CPAREN block ELSE cn3 cn3 cn3 block SCOLON cn2
     '''
+
+def p_cn1(p):
+    '''cn1 : empty'''
+    exp_type = Ptype.pop()
+    exp_type = typetostr(exp_type)
+    if exp_type != 'bool':
+        print("Type Mismatch!")
+    else:
+        res = PilaO.pop()
+        PJumps.append(LineC)
+        print("Your Quad is: ", LineC, "GOTOF", res, 0)
+        quad = (LineC, "GOTOF", res, 0)
+        Quad.put(quad)
+
+
+def p_cn2(p):
+    '''cn2 : empty'''
+    cend = PJumps.pop()
+    print(LineC+1, "----------")
+    FILL(cend, LineC+1)
+    #print(Quad.queue)
+
+def p_cn3(p):
+    '''cn3 : empty'''
+
 
 def p_count(p):
     'count : COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON'
@@ -475,30 +523,27 @@ def p_expresion(p):
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
     if POper:
     	if POper[-1] in relopindex:
-    		rOP = PilaO.pop()
-    		rTY = Ptype.pop()
-    		#print("typetostr", rTY)
-    		rTY = typetostr(rTY)
-    		#print("typetostr", rTY)
-    		lOP = PilaO.pop()
-    		lTY = Ptype.pop()
-    		lTY = typetostr(lTY)
-    		oOP = POper.pop()
-    		#print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP)
-    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
-
-    		if fTY != 'error':
-    			#print("pass")
-    			RFI = AVAIL.next()
-    			quad = (oOP, lOP, rOP, RFI)
-    			Quad.put(quad)
-    			PilaO.append(RFI)
-    			Ptype.append(fTY)
+            rOP = PilaO.pop()
+            rTY = Ptype.pop()
+            rTY = typetostr(rTY)
+            lOP = PilaO.pop()
+            lTY = Ptype.pop()
+            lTY = typetostr(lTY)
+            oOP = POper.pop()
+            global LineC
+            LineC +=1
+            fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            if fTY != 'error':
+                RFI = AVAIL.next()
+                quad = (oOP, lOP, rOP, RFI)
+                Quad.put(quad)
+                PilaO.append(RFI)
+                Ptype.append(fTY)
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
-    		else:
-    			print("Type mismatch")
+            else:
+                print("Type mismatch")
 
 def p_exp(p):
     '''
@@ -516,30 +561,27 @@ def p_exp(p):
     #@4
     if POper:
     	if POper[-1] == '+' or POper[-1] == '-':
-    		rOP = PilaO.pop()
-    		rTY = Ptype.pop()
-    		#print("typetostr", rTY)
-    		rTY = typetostr(rTY)
-    		#print("typetostr", rTY)
-    		lOP = PilaO.pop()
-    		lTY = Ptype.pop()
-    		lTY = typetostr(lTY)
-    		oOP = POper.pop()
-    		#print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP)
-    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
-
-    		if fTY != 'error':
-    			#print("pass")
-    			RFI = AVAIL.next()
-    			quad = (oOP, lOP, rOP, RFI)
-    			Quad.put(quad)
-    			PilaO.append(RFI)
-    			Ptype.append(fTY)
-    			# if any operand were a temporal space return it to AVAIL??
-    			#Next....
-    		else:
-    			print("Type mismatch")
+            rOP = PilaO.pop()
+            rTY = Ptype.pop()
+            rTY = typetostr(rTY)
+            lOP = PilaO.pop()
+            lTY = Ptype.pop()
+            lTY = typetostr(lTY)
+            oOP = POper.pop()
+            global LineC
+            LineC +=1
+            fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            if fTY != 'error':
+                RFI = AVAIL.next()
+                quad = (oOP, lOP, rOP, RFI)
+                Quad.put(quad)
+                PilaO.append(RFI)
+                Ptype.append(fTY)
+                # if any operand were a temporal space return it to AVAIL??
+                #Next....
+            else:
+                print("Type mismatch")
 
     #@8
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
@@ -564,28 +606,27 @@ def p_termino(p):
     #@5
     if POper:
     	if POper[-1] == '*' or POper[-1] == '/':
-    		rOP = PilaO.pop()
-    		rTY = Ptype.pop()
-    		rTY = typetostr(rTY)
-    		lOP = PilaO.pop()
-    		lTY = Ptype.pop()
-    		lTY = typetostr(lTY)
-    		oOP = POper.pop()
-
-    		fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-    		print("Your Quad is: ",rOP, rTY, lOP, lTY, oOP, fTY)
-
-    		if fTY != 'error':
-    			#print("pass")
-    			RFI = AVAIL.next()
-    			quad = (oOP, lOP, rOP, RFI)
-    			Quad.put(quad)
-    			PilaO.append(RFI)
-    			Ptype.append(fTY)
-    			# if any operand were a temporal space return it to AVAIL??
-    			#Next....
-    		else:
-    			print("Type mismatch")
+            rOP = PilaO.pop()
+            rTY = Ptype.pop()
+            rTY = typetostr(rTY)
+            lOP = PilaO.pop()
+            lTY = Ptype.pop()
+            lTY = typetostr(lTY)
+            oOP = POper.pop()
+            global LineC
+            LineC +=1
+            fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+            print("Your Quad is: ", "Line :", LineC , rOP, rTY, lOP, lTY, oOP, fTY)
+            if fTY != 'error':
+                RFI = AVAIL.next()
+                quad = (oOP, lOP, rOP, RFI)
+                Quad.put(quad)
+                PilaO.append(RFI)
+                Ptype.append(fTY)
+                # if any operand were a temporal space return it to AVAIL??
+                #Next....
+            else:
+                print("Type mismatch")
 
 
 def p_factor(p):
@@ -626,7 +667,7 @@ def p_varcte(p):
         	TemporalCounter = TemporalCounter + 1
 
 
-    print("vcte",p[1], type(p[1]))
+    #print("vcte",p[1], type(p[1]))
     
     #@1
     PilaO.append(p[1])
@@ -647,8 +688,23 @@ def p_varcte(p):
 
 def p_dwhile(p):
     '''
-    dwhile : DO wblock WHILE OPAREN dwhileconds CPAREN SCOLON
+    dwhile : DO wn1 wblock WHILE OPAREN dwhileconds CPAREN wn2 SCOLON 
     '''
+def p_wn1(p):
+    '''wn1 : empty'''
+    PJumps.append(LineC+1)
+def p_wn2(p):
+    '''wn2 : empty'''
+    exp_type = Ptype.pop()
+    exp_type = typetostr(exp_type)
+    if exp_type != 'bool':
+        print("Type Mismatch!")
+    else:
+        res = PilaO.pop()
+        doloopstart = PJumps.pop()
+        print("Your Quad is: ", LineC+1, "GotoV", doloopstart)
+        quad = (LineC+1, "GotoV", doloopstart)
+        Quad.put(quad)
 
 def p_wblock(p):
     '''

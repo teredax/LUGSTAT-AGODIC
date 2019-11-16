@@ -1,12 +1,25 @@
 lugstat lugstattest;
 var int1, int2, int3 : int;
+var bool1 , bool2, bool3, bool4: bool;
 
 func prueba : int ( var param1, param2: int; )  
 var var1,var2,var3 : int;
 {
 var1= 3+3;
+if (3>2){
+print("thank you!");
+};
+
+
 }
 
 {
 int1 = 1*(1+2);
+
+do {
+int1 = 1+(1*1);
+}
+while (3>9);
+
+
 }
