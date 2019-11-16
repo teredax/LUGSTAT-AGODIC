@@ -10,12 +10,15 @@ class Directorio_de_Variables(object):
         self.listaf = {}
 
 
-    def addf(self, fname, ftype):
+    def addf(self, fname, ftype, procstart, nparams, nvars):
     	self.listaf[fname] = {
 
     	'name' : fname,
     	'ftype': ftype,
-    	'fvars': Tabla_de_Variables()
+    	'fvars': Tabla_de_Variables(),
+        'ProcS': procstart,
+        'Nparams': nparams,
+        'Nvars' : nvars 
     	}
 
 
@@ -49,19 +52,42 @@ class Directorio_de_Variables(object):
             access = self.listaf[fname]
             return access['fvars'].printTable()
 
+    def releaseloc(self, fname):
+        if fname in self.listaf:
+            access=self.listaf[fname]
+            print(access['fvars'].printTable())
+
+
+    def getstartln(self, fname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return access['ProcS']
+
+    def addparams(self, fname, nparams):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            access['Nparams'] = nparams
+            #print(access['Nparams'])
+
+
+
+    def addvarnum(self, fname, nvars):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            access['Nvars'] = nvars
+            #print(access['Nvars'])
+
+
 
 def main():
     print("reee")
     test = Directorio_de_Variables()
-    test.addf("func1", bool)
-    test.listf()
-    print("-------------")
-    result=test.search("func1")
-    print(result)
+    test.addf("func1", bool, 999)
     test.addv("func1", "var1" , bool)
     test.addv("func1", "var2" , bool)
-    mytest=test.getdir("func1")
-    mytest['fvars'].printTable()
+    test.getallv("func1")
+    test.releaseloc("func1")
+
 if __name__== "__main__":
   main()
 

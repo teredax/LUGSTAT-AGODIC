@@ -1,21 +1,12 @@
 lugstat lugstattest;
-var A, B, C, D : int;
-{
+var int1, int2, int3, int4 : int;
 
-if (A+B >D)
+func prueba : int ( var param1, param2, param3: int; )
+var meme, meme2 : int;
+var why, this : bool;
 {
-	if (A<B)
-	{
-	A = 0;
-	B = B+D;
-	}
-	else{
-	C = A + B;
-	};
 }
-else{
-	A = B + C;
-};
 
-D = B + A * C;
+{
+prueba(1,2,3)
 }

@@ -39,14 +39,20 @@ def typetostr(element):
 		if element is bool:
 			return 'bool'
 
-class AVAIL(object):
-	def __init__(self):
-		self.AvailC = 0
-		self.Temp = "t"
 
-	def next(self):
-		self.AvailC+=1
-		return self.Temp + str(self.AvailC)
+class AVAIL(object):
+    def __init__(self):
+        self.AvailC = 0
+        self.Temp = "t"
+
+    def next(self):
+        self.AvailC+=1
+        return self.Temp + str(self.AvailC)
+
+    def reset(self):
+        self.AvailC = 0
+
+
 
 
 #--------------------
@@ -57,13 +63,17 @@ PilaO = []
 Ptype = []
 Quad = Queue.Queue()
 AVAIL = AVAIL()
-LineC = 0;
+LineC = 0
+vmcounter =0
+vfcounter=0
+pfcounter=0
+paramk =0
 
 #--------------------
 #Setup of Non-Linear Statements
 PJumps = []
-exp_type = "";
-nresult = "";
+exp_type = ""
+nresult = ""
 
 def FILL(elem1, elem2):
 
@@ -209,18 +219,21 @@ while True:
 
 def p_lugstat(p):
     '''
-    lugstat : LUGSTAT ID SCOLON addmain lugstat2 lugstat3 block
+    lugstat : LUGSTAT ID SCOLON addmain lugstat2 lugstat3 mnv block
     '''
 
 def p_addmain(p):
     '''addmain : empty'''
-    DirectorioFunciones.addf(p[-2],None)
+    DirectorioFunciones.addf(p[-2],None, 0, 0, 0)
     global currentf
     global TemporalCounter
     TemporalCounter = 0
     currentf = []
     currentf.append(p[-2])
 
+def p_mnv(p):
+    ''' mnv : empty '''
+    DirectorioFunciones.addvarnum(currentf[0], vmcounter)
 
 def p_lugstat2(p):
         '''
@@ -239,12 +252,15 @@ def p_vars(p):
     vars : VAR vars1 
     '''
     #print("C", FuncionActual)
-
+    global vmcounter
+    global vfcounter
+    global pfcounter
     #print("currentf: ", p[-1])
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0])
+                vmcounter+=1
         FuncionActual.clear()
         TipoActual.clear()
     else:
@@ -253,12 +269,19 @@ def p_vars(p):
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
                 DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
+                pfcounter+=1
+                #print(pfcounter, "params!")
             FuncionActual.clear()
             TipoActual.clear()
     
     if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
+            vmcounter+=1
+            if currentf[-1] != currentf[0]:
+                #print(currentf, "f", currentf[0])
+                vfcounter+=1
+                #print(vfcounter, "vars of f!")  
         FuncionActual.clear()
         TipoActual.clear() 
 
@@ -266,6 +289,8 @@ def p_vars(p):
         #print("12321",FuncionActual)
         for i in range(len(FuncionActual)):
             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
+            vfcounter+=1
+            #print(vfcounter, "vars of f!")
         FuncionActual.clear()
         TipoActual.clear() 
            
@@ -305,15 +330,61 @@ def p_savename(p):
 
 def p_modules(p):
     '''
-    modules : FUNC ID COLON tipo addfunction OPAREN modules2 CPAREN modules2 block'''
-    
+    modules : FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock mn7'''
 
-def p_addfunction(p):
-    '''addfunction : empty'''
+
+#@mn1
+def p_mn1(p):
+    '''mn1 : empty'''
     p[0] = p[-3]
-    DirectorioFunciones.addf(p[-3],p[-1])
+    DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0)
     #Agregamos la funcion al tener los datos de tipo y datos 
 
+
+def p_mn7(p):
+    '''mn7 : empty'''
+
+    global currentf
+    global TemporalCounter
+    quad = ("END", currentf[-1])
+    Quad.put(quad)
+
+    #print("STATUS:", currentf)
+    currentf.pop()
+    TemporalCounter = 0
+
+    #DirectorioFuncionedef p_savename(p):
+    '''savename : empty'''
+
+def p_mn2(p):
+    '''mn2 : empty'''
+    global pfcounter
+    DirectorioFunciones.addparams(currentf[-1], pfcounter)
+
+    pfcounter =0
+
+def p_mn3(p):
+    '''mn3 : empty'''
+    global vfcounter
+    DirectorioFunciones.addvarnum(currentf[-1], vfcounter)
+
+    vfcounter=0
+
+def p_funccall(p):
+    ''' funccall : ID fcn1 OPAREN expresion funccall2 CPAREN '''
+
+
+def p_fcn1(p):
+    ''' fcn1 : empty'''
+    #print("ID!" , p[-1])
+    print(DirectorioFunciones.search(p[-1]))
+
+
+
+def p_funccall2(p):
+    ''' funccall2 : COMMA expresion funccall2
+    | empty '''
+    
 
 def p_modules2(p):
     '''
@@ -322,6 +393,10 @@ def p_modules2(p):
     p[0] = p[1]
     
 
+def p_funblock(p):
+    '''
+    funblock : OBRACKET block2 CBRACKET
+    '''   
 def p_block(p):
     '''
     block : OBRACKET block2 CBRACKET
@@ -360,6 +435,7 @@ def p_estatuto(p):
     | metodos
     | dwhile
     | readln
+    | funccall
     '''
 
 def p_asign(p):
@@ -593,6 +669,7 @@ def p_expresion(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
+                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
                 Ptype.append(fTY)
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
@@ -631,6 +708,7 @@ def p_exp(p):
                 quad = (oOP, rOP, lOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
+                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -676,6 +754,7 @@ def p_termino(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
+                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
