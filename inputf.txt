@@ -1,15 +1,21 @@
 lugstat lugstattest;
-var A, B, C, D, int2: int;
+var A, B, C, D : int;
 {
 
-do {
-int2 = 1+(1*1);
+if (A+B >D)
+{
+	if (A<B)
+	{
+	A = 0;
+	B = B+D;
+	}
+	else{
+	C = A + B;
+	};
 }
-while (3>9);
+else{
+	A = B + C;
+};
 
-
-
-
-
-
+D = B + A * C;
 }

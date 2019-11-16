@@ -86,6 +86,7 @@ reserved = {
     'do' : 'DO',
     'while' : 'WHILE',
     'else' : 'ELSE',
+    'read' : 'READ',
     'var' : 'VAR',
     'int' : 'INT',
     'bool': 'BOOL',
@@ -358,6 +359,7 @@ def p_estatuto(p):
     | countif
     | metodos
     | dwhile
+    | readln
     '''
 
 def p_asign(p):
@@ -436,10 +438,9 @@ def p_asign3(p):
 
 
 def p_escrt(p):
-    '''escrt : PRINT OPAREN expresion CPAREN SCOLON
-	| PRINT OPAREN CPAREN SCOLON
-    | PRINT OPAREN ID escrt2 CPAREN SCOLON
-    | PRINT OPAREN STRING CPAREN SCOLON
+    '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
+    | PRINT OPAREN expresion en1 CPAREN SCOLON
+    | PRINT OPAREN STRING CPAREN en2 SCOLON
     '''
 
 def p_escrt2(p):
@@ -452,6 +453,47 @@ def p_escrt3(p):
     | ID
     | STRING escrt2 escrt2
     '''
+
+def p_en1(p):
+    '''en1 : empty'''
+    output = PilaO.pop()
+    #print("PrintOut", output)
+    global LineC
+    LineC+=1
+    quad = ("PRINT", output)
+    Quad.put(quad)
+
+def p_en2(p):
+    '''en2 : empty'''
+    outputstr = p[-2]
+    quad  = ("PRINT", outputstr)
+    global LineC
+    LineC+=1
+    Quad.put(quad)
+
+def p_en3(p):
+    '''en3 : empty'''
+    print("Checking if variable to print exists", p[-1])
+    index=DirectorioFunciones.getdir(currentf[-1])
+    tar=index['fvars'].get(p[-1])
+
+    if tar == None:
+        print("Variable not found locally. Checking global scope..")
+        index=DirectorioFunciones.getdir(currentf[0])
+        tar=index['fvars'].get(p[-1])
+
+    if tar == None:
+        print("Variable doesn't exist!")
+    else:
+        output = p[-1]
+        global LineC
+        LineC+=1
+        quad = ("READ", output)
+        Quad.put(quad)
+
+
+
+
 
 def p_cond(p):
     '''cond : IF OPAREN expresion cn1 CPAREN ifblock SCOLON cn2
@@ -682,9 +724,9 @@ def p_varcte(p):
     #print("vcte",p[1], type(p[1]))
     
     #@1
-    PilaO.append(p[1])
     if type(p[1]) is int or type(p[1]) is float:
-    	Ptype.append(type(p[1]))
+        Ptype.append(type(p[1]))
+        PilaO.append(p[1])
     else:
         print("Looking in var table for type")
         #print(currentf, "#$#@$")
@@ -702,6 +744,7 @@ def p_varcte(p):
             tarfilter = tar['type']
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
+            PilaO.append(p[1])
         #print(index)
 
 def p_dwhile(p):
@@ -736,6 +779,29 @@ def p_dwhileconds(p):
     | expresion OR dwhileconds
     | empty
     '''
+
+def p_readln(p):
+    ''' readln : READ OPAREN ID rn1 CPAREN SCOLON '''
+
+def p_rn1(p):
+    '''rn1 : empty '''
+    print("Checking if variable to read and write onto exists")
+    index=DirectorioFunciones.getdir(currentf[-1])
+    tar=index['fvars'].get(p[-1])
+
+    if tar == None:
+        print("Variable not found locally. Checking global scope..")
+        index=DirectorioFunciones.getdir(currentf[0])
+        tar=index['fvars'].get(p[-1])
+
+    if tar == None:
+        print("Variable doesn't exist!")
+    else:
+        output = p[-1]
+        global LineC
+        LineC+=1
+        quad = ("READ", output)
+        Quad.put(quad)
 
 
 def p_metodos(p):
@@ -793,7 +859,7 @@ def p_error(p):
      print("Syntax error in input!")
  
 
- # Build the parser
+ # Build the parseroh 
 print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
