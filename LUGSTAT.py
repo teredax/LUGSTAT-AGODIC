@@ -472,7 +472,6 @@ def p_fcn2(p):
     ''' fcn2 : empty'''
     global paramk
     global LineC
-    #print(PilaO[-1])
     argT = Ptype.pop()
     argT = typetostr(argT)
     argF = PilaO.pop()
