@@ -457,8 +457,10 @@ def p_funccall(p):
 
 def p_fcn1(p):
     ''' fcn1 : empty'''
+    global LineC
     #print(p[-2])
     if DirectorioFunciones.search(p[-2]):
+        LineC+=1
         quad = (LineC+1, "ERA", p[-2])
         Quad.put(quad)
 
@@ -469,6 +471,7 @@ def p_fcn1(p):
 def p_fcn2(p):
     ''' fcn2 : empty'''
     global paramk
+    global LineC
     #print(PilaO[-1])
     argT = Ptype.pop()
     argT = typetostr(argT)
@@ -478,6 +481,7 @@ def p_fcn2(p):
     print(argT, argP, argF)
     if argT == argP:
         paramk+=1
+        LineC+=1
         quad = (LineC+1, "PARAM", argF, "param"+str(paramk))
         Quad.put(quad)
     else:
@@ -488,10 +492,12 @@ def p_fcn3(p):
     '''fcn3 : empty '''
     #print(DirectorioFunciones.getnparams(p[-7]), "$#@")
     #print(paramk)
+    global LineC
     if DirectorioFunciones.getnparams(p[-7]) != paramk:
         print("Inconsistent number of arguements:parameters for function ", p[-7])
         sys.exit()
     else:
+        LineC+=1
         quad = (LineC+1, "GOSUB", p[-7])
         Quad.put(quad)
 
