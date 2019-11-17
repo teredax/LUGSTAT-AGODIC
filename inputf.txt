@@ -1,12 +1,14 @@
 lugstat lugstattest;
-var int1, int2, int3, int4 : int;
-var this, is, a, test : bool;
-func prueba : int ( var param1, param2, param3: int; )
+var int1 : int;
+var db1: double;
+
+func prueba : int (var param5: double;
+var param6, param7: int;)
 var meme, meme2 : int;
-var why, this : bool;
-var xd : string;
+var meme3, meme4 : int;
 {
 }
-
 {
+prueba(2.3, 1+1, int1)
+int1 = 1+(10*10);
 }

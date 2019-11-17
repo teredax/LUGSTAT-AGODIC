@@ -65,6 +65,7 @@ class Directorio_de_Variables(object):
     def getnparams(self, fname):
         if fname in self.listaf:
             access = self.listaf[fname]
+            #print (access['Nparams'])
             return access['Nparams']
 
     def addparams(self, fname, nparams):
