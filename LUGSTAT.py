@@ -13,6 +13,7 @@ from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
+import sys
 
 DirectorioFunciones = Directorio_de_Variables()
 ConsideracionesSemanticas = ConsideracionesSemanticas()
@@ -69,6 +70,8 @@ LineC = 0
 vmcounter =0
 vfcounter=0
 pfcounter=0
+pftypestack = []
+pfboolstackcond= False
 paramk =0
 
 #--------------------
@@ -258,6 +261,8 @@ def p_vars(p):
     global vmcounter
     global vfcounter
     global pfcounter
+    global pftypestack
+    global pfboolstackcond
     global Li
     global Ld
     global Lb
@@ -279,6 +284,7 @@ def p_vars(p):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
                     Ls = Ls + 1
                 vmcounter+=1
+                #print(FuncionActual[i], "@#!#!@")
         Li = 10000
         Ld = 12500
         Lb = 15000
@@ -287,7 +293,6 @@ def p_vars(p):
         TipoActual.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
-            currentf.append(p[-5])
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
@@ -303,12 +308,17 @@ def p_vars(p):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
                     Ls = Ls + 1
                 pfcounter+=1
+                #print(TipoActual[0], " of type")
+                #print(p[-1], "fds")
+                pftypestack.append(TipoActual[0])
+                pfboolstackcond = True
                 #print(pfcounter, "params!")
 
             FuncionActual.clear()
             TipoActual.clear()
     
-    if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
+    if p[-1] == ";":
+     #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
@@ -322,8 +332,16 @@ def p_vars(p):
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
                     Ls = Ls + 1            
-                vfcounter+=1
+                if currentf[-1] != currentf[0] and pfboolstackcond == True:
+                    vfcounter+=1
+                    #print("regular function var, not a param", FuncionActual[i])
+                if currentf[-1] != currentf[0] and pfboolstackcond == False:
+                    pftypestack.append(TipoActual[0])
+                    #print("FSD", TipoActual[0], FuncionActual[i])
+                    pfcounter+=1
+                    #print(vfcounter, "vars of f!")  
                 #print(vfcounter, "im going in! first line", FuncionActual[i])
+                #print("STATUS:", currentf)
         FuncionActual.clear()
         TipoActual.clear() 
 
@@ -344,6 +362,7 @@ def p_vars(p):
                     Ls = Ls + 1            
                 vfcounter+=1
                 #print(vfcounter, "im going in! first line", FuncionActual[i])
+                #print("regular function var, not a param", FuncionActual[i])
         Li = 10000
         Ld = 12500
         Lb = 15000
@@ -395,6 +414,7 @@ def p_mn1(p):
     '''mn1 : empty'''
     p[0] = p[-3]
     DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0)
+    currentf.append(p[-3])
     #Agregamos la funcion al tener los datos de tipo y datos 
 
 
@@ -416,9 +436,13 @@ def p_mn7(p):
 def p_mn2(p):
     '''mn2 : empty'''
     global pfcounter
+    global pftypestack
+    #print(pfcounter, "fff")
     DirectorioFunciones.addparams(currentf[-1], pfcounter)
-
     pfcounter =0
+    #print(pftypestack)
+    pfboolstackcond = False
+    #pftypestack = []
 
 def p_mn3(p):
     '''mn3 : empty'''
@@ -428,18 +452,52 @@ def p_mn3(p):
     vfcounter=0
 
 def p_funccall(p):
-    ''' funccall : ID fcn1 OPAREN  expresion funccall2 CPAREN '''
+    ''' funccall : ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3 '''
 
 
 def p_fcn1(p):
     ''' fcn1 : empty'''
-    #print("ID!" , p[-1])
-    print(DirectorioFunciones.search(p[-1]))
+    #print(p[-2])
+    if DirectorioFunciones.search(p[-2]):
+        quad = (LineC+1, "ERA", p[-2])
+        Quad.put(quad)
 
+    else:
+        print("Function being summoned does not exist!")
+        sys.exit()
+
+def p_fcn2(p):
+    ''' fcn2 : empty'''
+    global paramk
+    #print(PilaO[-1])
+    argT = Ptype.pop()
+    argT = typetostr(argT)
+    argF = PilaO.pop()
+    #print(pftypestack, '#@$')
+    argP = pftypestack.pop()
+    print(argT, argP, argF)
+    if argT == argP:
+        paramk+=1
+        quad = (LineC+1, "PARAM", argF, "param"+str(paramk))
+        Quad.put(quad)
+    else:
+        print("Arguement and Function Parameter type Mismatch!")
+        sys.exit()
+
+def p_fcn3(p):
+    '''fcn3 : empty '''
+    #print(DirectorioFunciones.getnparams(p[-7]), "$#@")
+    #print(paramk)
+    if DirectorioFunciones.getnparams(p[-7]) != paramk:
+        print("Inconsistent number of arguements:parameters for function ", p[-7])
+        sys.exit()
+    else:
+        quad = (LineC+1, "GOSUB", p[-7])
+        Quad.put(quad)
 
 
 def p_funccall2(p):
-    ''' funccall2 : COMMA expresion funccall2
+    ''' funccall2 : COMMA expresion fcn2 funccall2
     | empty '''
     
 
@@ -770,6 +828,7 @@ def p_exp(p):
             oOP = POper.pop()
             global LineC
             LineC +=1
+            Ti =0
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
