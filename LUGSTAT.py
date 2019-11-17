@@ -310,18 +310,20 @@ def p_vars(p):
     
     if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'int'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                    Li = Li + 1
+                if(TipoActual[0] == 'double'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                    Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
-                    Ls = Ls + 1                 
-                DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],0)
-                vmcounter+=1
-                if currentf[-1] != currentf[0]:
-                    #print(currentf, "f", currentf[0])
-                    vfcounter+=1
-                    #print(vfcounter, "vars of f!")  
+                    Ls = Ls + 1            
+                vfcounter+=1
+                #print(vfcounter, "im going in! first line", FuncionActual[i])
         FuncionActual.clear()
         TipoActual.clear() 
 
@@ -341,7 +343,7 @@ def p_vars(p):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
                     Ls = Ls + 1            
                 vfcounter+=1
-            #print(vfcounter, "vars of f!")
+                #print(vfcounter, "im going in! first line", FuncionActual[i])
         Li = 10000
         Ld = 12500
         Lb = 15000
@@ -426,7 +428,7 @@ def p_mn3(p):
     vfcounter=0
 
 def p_funccall(p):
-    ''' funccall : ID fcn1 OPAREN expresion funccall2 CPAREN '''
+    ''' funccall : ID fcn1 OPAREN  expresion funccall2 CPAREN '''
 
 
 def p_fcn1(p):

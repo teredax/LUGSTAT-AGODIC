@@ -1,6 +1,6 @@
 lugstat lugstattest;
 var int1, int2, int3, int4 : int;
-
+var this, is, a, test : bool;
 func prueba : int ( var param1, param2, param3: int; )
 var meme, meme2 : int;
 var why, this : bool;
@@ -9,5 +9,4 @@ var xd : string;
 }
 
 {
-prueba(1,2,3)
 }
