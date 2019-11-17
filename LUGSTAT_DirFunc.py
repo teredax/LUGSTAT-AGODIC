@@ -12,7 +12,6 @@ class Directorio_de_Variables(object):
 
     def addf(self, fname, ftype, procstart, nparams, nvars):
     	self.listaf[fname] = {
-
     	'name' : fname,
     	'ftype': ftype,
     	'fvars': Tabla_de_Variables(),
@@ -35,14 +34,14 @@ class Directorio_de_Variables(object):
             print("E404")
             return None
 
-    def addv(self, fname, vname, vtype):
+    def addv(self, fname, vname, vtype,loc):
         if fname in self.listaf:
             #print ("Function exists")
             access = self.listaf[fname]
             if access['fvars'].search(vname) == True:
                 print("Variable already exists")
             else:
-                access['fvars'].add(vname, vtype)
+                access['fvars'].add(vname, vtype,loc)
         else:
             print("Function does not exist")
 
@@ -82,7 +81,7 @@ class Directorio_de_Variables(object):
 def main():
     print("reee")
     test = Directorio_de_Variables()
-    test.addf("func1", bool, 999)
+    test.addf("func1", bool, 999,0,0)
     test.addv("func1", "var1" , bool)
     test.addv("func1", "var2" , bool)
     test.getallv("func1")

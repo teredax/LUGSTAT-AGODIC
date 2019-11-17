@@ -12,6 +12,8 @@ import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
+from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
+
 DirectorioFunciones = Directorio_de_Variables()
 ConsideracionesSemanticas = ConsideracionesSemanticas()
 memory = Memoria()
@@ -121,6 +123,7 @@ reserved = {
     'rref' : 'RREF',
     'mont' : 'MONT',
     'char' : 'CHAR',
+    'string': 'STRING',
     'func' : 'FUNC',
     'fx' : 'FX',
     'fy' : 'FY',
@@ -255,12 +258,31 @@ def p_vars(p):
     global vmcounter
     global vfcounter
     global pfcounter
+    global Li
+    global Ld
+    global Lb
+    global Ls
     #print("currentf: ", p[-1])
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
-                DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0])
+                if(TipoActual[0] == 'int'):
+                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
+                    Li = Li + 1
+                if(TipoActual[0] == 'double'):
+                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
+                    Ld = Ld + 1
+                if(TipoActual[0] == 'bool'):
+                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
+                    Lb = Lb + 1
+                if(TipoActual[0] == 'string'):
+                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
+                    Ls = Ls + 1
                 vmcounter+=1
+        Li = 10000
+        Ld = 12500
+        Lb = 15000
+        Ls = 17500
         FuncionActual.clear()
         TipoActual.clear()
     else:
@@ -268,29 +290,62 @@ def p_vars(p):
             currentf.append(p[-5])
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
-                DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0])
+                if(TipoActual[0] == 'int'):
+                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
+                    Li = Li + 1
+                if(TipoActual[0] == 'double'):
+                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
+                    Ld = Ld + 1
+                if(TipoActual[0] == 'bool'):
+                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
+                    Lb = Lb + 1
+                if(TipoActual[0] == 'string'):
+                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
+                    Ls = Ls + 1
                 pfcounter+=1
                 #print(pfcounter, "params!")
+
             FuncionActual.clear()
             TipoActual.clear()
     
     if p[-1] == ";": #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
-            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
-            vmcounter+=1
-            if currentf[-1] != currentf[0]:
-                #print(currentf, "f", currentf[0])
-                vfcounter+=1
-                #print(vfcounter, "vars of f!")  
+                if(TipoActual[0] == 'bool'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                    Lb = Lb + 1
+                if(TipoActual[0] == 'string'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                    Ls = Ls + 1                 
+                DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],0)
+                vmcounter+=1
+                if currentf[-1] != currentf[0]:
+                    #print(currentf, "f", currentf[0])
+                    vfcounter+=1
+                    #print(vfcounter, "vars of f!")  
         FuncionActual.clear()
         TipoActual.clear() 
 
     if p[-1] == ')': # Variables locales de una FUNC
         #print("12321",FuncionActual)
         for i in range(len(FuncionActual)):
-            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0])
-            vfcounter+=1
+                if(TipoActual[0] == 'int'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                    Li = Li + 1
+                if(TipoActual[0] == 'double'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                    Ld = Ld + 1
+                if(TipoActual[0] == 'bool'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                    Lb = Lb + 1
+                if(TipoActual[0] == 'string'):
+                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                    Ls = Ls + 1            
+                vfcounter+=1
             #print(vfcounter, "vars of f!")
+        Li = 10000
+        Ld = 12500
+        Lb = 15000
+        Ls = 17500
         FuncionActual.clear()
         TipoActual.clear() 
            
@@ -669,8 +724,20 @@ def p_expresion(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
-                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
+                if fTY == 'int':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    Ti = Ti + 1
+                if fTY == 'double':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    Td = Td + 1
+                if fTY == 'bool':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    Tb = Tb + 1
+                if fTY == 'string':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    Ts = Ts + 1
                 Ptype.append(fTY)
+                #Ver en que momento borrar liberar temporales
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
             else:
@@ -708,7 +775,18 @@ def p_exp(p):
                 quad = (oOP, rOP, lOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
-                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
+                if fTY == 'int':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    Ti = Ti + 1
+                if fTY == 'double':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    Td = Td + 1
+                if fTY == 'bool':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    Tb = Tb + 1
+                if fTY == 'string':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    Ts = Ts + 1
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -754,7 +832,7 @@ def p_termino(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
-                DirectorioFunciones.addv(currentf[-1],RFI, fTY)
+                DirectorioFunciones.addv(currentf[-1],RFI, fTY,0) #Agregar identificacon de tipo 
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -787,17 +865,25 @@ def p_varcte(p):
     '''
     localvar = 'Const'
     global TemporalCounter
+    global Ti
+    global Td
+    global Tb
+    global Ts
+
     if type(p[1]) is int or type(p[1]) is float: # Verifica primero si es un id o constante
     	if float(p[1]).is_integer():
         	localvar += currentf[-1]
         	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf[-1],localvar,"int")
-        	TemporalCounter = TemporalCounter + 1 
+        	DirectorioFunciones.addv(currentf[-1],localvar,"int",Ti)
+        	TemporalCounter = TemporalCounter + 1
+        	Ti = Ti + 1
+            
     	else:
         	localvar += currentf[-1]
         	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf[-1],localvar,"double")
+        	DirectorioFunciones.addv(currentf[-1],localvar,"double",Td)
         	TemporalCounter = TemporalCounter + 1
+        	Td = Td + 1
 
 
     #print("vcte",p[1], type(p[1]))
