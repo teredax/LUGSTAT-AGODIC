@@ -62,6 +62,11 @@ class Directorio_de_Variables(object):
             access = self.listaf[fname]
             return access['ProcS']
 
+    def getnparams(self, fname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return access['Nparams']
+
     def addparams(self, fname, nparams):
         if fname in self.listaf:
             access = self.listaf[fname]
