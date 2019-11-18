@@ -781,6 +781,10 @@ def p_expresion(p):
             lTY = typetostr(lTY)
             oOP = POper.pop()
             global LineC
+            global Ti
+            global Td
+            global Tb
+            global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
@@ -832,8 +836,11 @@ def p_exp(p):
             lTY = typetostr(lTY)
             oOP = POper.pop()
             global LineC
+            global Ti
+            global Td
+            global Tb
+            global Ts
             LineC +=1
-            Ti =0
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
