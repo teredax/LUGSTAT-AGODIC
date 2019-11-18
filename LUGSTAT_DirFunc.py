@@ -1,7 +1,7 @@
 #Gonzalo Garcia A01281414
 #Jesus Lugo A01089769
 
-
+import copy
 from LUGSTAT_TablaDeVariables import Tabla_de_Variables
 
 class Directorio_de_Variables(object):
@@ -10,14 +10,15 @@ class Directorio_de_Variables(object):
         self.listaf = {}
 
 
-    def addf(self, fname, ftype, procstart, nparams, nvars):
+    def addf(self, fname, ftype, procstart, nparams, nvars, typeparams):
     	self.listaf[fname] = {
     	'name' : fname,
     	'ftype': ftype,
     	'fvars': Tabla_de_Variables(),
         'ProcS': procstart,
         'Nparams': nparams,
-        'Nvars' : nvars 
+        'Nvars' : nvars,
+        'TypeParams': typeparams
     	}
 
 
@@ -74,13 +75,28 @@ class Directorio_de_Variables(object):
             access['Nparams'] = nparams
             #print(access['Nparams'])
 
+    def getparamtypes(self, fname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            #print("tarf",access['TypeParams'])
+            access2 = copy.copy(access['TypeParams'])
+            return access2
+        else:
+            print("E404")
+
+    def addparamtypes(self, fname, paramstoadd):
+        if fname in self.listaf:
+            access  = self.listaf[fname]
+            access['TypeParams'] = paramstoadd
+            #print("targ",access['TypeParams'], access)
+
 
 
     def addvarnum(self, fname, nvars):
         if fname in self.listaf:
             access = self.listaf[fname]
             access['Nvars'] = nvars
-            #print(access['Nvars'])
+            #print(access['Nvars'], access)
 
 
 
