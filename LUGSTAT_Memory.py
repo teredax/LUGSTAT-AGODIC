@@ -9,15 +9,15 @@ class Memoria:
         self.createMemory()
 
     def createMemory(self): #      G               L             T              C  
-        self.memoria =      [[{},{},{},{}], [{},{},{},{}],[{},{},{},{}],[{},{},{},{}]] 
+        self.memoria =      [[{},{},{},{}], [[{},{},{},{}]],[[{},{},{},{}]],[{},{},{},{}]] 
     
     def addMemoryValue (self,direccion,valor):
         if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
-            self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
+            self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor # [Nivel es decir GLTC] [Tipo de variable][Index de variable]
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
-            self.memoria[1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
+            self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
-            self.memoria[2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
+            self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
 
@@ -28,17 +28,17 @@ class Memoria:
         if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
             return self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
-            return self.memoria[1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+            return self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
-            return self.memoria[2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+            return self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
             return self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
 
     def freeLocalMemory(self):
-        self.memoria[1].pop
+        self.memoria[1].pop #Al terminar una funcion eliminamos las variables locales
         
     def freeTemporalMemory(self):
-        self.memoria[2].pop
+        self.memoria[2].pop #Al terminar una funcion eliminamos las variables Temporales
         
 
 
