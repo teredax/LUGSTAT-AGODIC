@@ -73,7 +73,8 @@ pfcounter=0
 pftypestack = []
 pfboolstackcond= False
 paramk =0
-
+queryf = ""
+workingtypedirectory = []
 #--------------------
 #Setup of Non-Linear Statements
 PJumps = []
@@ -230,7 +231,7 @@ def p_lugstat(p):
 
 def p_addmain(p):
     '''addmain : empty'''
-    DirectorioFunciones.addf(p[-2],None, 0, 0, 0)
+    DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0)
     global currentf
     global TemporalCounter
     TemporalCounter = 0
@@ -311,9 +312,7 @@ def p_vars(p):
                 #print(TipoActual[0], " of type")
                 #print(p[-1], "fds")
                 pftypestack.append(TipoActual[0])
-                pfboolstackcond = True
                 #print(pfcounter, "params!")
-
             FuncionActual.clear()
             TipoActual.clear()
     
@@ -333,18 +332,19 @@ def p_vars(p):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
                     Ls = Ls + 1            
                 if currentf[-1] != currentf[0] and pfboolstackcond == True:
-                    vfcounter+=1
+                    print("FS@@@@@@@@@@@@@@@@@@@@@@@@D", TipoActual[0], FuncionActual[i])
                     #print("regular function var, not a param", FuncionActual[i])
-                if currentf[-1] != currentf[0] and pfboolstackcond == False:
+                    #print(p[1], "#@#@#@#@##")
                     pftypestack.append(TipoActual[0])
-                    #print("FSD", TipoActual[0], FuncionActual[i])
                     pfcounter+=1
+                if currentf[-1] != currentf[0] and pfboolstackcond == False:
+                    print("FS#######################D", TipoActual[0], FuncionActual[i])
+                    vfcounter+=1
                     #print(vfcounter, "vars of f!")  
                 #print(vfcounter, "im going in! first line", FuncionActual[i])
                 #print("STATUS:", currentf)
         FuncionActual.clear()
         TipoActual.clear() 
-
     if p[-1] == ')': # Variables locales de una FUNC
         #print("12321",FuncionActual)
         for i in range(len(FuncionActual)):
@@ -368,7 +368,8 @@ def p_vars(p):
         Lb = 15000
         Ls = 17500
         FuncionActual.clear()
-        TipoActual.clear() 
+        TipoActual.clear()
+
            
 
 def p_vars1(p):
@@ -406,15 +407,17 @@ def p_savename(p):
 
 def p_modules(p):
     '''
-    modules : FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock mn7'''
+    modules : FUNC ID COLON tipo mn1 OPAREN  modules2 mn2 CPAREN modules2 mn3 funblock mn7'''
 
 
 #@mn1
 def p_mn1(p):
     '''mn1 : empty'''
+    global pfboolstackcond
     p[0] = p[-3]
-    DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0)
+    DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0)
     currentf.append(p[-3])
+    pfboolstackcond = True
     #Agregamos la funcion al tener los datos de tipo y datos 
 
 
@@ -423,26 +426,33 @@ def p_mn7(p):
 
     global currentf
     global TemporalCounter
-    quad = ("END", currentf[-1])
+    global pftypestack
+    quad = (LineC+1, "END", currentf[-1])
     Quad.put(quad)
-
-    #print("STATUS:", currentf)
+    print("STATUS1:", currentf)
     currentf.pop()
-    TemporalCounter = 0
 
+    #pftypestack = []
+
+    print("STATUS2:", currentf)
+    TemporalCounter = 0
     #DirectorioFuncionedef p_savename(p):
     '''savename : empty'''
 
+
 def p_mn2(p):
-    '''mn2 : empty'''
+    '''mn2 : '''
     global pfcounter
     global pftypestack
+    global pfboolstackcond
     #print(pfcounter, "fff")
     DirectorioFunciones.addparams(currentf[-1], pfcounter)
     pfcounter =0
-    #print(pftypestack)
+    #print(pftypestack, "mn21")
+    DirectorioFunciones.addparamtypes(currentf[-1], pftypestack)
+    pftypestack = []
     pfboolstackcond = False
-    #pftypestack = []
+
 
 def p_mn3(p):
     '''mn3 : empty'''
@@ -468,15 +478,29 @@ def p_fcn1(p):
         print("Function being summoned does not exist!")
         sys.exit()
 
+    global queryf
+    global workingtypedirectory
+    queryf = p[-2]
+    print("queryff " , queryf)
+    workingtypedirectory = DirectorioFunciones.getparamtypes(queryf)
+    #print(workingtypedirectory, "@#$@#")
+    
+
+
 def p_fcn2(p):
     ''' fcn2 : empty'''
     global paramk
     global LineC
+
     argT = Ptype.pop()
     argT = typetostr(argT)
     argF = PilaO.pop()
     #print(pftypestack, '#@$')
-    argP = pftypestack.pop()
+    print(queryf)
+    getp = workingtypedirectory
+    #print(getp, "getppp")
+    argP = getp.pop()
+    #print(DirectorioFunciones.getparamtypes(queryf), "#@$#$@@#%$^&$^#")
     print(argT, argP, argF)
     if argT == argP:
         paramk+=1
@@ -492,14 +516,17 @@ def p_fcn3(p):
     #print(DirectorioFunciones.getnparams(p[-7]), "$#@")
     #print(paramk)
     global LineC
+    global paramk
     if DirectorioFunciones.getnparams(p[-7]) != paramk:
         print("Inconsistent number of arguements:parameters for function ", p[-7])
         sys.exit()
     else:
         LineC+=1
-        quad = (LineC+1, "GOSUB", p[-7])
+        quad = (LineC+1, "GOSUB", p[-7], DirectorioFunciones.getstartln(p[-7]))
         Quad.put(quad)
 
+    queryf = ""
+    paramk= 0
 
 def p_funccall2(p):
     ''' funccall2 : COMMA expresion fcn2 funccall2
@@ -511,7 +538,6 @@ def p_modules2(p):
     modules2 : vars
     | empty'''
     p[0] = p[1]
-    
 
 def p_funblock(p):
     '''
@@ -523,10 +549,10 @@ def p_block(p):
     '''
     global currentf
     global TemporalCounter
-    #print("STATUS:", currentf)
+    print("STATUS:", currentf)
     currentf.pop()
     TemporalCounter = 0
-    #print("STATUS:", currentf)
+    print("STATUS:", currentf)
     
 def p_block2(p):
     '''
@@ -1110,3 +1136,5 @@ DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Variables de Modulo Prueba \n")
 DirectorioFunciones.getallv("prueba")
+print("####")
+print(DirectorioFunciones.listf())

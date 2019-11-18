@@ -39,7 +39,7 @@ Rule 14    savename -> empty
 Rule 15    modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock mn7
 Rule 16    mn1 -> empty
 Rule 17    mn7 -> empty
-Rule 18    mn2 -> empty
+Rule 18    mn2 -> <empty>
 Rule 19    mn3 -> empty
 Rule 20    funccall -> ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3
 Rule 21    fcn1 -> empty
@@ -250,7 +250,7 @@ count                : 42
 countif              : 43
 dwhile               : 45
 dwhileconds          : 103 107 108 109
-empty                : 2 3 5 8 14 16 17 18 19 21 22 23 25 27 32 58 63 67 68 69 72 73 74 78 85 88 104 105 110 112 134 137
+empty                : 2 3 5 8 14 16 17 19 21 22 23 25 27 32 58 63 67 68 69 72 73 74 78 85 88 104 105 110 112 134 137
 en1                  : 60
 en2                  : 61
 en3                  : 59
@@ -3511,13 +3511,11 @@ state 224
 state 225
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 . mn2 CPAREN modules2 mn3 funblock mn7
-    (18) mn2 -> . empty
-    (138) empty -> .
+    (18) mn2 -> .
 
-    CPAREN          reduce using rule 138 (empty -> .)
+    CPAREN          reduce using rule 18 (mn2 -> .)
 
     mn2                            shift and go to state 273
-    empty                          shift and go to state 274
 
 state 226
 
@@ -3618,7 +3616,7 @@ state 231
     (100) varcte -> ID asign2 .
 
   ! shift/reduce conflict for SCOLON resolved as shift
-    SCOLON          shift and go to state 275
+    SCOLON          shift and go to state 274
     MULT            reduce using rule 100 (varcte -> ID asign2 .)
     DIV             reduce using rule 100 (varcte -> ID asign2 .)
     PLUS            reduce using rule 100 (varcte -> ID asign2 .)
@@ -3693,11 +3691,11 @@ state 234
     (25) funccall2 -> . empty
     (138) empty -> .
 
-    COMMA           shift and go to state 277
+    COMMA           shift and go to state 276
     CPAREN          reduce using rule 138 (empty -> .)
 
-    funccall2                      shift and go to state 276
-    empty                          shift and go to state 278
+    funccall2                      shift and go to state 275
+    empty                          shift and go to state 277
 
 state 235
 
@@ -3713,15 +3711,15 @@ state 236
     (71) cond -> IF OPAREN expresion cn1 CPAREN . ifblock ELSE cn3 ifblock SCOLON cn2
     (75) ifblock -> . OBRACKET ifblock2 CBRACKET
 
-    OBRACKET        shift and go to state 280
+    OBRACKET        shift and go to state 279
 
-    ifblock                        shift and go to state 279
+    ifblock                        shift and go to state 278
 
 state 237
 
     (59) escrt -> PRINT OPAREN ID en3 escrt2 . CPAREN SCOLON
 
-    CPAREN          shift and go to state 281
+    CPAREN          shift and go to state 280
 
 
 state 238
@@ -3731,10 +3729,10 @@ state 238
     (65) escrt3 -> . ID
     (66) escrt3 -> . STRING escrt2 escrt2
 
-    ID              shift and go to state 283
-    STRING          shift and go to state 284
+    ID              shift and go to state 282
+    STRING          shift and go to state 283
 
-    escrt3                         shift and go to state 282
+    escrt3                         shift and go to state 281
 
 state 239
 
@@ -3748,14 +3746,14 @@ state 240
 
     (60) escrt -> PRINT OPAREN expresion en1 CPAREN . SCOLON
 
-    SCOLON          shift and go to state 285
+    SCOLON          shift and go to state 284
 
 
 state 241
 
     (61) escrt -> PRINT OPAREN STRING CPAREN en2 . SCOLON
 
-    SCOLON          shift and go to state 286
+    SCOLON          shift and go to state 285
 
 
 state 242
@@ -3827,14 +3825,14 @@ state 245
 
     (86) xyfunc -> FX EQUALS exp . SCOLON xyfunc
 
-    SCOLON          shift and go to state 287
+    SCOLON          shift and go to state 286
 
 
 state 246
 
     (87) xyfunc -> FY EQUALS exp . SCOLON xyfunc
 
-    SCOLON          shift and go to state 288
+    SCOLON          shift and go to state 287
 
 
 state 247
@@ -3850,20 +3848,20 @@ state 247
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    varcte                         shift and go to state 289
+    varcte                         shift and go to state 288
 
 state 248
 
     (79) count -> COUNT OPAREN ID COMMA varcte . COMMA varcte CPAREN SCOLON
 
-    COMMA           shift and go to state 290
+    COMMA           shift and go to state 289
 
 
 state 249
 
     (80) countif -> COUNTIF OPAREN ID COMMA varcte . COMMA varcte COMMA cond CPAREN SCOLON
 
-    COMMA           shift and go to state 291
+    COMMA           shift and go to state 290
 
 
 state 250
@@ -3901,7 +3899,7 @@ state 251
     (133) mmmfunc -> OBRACKET mmmarray CBRACKET . COMMA mmmfunc
 
     CPAREN          reduce using rule 132 (mmmfunc -> OBRACKET mmmarray CBRACKET .)
-    COMMA           shift and go to state 292
+    COMMA           shift and go to state 291
 
 
 state 252
@@ -3922,7 +3920,7 @@ state 252
     CBRACKET        reduce using rule 138 (empty -> .)
 
     varcte                         shift and go to state 202
-    mmmarray                       shift and go to state 293
+    mmmarray                       shift and go to state 292
     empty                          shift and go to state 203
 
 state 253
@@ -4016,7 +4014,7 @@ state 256
 
     (117) metodos -> KMEANS OPAREN varcte COMMA mmmfunc . CPAREN SCOLON
 
-    CPAREN          shift and go to state 294
+    CPAREN          shift and go to state 293
 
 
 state 257
@@ -4052,14 +4050,14 @@ state 258
 
     (127) expfunc -> ID COMMA ID . COMMA ID
 
-    COMMA           shift and go to state 295
+    COMMA           shift and go to state 294
 
 
 state 259
 
     (128) expfunc -> varcte COMMA varcte . COMMA varcte
 
-    COMMA           shift and go to state 296
+    COMMA           shift and go to state 295
 
 
 state 260
@@ -4337,9 +4335,9 @@ state 270
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    dwhileconds                    shift and go to state 297
-    expresion                      shift and go to state 298
-    empty                          shift and go to state 299
+    dwhileconds                    shift and go to state 296
+    expresion                      shift and go to state 297
+    empty                          shift and go to state 298
     exp                            shift and go to state 39
     termino                        shift and go to state 43
     factor                         shift and go to state 44
@@ -4356,24 +4354,17 @@ state 272
 
     (111) readln -> READ OPAREN ID rn1 CPAREN . SCOLON
 
-    SCOLON          shift and go to state 300
+    SCOLON          shift and go to state 299
 
 
 state 273
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 . CPAREN modules2 mn3 funblock mn7
 
-    CPAREN          shift and go to state 301
+    CPAREN          shift and go to state 300
 
 
 state 274
-
-    (18) mn2 -> empty .
-
-    CPAREN          reduce using rule 18 (mn2 -> empty .)
-
-
-state 275
 
     (53) asign -> ID asign2 EQUALS ID asign2 SCOLON .
 
@@ -4402,14 +4393,14 @@ state 275
     CBRACKET        reduce using rule 53 (asign -> ID asign2 EQUALS ID asign2 SCOLON .)
 
 
-state 276
+state 275
 
     (20) funccall -> ID OPAREN fcn1 expresion fcn2 funccall2 . CPAREN fcn3
 
-    CPAREN          shift and go to state 302
+    CPAREN          shift and go to state 301
 
 
-state 277
+state 276
 
     (24) funccall2 -> COMMA . expresion fcn2 funccall2
     (89) expresion -> . exp
@@ -4432,29 +4423,29 @@ state 277
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    expresion                      shift and go to state 303
+    expresion                      shift and go to state 302
     exp                            shift and go to state 39
     termino                        shift and go to state 43
     factor                         shift and go to state 44
     varcte                         shift and go to state 94
 
-state 278
+state 277
 
     (25) funccall2 -> empty .
 
     CPAREN          reduce using rule 25 (funccall2 -> empty .)
 
 
-state 279
+state 278
 
     (70) cond -> IF OPAREN expresion cn1 CPAREN ifblock . SCOLON cn2
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock . ELSE cn3 ifblock SCOLON cn2
 
-    SCOLON          shift and go to state 304
-    ELSE            shift and go to state 305
+    SCOLON          shift and go to state 303
+    ELSE            shift and go to state 304
 
 
-state 280
+state 279
 
     (75) ifblock -> OBRACKET . ifblock2 CBRACKET
     (76) ifblock2 -> . estatuto
@@ -4528,9 +4519,9 @@ state 280
     DO              shift and go to state 79
     READ            shift and go to state 80
 
-    ifblock2                       shift and go to state 306
-    estatuto                       shift and go to state 307
-    empty                          shift and go to state 308
+    ifblock2                       shift and go to state 305
+    estatuto                       shift and go to state 306
+    empty                          shift and go to state 307
     asign                          shift and go to state 49
     cond                           shift and go to state 50
     escrt                          shift and go to state 51
@@ -4542,14 +4533,14 @@ state 280
     readln                         shift and go to state 57
     funccall                       shift and go to state 58
 
-state 281
+state 280
 
     (59) escrt -> PRINT OPAREN ID en3 escrt2 CPAREN . SCOLON
 
-    SCOLON          shift and go to state 309
+    SCOLON          shift and go to state 308
 
 
-state 282
+state 281
 
     (62) escrt2 -> COMMA escrt3 .
 
@@ -4557,7 +4548,7 @@ state 282
     COMMA           reduce using rule 62 (escrt2 -> COMMA escrt3 .)
 
 
-state 283
+state 282
 
     (64) escrt3 -> ID . escrt2
     (65) escrt3 -> ID .
@@ -4575,10 +4566,10 @@ state 283
   ! CPAREN          [ reduce using rule 138 (empty -> .) ]
   ! COMMA           [ reduce using rule 138 (empty -> .) ]
 
-    escrt2                         shift and go to state 310
+    escrt2                         shift and go to state 309
     empty                          shift and go to state 239
 
-state 284
+state 283
 
     (66) escrt3 -> STRING . escrt2 escrt2
     (62) escrt2 -> . COMMA escrt3
@@ -4591,10 +4582,10 @@ state 284
 
   ! COMMA           [ reduce using rule 138 (empty -> .) ]
 
-    escrt2                         shift and go to state 311
+    escrt2                         shift and go to state 310
     empty                          shift and go to state 239
 
-state 285
+state 284
 
     (60) escrt -> PRINT OPAREN expresion en1 CPAREN SCOLON .
 
@@ -4623,7 +4614,7 @@ state 285
     CBRACKET        reduce using rule 60 (escrt -> PRINT OPAREN expresion en1 CPAREN SCOLON .)
 
 
-state 286
+state 285
 
     (61) escrt -> PRINT OPAREN STRING CPAREN en2 SCOLON .
 
@@ -4652,7 +4643,7 @@ state 286
     CBRACKET        reduce using rule 61 (escrt -> PRINT OPAREN STRING CPAREN en2 SCOLON .)
 
 
-state 287
+state 286
 
     (86) xyfunc -> FX EQUALS exp SCOLON . xyfunc
     (86) xyfunc -> . FX EQUALS exp SCOLON xyfunc
@@ -4664,10 +4655,10 @@ state 287
     FY              shift and go to state 148
     CPAREN          reduce using rule 138 (empty -> .)
 
-    xyfunc                         shift and go to state 312
-    empty                          shift and go to state 313
+    xyfunc                         shift and go to state 311
+    empty                          shift and go to state 312
 
-state 288
+state 287
 
     (87) xyfunc -> FY EQUALS exp SCOLON . xyfunc
     (86) xyfunc -> . FX EQUALS exp SCOLON xyfunc
@@ -4679,20 +4670,34 @@ state 288
     FY              shift and go to state 148
     CPAREN          reduce using rule 138 (empty -> .)
 
-    xyfunc                         shift and go to state 314
-    empty                          shift and go to state 313
+    xyfunc                         shift and go to state 313
+    empty                          shift and go to state 312
 
-state 289
+state 288
 
     (83) plot2 -> LCOR varcte COMMA varcte . RCOR
     (84) plot2 -> LCOR varcte COMMA varcte . RCOR COMMA plot2
 
-    RCOR            shift and go to state 315
+    RCOR            shift and go to state 314
 
+
+state 289
+
+    (79) count -> COUNT OPAREN ID COMMA varcte COMMA . varcte CPAREN SCOLON
+    (99) varcte -> . ID
+    (100) varcte -> . ID asign2
+    (101) varcte -> . NUMERIC
+    (102) varcte -> . NUMBER
+
+    ID              shift and go to state 40
+    NUMERIC         shift and go to state 41
+    NUMBER          shift and go to state 42
+
+    varcte                         shift and go to state 315
 
 state 290
 
-    (79) count -> COUNT OPAREN ID COMMA varcte COMMA . varcte CPAREN SCOLON
+    (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA . varcte COMMA cond CPAREN SCOLON
     (99) varcte -> . ID
     (100) varcte -> . ID asign2
     (101) varcte -> . NUMERIC
@@ -4706,20 +4711,6 @@ state 290
 
 state 291
 
-    (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA . varcte COMMA cond CPAREN SCOLON
-    (99) varcte -> . ID
-    (100) varcte -> . ID asign2
-    (101) varcte -> . NUMERIC
-    (102) varcte -> . NUMBER
-
-    ID              shift and go to state 40
-    NUMERIC         shift and go to state 41
-    NUMBER          shift and go to state 42
-
-    varcte                         shift and go to state 317
-
-state 292
-
     (133) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA . mmmfunc
     (131) mmmfunc -> . ID
     (132) mmmfunc -> . OBRACKET mmmarray CBRACKET
@@ -4731,31 +4722,31 @@ state 292
     OBRACKET        shift and go to state 155
     CPAREN          reduce using rule 138 (empty -> .)
 
-    mmmfunc                        shift and go to state 318
+    mmmfunc                        shift and go to state 317
     empty                          shift and go to state 156
 
-state 293
+state 292
 
     (136) mmmarray -> varcte COMMA mmmarray .
 
     CBRACKET        reduce using rule 136 (mmmarray -> varcte COMMA mmmarray .)
 
 
-state 294
+state 293
 
     (117) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN . SCOLON
 
-    SCOLON          shift and go to state 319
+    SCOLON          shift and go to state 318
 
 
-state 295
+state 294
 
     (127) expfunc -> ID COMMA ID COMMA . ID
 
-    ID              shift and go to state 320
+    ID              shift and go to state 319
 
 
-state 296
+state 295
 
     (128) expfunc -> varcte COMMA varcte COMMA . varcte
     (99) varcte -> . ID
@@ -4767,16 +4758,16 @@ state 296
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    varcte                         shift and go to state 321
+    varcte                         shift and go to state 320
 
-state 297
+state 296
 
     (103) dwhile -> DO wn1 wblock WHILE OPAREN dwhileconds . CPAREN wn2 SCOLON
 
-    CPAREN          shift and go to state 322
+    CPAREN          shift and go to state 321
 
 
-state 298
+state 297
 
     (107) dwhileconds -> expresion . dwhileconds
     (108) dwhileconds -> expresion . AND dwhileconds
@@ -4802,8 +4793,8 @@ state 298
     (101) varcte -> . NUMERIC
     (102) varcte -> . NUMBER
 
-    AND             shift and go to state 324
-    OR              shift and go to state 325
+    AND             shift and go to state 323
+    OR              shift and go to state 324
     RELOP           shift and go to state 86
     CPAREN          reduce using rule 138 (empty -> .)
     OPAREN          shift and go to state 45
@@ -4811,22 +4802,22 @@ state 298
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    expresion                      shift and go to state 298
-    dwhileconds                    shift and go to state 323
+    expresion                      shift and go to state 297
+    dwhileconds                    shift and go to state 322
     exp                            shift and go to state 39
-    empty                          shift and go to state 299
+    empty                          shift and go to state 298
     termino                        shift and go to state 43
     factor                         shift and go to state 44
     varcte                         shift and go to state 94
 
-state 299
+state 298
 
     (110) dwhileconds -> empty .
 
     CPAREN          reduce using rule 110 (dwhileconds -> empty .)
 
 
-state 300
+state 299
 
     (111) readln -> READ OPAREN ID rn1 CPAREN SCOLON .
 
@@ -4855,7 +4846,7 @@ state 300
     CBRACKET        reduce using rule 111 (readln -> READ OPAREN ID rn1 CPAREN SCOLON .)
 
 
-state 301
+state 300
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN . modules2 mn3 funblock mn7
     (26) modules2 -> . vars
@@ -4866,11 +4857,11 @@ state 301
     VAR             shift and go to state 10
     OBRACKET        reduce using rule 138 (empty -> .)
 
-    modules2                       shift and go to state 326
+    modules2                       shift and go to state 325
     vars                           shift and go to state 226
     empty                          shift and go to state 227
 
-state 302
+state 301
 
     (20) funccall -> ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN . fcn3
     (23) fcn3 -> . empty
@@ -4900,10 +4891,10 @@ state 302
     READ            reduce using rule 138 (empty -> .)
     CBRACKET        reduce using rule 138 (empty -> .)
 
-    fcn3                           shift and go to state 327
-    empty                          shift and go to state 328
+    fcn3                           shift and go to state 326
+    empty                          shift and go to state 327
 
-state 303
+state 302
 
     (24) funccall2 -> COMMA expresion . fcn2 funccall2
     (90) expresion -> expresion . RELOP exp
@@ -4914,10 +4905,10 @@ state 303
     COMMA           reduce using rule 138 (empty -> .)
     CPAREN          reduce using rule 138 (empty -> .)
 
-    fcn2                           shift and go to state 329
+    fcn2                           shift and go to state 328
     empty                          shift and go to state 235
 
-state 304
+state 303
 
     (70) cond -> IF OPAREN expresion cn1 CPAREN ifblock SCOLON . cn2
     (73) cn2 -> . empty
@@ -4948,10 +4939,10 @@ state 304
     CBRACKET        reduce using rule 138 (empty -> .)
     CPAREN          reduce using rule 138 (empty -> .)
 
-    cn2                            shift and go to state 330
-    empty                          shift and go to state 331
+    cn2                            shift and go to state 329
+    empty                          shift and go to state 330
 
-state 305
+state 304
 
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE . cn3 ifblock SCOLON cn2
     (74) cn3 -> . empty
@@ -4959,17 +4950,17 @@ state 305
 
     OBRACKET        reduce using rule 138 (empty -> .)
 
-    cn3                            shift and go to state 332
-    empty                          shift and go to state 333
+    cn3                            shift and go to state 331
+    empty                          shift and go to state 332
 
-state 306
+state 305
 
     (75) ifblock -> OBRACKET ifblock2 . CBRACKET
 
-    CBRACKET        shift and go to state 334
+    CBRACKET        shift and go to state 333
 
 
-state 307
+state 306
 
     (76) ifblock2 -> estatuto .
     (77) ifblock2 -> estatuto . ifblock2
@@ -5047,9 +5038,9 @@ state 307
 
   ! CBRACKET        [ reduce using rule 138 (empty -> .) ]
 
-    estatuto                       shift and go to state 307
-    ifblock2                       shift and go to state 335
-    empty                          shift and go to state 308
+    estatuto                       shift and go to state 306
+    ifblock2                       shift and go to state 334
+    empty                          shift and go to state 307
     asign                          shift and go to state 49
     cond                           shift and go to state 50
     escrt                          shift and go to state 51
@@ -5061,14 +5052,14 @@ state 307
     readln                         shift and go to state 57
     funccall                       shift and go to state 58
 
-state 308
+state 307
 
     (78) ifblock2 -> empty .
 
     CBRACKET        reduce using rule 78 (ifblock2 -> empty .)
 
 
-state 309
+state 308
 
     (59) escrt -> PRINT OPAREN ID en3 escrt2 CPAREN SCOLON .
 
@@ -5097,7 +5088,7 @@ state 309
     CBRACKET        reduce using rule 59 (escrt -> PRINT OPAREN ID en3 escrt2 CPAREN SCOLON .)
 
 
-state 310
+state 309
 
     (64) escrt3 -> ID escrt2 .
 
@@ -5105,7 +5096,7 @@ state 310
     COMMA           reduce using rule 64 (escrt3 -> ID escrt2 .)
 
 
-state 311
+state 310
 
     (66) escrt3 -> STRING escrt2 . escrt2
     (62) escrt2 -> . COMMA escrt3
@@ -5118,61 +5109,61 @@ state 311
 
   ! COMMA           [ reduce using rule 138 (empty -> .) ]
 
-    escrt2                         shift and go to state 336
+    escrt2                         shift and go to state 335
     empty                          shift and go to state 239
 
-state 312
+state 311
 
     (86) xyfunc -> FX EQUALS exp SCOLON xyfunc .
 
     CPAREN          reduce using rule 86 (xyfunc -> FX EQUALS exp SCOLON xyfunc .)
 
 
-state 313
+state 312
 
     (88) xyfunc -> empty .
 
     CPAREN          reduce using rule 88 (xyfunc -> empty .)
 
 
-state 314
+state 313
 
     (87) xyfunc -> FY EQUALS exp SCOLON xyfunc .
 
     CPAREN          reduce using rule 87 (xyfunc -> FY EQUALS exp SCOLON xyfunc .)
 
 
-state 315
+state 314
 
     (83) plot2 -> LCOR varcte COMMA varcte RCOR .
     (84) plot2 -> LCOR varcte COMMA varcte RCOR . COMMA plot2
 
     CPAREN          reduce using rule 83 (plot2 -> LCOR varcte COMMA varcte RCOR .)
-    COMMA           shift and go to state 337
+    COMMA           shift and go to state 336
+
+
+state 315
+
+    (79) count -> COUNT OPAREN ID COMMA varcte COMMA varcte . CPAREN SCOLON
+
+    CPAREN          shift and go to state 337
 
 
 state 316
 
-    (79) count -> COUNT OPAREN ID COMMA varcte COMMA varcte . CPAREN SCOLON
+    (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte . COMMA cond CPAREN SCOLON
 
-    CPAREN          shift and go to state 338
+    COMMA           shift and go to state 338
 
 
 state 317
-
-    (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte . COMMA cond CPAREN SCOLON
-
-    COMMA           shift and go to state 339
-
-
-state 318
 
     (133) mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .
 
     CPAREN          reduce using rule 133 (mmmfunc -> OBRACKET mmmarray CBRACKET COMMA mmmfunc .)
 
 
-state 319
+state 318
 
     (117) metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .
 
@@ -5201,21 +5192,21 @@ state 319
     CBRACKET        reduce using rule 117 (metodos -> KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON .)
 
 
-state 320
+state 319
 
     (127) expfunc -> ID COMMA ID COMMA ID .
 
     CPAREN          reduce using rule 127 (expfunc -> ID COMMA ID COMMA ID .)
 
 
-state 321
+state 320
 
     (128) expfunc -> varcte COMMA varcte COMMA varcte .
 
     CPAREN          reduce using rule 128 (expfunc -> varcte COMMA varcte COMMA varcte .)
 
 
-state 322
+state 321
 
     (103) dwhile -> DO wn1 wblock WHILE OPAREN dwhileconds CPAREN . wn2 SCOLON
     (105) wn2 -> . empty
@@ -5223,17 +5214,17 @@ state 322
 
     SCOLON          reduce using rule 138 (empty -> .)
 
-    wn2                            shift and go to state 340
-    empty                          shift and go to state 341
+    wn2                            shift and go to state 339
+    empty                          shift and go to state 340
 
-state 323
+state 322
 
     (107) dwhileconds -> expresion dwhileconds .
 
     CPAREN          reduce using rule 107 (dwhileconds -> expresion dwhileconds .)
 
 
-state 324
+state 323
 
     (108) dwhileconds -> expresion AND . dwhileconds
     (107) dwhileconds -> . expresion dwhileconds
@@ -5262,15 +5253,15 @@ state 324
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    expresion                      shift and go to state 298
-    dwhileconds                    shift and go to state 342
-    empty                          shift and go to state 299
+    expresion                      shift and go to state 297
+    dwhileconds                    shift and go to state 341
+    empty                          shift and go to state 298
     exp                            shift and go to state 39
     termino                        shift and go to state 43
     factor                         shift and go to state 44
     varcte                         shift and go to state 94
 
-state 325
+state 324
 
     (109) dwhileconds -> expresion OR . dwhileconds
     (107) dwhileconds -> . expresion dwhileconds
@@ -5299,15 +5290,15 @@ state 325
     NUMERIC         shift and go to state 41
     NUMBER          shift and go to state 42
 
-    expresion                      shift and go to state 298
-    dwhileconds                    shift and go to state 343
-    empty                          shift and go to state 299
+    expresion                      shift and go to state 297
+    dwhileconds                    shift and go to state 342
+    empty                          shift and go to state 298
     exp                            shift and go to state 39
     termino                        shift and go to state 43
     factor                         shift and go to state 44
     varcte                         shift and go to state 94
 
-state 326
+state 325
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 . mn3 funblock mn7
     (19) mn3 -> . empty
@@ -5315,10 +5306,10 @@ state 326
 
     OBRACKET        reduce using rule 138 (empty -> .)
 
-    mn3                            shift and go to state 344
-    empty                          shift and go to state 345
+    mn3                            shift and go to state 343
+    empty                          shift and go to state 344
 
-state 327
+state 326
 
     (20) funccall -> ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3 .
 
@@ -5347,7 +5338,7 @@ state 327
     CBRACKET        reduce using rule 20 (funccall -> ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3 .)
 
 
-state 328
+state 327
 
     (23) fcn3 -> empty .
 
@@ -5376,20 +5367,20 @@ state 328
     CBRACKET        reduce using rule 23 (fcn3 -> empty .)
 
 
-state 329
+state 328
 
     (24) funccall2 -> COMMA expresion fcn2 . funccall2
     (24) funccall2 -> . COMMA expresion fcn2 funccall2
     (25) funccall2 -> . empty
     (138) empty -> .
 
-    COMMA           shift and go to state 277
+    COMMA           shift and go to state 276
     CPAREN          reduce using rule 138 (empty -> .)
 
-    funccall2                      shift and go to state 346
-    empty                          shift and go to state 278
+    funccall2                      shift and go to state 345
+    empty                          shift and go to state 277
 
-state 330
+state 329
 
     (70) cond -> IF OPAREN expresion cn1 CPAREN ifblock SCOLON cn2 .
 
@@ -5419,7 +5410,7 @@ state 330
     CPAREN          reduce using rule 70 (cond -> IF OPAREN expresion cn1 CPAREN ifblock SCOLON cn2 .)
 
 
-state 331
+state 330
 
     (73) cn2 -> empty .
 
@@ -5449,23 +5440,23 @@ state 331
     CPAREN          reduce using rule 73 (cn2 -> empty .)
 
 
-state 332
+state 331
 
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 . ifblock SCOLON cn2
     (75) ifblock -> . OBRACKET ifblock2 CBRACKET
 
-    OBRACKET        shift and go to state 280
+    OBRACKET        shift and go to state 279
 
-    ifblock                        shift and go to state 347
+    ifblock                        shift and go to state 346
 
-state 333
+state 332
 
     (74) cn3 -> empty .
 
     OBRACKET        reduce using rule 74 (cn3 -> empty .)
 
 
-state 334
+state 333
 
     (75) ifblock -> OBRACKET ifblock2 CBRACKET .
 
@@ -5473,14 +5464,14 @@ state 334
     ELSE            reduce using rule 75 (ifblock -> OBRACKET ifblock2 CBRACKET .)
 
 
-state 335
+state 334
 
     (77) ifblock2 -> estatuto ifblock2 .
 
     CBRACKET        reduce using rule 77 (ifblock2 -> estatuto ifblock2 .)
 
 
-state 336
+state 335
 
     (66) escrt3 -> STRING escrt2 escrt2 .
 
@@ -5488,7 +5479,7 @@ state 336
     COMMA           reduce using rule 66 (escrt3 -> STRING escrt2 escrt2 .)
 
 
-state 337
+state 336
 
     (84) plot2 -> LCOR varcte COMMA varcte RCOR COMMA . plot2
     (83) plot2 -> . LCOR varcte COMMA varcte RCOR
@@ -5499,17 +5490,17 @@ state 337
     LCOR            shift and go to state 150
     CPAREN          reduce using rule 138 (empty -> .)
 
-    plot2                          shift and go to state 348
-    empty                          shift and go to state 349
+    plot2                          shift and go to state 347
+    empty                          shift and go to state 348
 
-state 338
+state 337
 
     (79) count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN . SCOLON
 
-    SCOLON          shift and go to state 350
+    SCOLON          shift and go to state 349
 
 
-state 339
+state 338
 
     (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA . cond CPAREN SCOLON
     (70) cond -> . IF OPAREN expresion cn1 CPAREN ifblock SCOLON cn2
@@ -5517,81 +5508,81 @@ state 339
 
     IF              shift and go to state 60
 
-    cond                           shift and go to state 351
+    cond                           shift and go to state 350
 
-state 340
+state 339
 
     (103) dwhile -> DO wn1 wblock WHILE OPAREN dwhileconds CPAREN wn2 . SCOLON
 
-    SCOLON          shift and go to state 352
+    SCOLON          shift and go to state 351
 
 
-state 341
+state 340
 
     (105) wn2 -> empty .
 
     SCOLON          reduce using rule 105 (wn2 -> empty .)
 
 
-state 342
+state 341
 
     (108) dwhileconds -> expresion AND dwhileconds .
 
     CPAREN          reduce using rule 108 (dwhileconds -> expresion AND dwhileconds .)
 
 
-state 343
+state 342
 
     (109) dwhileconds -> expresion OR dwhileconds .
 
     CPAREN          reduce using rule 109 (dwhileconds -> expresion OR dwhileconds .)
 
 
-state 344
+state 343
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 . funblock mn7
     (28) funblock -> . OBRACKET block2 CBRACKET
 
-    OBRACKET        shift and go to state 354
+    OBRACKET        shift and go to state 353
 
-    funblock                       shift and go to state 353
+    funblock                       shift and go to state 352
 
-state 345
+state 344
 
     (19) mn3 -> empty .
 
     OBRACKET        reduce using rule 19 (mn3 -> empty .)
 
 
-state 346
+state 345
 
     (24) funccall2 -> COMMA expresion fcn2 funccall2 .
 
     CPAREN          reduce using rule 24 (funccall2 -> COMMA expresion fcn2 funccall2 .)
 
 
-state 347
+state 346
 
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 ifblock . SCOLON cn2
 
-    SCOLON          shift and go to state 355
+    SCOLON          shift and go to state 354
 
 
-state 348
+state 347
 
     (84) plot2 -> LCOR varcte COMMA varcte RCOR COMMA plot2 .
 
     CPAREN          reduce using rule 84 (plot2 -> LCOR varcte COMMA varcte RCOR COMMA plot2 .)
 
 
-state 349
+state 348
 
     (85) plot2 -> empty .
 
     CPAREN          reduce using rule 85 (plot2 -> empty .)
 
 
-state 350
+state 349
 
     (79) count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON .
 
@@ -5620,14 +5611,14 @@ state 350
     CBRACKET        reduce using rule 79 (count -> COUNT OPAREN ID COMMA varcte COMMA varcte CPAREN SCOLON .)
 
 
-state 351
+state 350
 
     (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond . CPAREN SCOLON
 
-    CPAREN          shift and go to state 356
+    CPAREN          shift and go to state 355
 
 
-state 352
+state 351
 
     (103) dwhile -> DO wn1 wblock WHILE OPAREN dwhileconds CPAREN wn2 SCOLON .
 
@@ -5656,7 +5647,7 @@ state 352
     CBRACKET        reduce using rule 103 (dwhile -> DO wn1 wblock WHILE OPAREN dwhileconds CPAREN wn2 SCOLON .)
 
 
-state 353
+state 352
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock . mn7
     (17) mn7 -> . empty
@@ -5665,10 +5656,10 @@ state 353
     FUNC            reduce using rule 138 (empty -> .)
     OBRACKET        reduce using rule 138 (empty -> .)
 
-    mn7                            shift and go to state 357
-    empty                          shift and go to state 358
+    mn7                            shift and go to state 356
+    empty                          shift and go to state 357
 
-state 354
+state 353
 
     (28) funblock -> OBRACKET . block2 CBRACKET
     (30) block2 -> . estatuto
@@ -5742,7 +5733,7 @@ state 354
     DO              shift and go to state 79
     READ            shift and go to state 80
 
-    block2                         shift and go to state 359
+    block2                         shift and go to state 358
     estatuto                       shift and go to state 47
     empty                          shift and go to state 48
     asign                          shift and go to state 49
@@ -5756,7 +5747,7 @@ state 354
     readln                         shift and go to state 57
     funccall                       shift and go to state 58
 
-state 355
+state 354
 
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 ifblock SCOLON . cn2
     (73) cn2 -> . empty
@@ -5787,17 +5778,17 @@ state 355
     CBRACKET        reduce using rule 138 (empty -> .)
     CPAREN          reduce using rule 138 (empty -> .)
 
-    cn2                            shift and go to state 360
-    empty                          shift and go to state 331
+    cn2                            shift and go to state 359
+    empty                          shift and go to state 330
 
-state 356
+state 355
 
     (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN . SCOLON
 
-    SCOLON          shift and go to state 361
+    SCOLON          shift and go to state 360
 
 
-state 357
+state 356
 
     (15) modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock mn7 .
 
@@ -5805,7 +5796,7 @@ state 357
     OBRACKET        reduce using rule 15 (modules -> FUNC ID COLON tipo mn1 OPAREN modules2 mn2 CPAREN modules2 mn3 funblock mn7 .)
 
 
-state 358
+state 357
 
     (17) mn7 -> empty .
 
@@ -5813,14 +5804,14 @@ state 358
     OBRACKET        reduce using rule 17 (mn7 -> empty .)
 
 
-state 359
+state 358
 
     (28) funblock -> OBRACKET block2 . CBRACKET
 
-    CBRACKET        shift and go to state 362
+    CBRACKET        shift and go to state 361
 
 
-state 360
+state 359
 
     (71) cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 ifblock SCOLON cn2 .
 
@@ -5850,7 +5841,7 @@ state 360
     CPAREN          reduce using rule 71 (cond -> IF OPAREN expresion cn1 CPAREN ifblock ELSE cn3 ifblock SCOLON cn2 .)
 
 
-state 361
+state 360
 
     (80) countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON .
 
@@ -5879,7 +5870,7 @@ state 361
     CBRACKET        reduce using rule 80 (countif -> COUNTIF OPAREN ID COMMA varcte COMMA varcte COMMA cond CPAREN SCOLON .)
 
 
-state 362
+state 361
 
     (28) funblock -> OBRACKET block2 CBRACKET .
 
@@ -5897,10 +5888,10 @@ WARNING: shift/reduce conflict for RCOR in state 179 resolved as shift
 WARNING: shift/reduce conflict for SCOLON in state 181 resolved as shift
 WARNING: shift/reduce conflict for SCOLON in state 183 resolved as shift
 WARNING: shift/reduce conflict for SCOLON in state 231 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 282 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 282 resolved as shift
 WARNING: shift/reduce conflict for COMMA in state 283 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 283 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 284 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 311 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 310 resolved as shift
 WARNING: reduce/reduce conflict in state 12 resolved using rule (lugstat3 -> modules)
 WARNING: rejected rule (empty -> <empty>) in state 12
 WARNING: reduce/reduce conflict in state 47 resolved using rule (block2 -> estatuto)
@@ -5909,7 +5900,7 @@ WARNING: reduce/reduce conflict in state 142 resolved using rule (varcte -> ID)
 WARNING: rejected rule (empty -> <empty>) in state 142
 WARNING: reduce/reduce conflict in state 149 resolved using rule (plot2 -> empty)
 WARNING: rejected rule (xyfunc -> empty) in state 149
-WARNING: reduce/reduce conflict in state 283 resolved using rule (escrt3 -> ID)
-WARNING: rejected rule (empty -> <empty>) in state 283
-WARNING: reduce/reduce conflict in state 307 resolved using rule (ifblock2 -> estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 307
+WARNING: reduce/reduce conflict in state 282 resolved using rule (escrt3 -> ID)
+WARNING: rejected rule (empty -> <empty>) in state 282
+WARNING: reduce/reduce conflict in state 306 resolved using rule (ifblock2 -> estatuto)
+WARNING: rejected rule (empty -> <empty>) in state 306
