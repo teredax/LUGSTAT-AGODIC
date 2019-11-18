@@ -11,4 +11,5 @@ var meme3, meme4 : int;
 {
 prueba(2.3, 1+1, int1)
 int1 = 1+(10*10);
+db1 = 2.33 * 3.44;
 }
