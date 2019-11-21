@@ -1,5 +1,8 @@
 lugstat lugstattest;
+
 var int1 : int;
+var arreglo1[5] : int;
+var matriz1[2][3] : int;
 var db1: double;
 func prueba2 : int (var param5: int;)
 {
@@ -7,6 +10,7 @@ param5 = 1/2;
 }
 func prueba : int (var param5: double;)
 var meme, meme2 : int;
+var meme3[5] : int;
 {
 prueba2(1)
 }

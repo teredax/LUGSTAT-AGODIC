@@ -22,6 +22,7 @@ memory = Memoria()
 
 FuncionActual = []
 TipoActual = []
+ValorArreglo = []
 TemporalCounter = 0
 
 
@@ -268,7 +269,7 @@ def p_vars(p):
     global Ld
     global Lb
     global Ls
-    #print("currentf: ", p[-1])
+    #print("currentf: ", p[-1], " p-4", p[-4])
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
@@ -292,6 +293,7 @@ def p_vars(p):
         Ls = 17500
         FuncionActual.clear()
         TipoActual.clear()
+        ValorArreglo.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             #print(currentf, "$@#$@#")
@@ -315,36 +317,81 @@ def p_vars(p):
                 #print(pfcounter, "params!")
             FuncionActual.clear()
             TipoActual.clear()
+            Li = 10000
+            Ld = 12500
+            Lb = 15000
+            Ls = 17500
     
     if p[-1] == ";":
      #N linea de Variables (Usualmente de otro tipo)
         for i in range(len(FuncionActual)):
-                if(TipoActual[0] == 'int'):
-                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
-                    Li = Li + 1
-                if(TipoActual[0] == 'double'):
-                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
-                    Ld = Ld + 1
-                if(TipoActual[0] == 'bool'):
-                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
-                    Lb = Lb + 1
-                if(TipoActual[0] == 'string'):
-                    DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
-                    Ls = Ls + 1            
-                if currentf[-1] != currentf[0] and pfboolstackcond == True:
-                    print("FS@@@@@@@@@@@@@@@@@@@@@@@@D", TipoActual[0], FuncionActual[i])
-                    #print("regular function var, not a param", FuncionActual[i])
-                    #print(p[1], "#@#@#@#@##")
-                    pftypestack.append(TipoActual[0])
-                    pfcounter+=1
-                if currentf[-1] != currentf[0] and pfboolstackcond == False:
-                    print("FS#######################D", TipoActual[0], FuncionActual[i])
-                    vfcounter+=1
-                    #print(vfcounter, "vars of f!")  
-                #print(vfcounter, "im going in! first line", FuncionActual[i])
-                #print("STATUS:", currentf)
+                    if(TipoActual[0] == 'int'):
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Li,
+                                'final'  : Li + ValorArreglo[0] - 1
+                            }
+                            DirectorioFunciones.addarreglo(currentf[-1],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                Li = Li + 1
+                        else:     
+                            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                            Li = Li + 1
+                    if(TipoActual[0] == 'double'):
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ld,
+                                'final'  : Ld + ValorArreglo[0] - 1
+                            }
+                            DirectorioFunciones.addarreglo(currentf[-1],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                Ld = Ld + 1
+                        else:     
+                            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                            Ld = Ld + 1
+                    if(TipoActual[0] == 'bool'):
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Lb,
+                                'final'  : Lb + ValorArreglo[0] - 1
+                            }
+                            DirectorioFunciones.addarreglo(currentf[-1],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                Lb = Lb + 1
+                        else:     
+                            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                            Lb = Lb + 1
+                    if(TipoActual[0] == 'string'):
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ls,
+                                'final'  : Ls + ValorArreglo[0] - 1
+                            }
+                            DirectorioFunciones.addarreglo(currentf[-1],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                Ls = Ls + 1
+                        else:     
+                            DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                            Ls = Ls + 1           
+                    if currentf[-1] != currentf[0] and pfboolstackcond == True:
+                       # print("FS@@@@@@@@@@@@@@@@@@@@@@@@D", TipoActual[0], FuncionActual[i])
+                        #print("regular function var, not a param", FuncionActual[i])
+                        #print(p[1], "#@#@#@#@##")
+                        pftypestack.append(TipoActual[0])
+                        pfcounter+=1
+                    if currentf[-1] != currentf[0] and pfboolstackcond == False:
+                        #print("FS#######################D", TipoActual[0], FuncionActual[i])
+                        vfcounter+=1
+                        #print(vfcounter, "vars of f!")  
+                    #print(vfcounter, "im going in! first line", FuncionActual[i])
+                    #print("STATUS:", currentf)
         FuncionActual.clear()
         TipoActual.clear() 
+        ValorArreglo.clear()
     if p[-1] == ')': # Variables locales de una FUNC
         #print("12321",FuncionActual)
         for i in range(len(FuncionActual)):
@@ -369,6 +416,7 @@ def p_vars(p):
         Ls = 17500
         FuncionActual.clear()
         TipoActual.clear()
+        ValorArreglo.clear()
 
            
 
@@ -376,27 +424,38 @@ def p_vars1(p):
     ''' 
     vars1 : ID COMMA vars1
     | ID COLON tipo SCOLON lugstat2
+    | ID LCOR NUMBER RCOR COLON tipo SCOLON lugstat2
+    | ID LCOR NUMBER RCOR COLON tipo SCOLON 
+    | ID LCOR NUMBER RCOR LCOR NUMBER RCOR COLON tipo SCOLON lugstat2
+    | ID LCOR NUMBER RCOR LCOR NUMBER RCOR COLON tipo SCOLON 
     | ID asign2 COLON tipo SCOLON
     | ID asign2 COMMA vars1
     '''
     
     #print("vars: ",p[1],p[2],p[3])
-    if p[2] == ":":
-
+    if p[2] == ":":                
         TipoActual.append(p[3]) #Guardamos tipo actual
         if p[1] not in FuncionActual:
             FuncionActual.append(p[1])
+    elif p[2] == "[":
+        if p[5]== "[":
+            TipoActual.append(p[9])
+            ValorArreglo.append(p[3] * p[6])
+            if p[1] not in FuncionActual:
+                FuncionActual.append(p[1])#En caso de tener valores de arreglo ejem test4[] Update a futuro. 
+        else:
+            print("variable ",p[1], "tipo ", p[6])
+            TipoActual.append(p[6]) 
+            ValorArreglo.append(p[3])
+            if p[1] not in FuncionActual:
+                FuncionActual.append(p[1])#En caso de tener valores de arreglo ejem test4[] Update a futuro. 
+            p[0] = p[3]
+
     else:
         FuncionActual.append(p[1])
         if p[3] != "None" and p[3] not in FuncionActual:
             FuncionActual.append(p[3]) #Ultimo Recorrido guardamos posicion final 
-
         p[0] = p[3] #Matener informacion
-
-    if p[3] == ":":
-        TipoActual.append(p[4]) #En caso de tener valores de arreglo ejem test4[] Update a futuro. 
-    else:
-        pass
     
     p[0] = p[1]
 
@@ -964,26 +1023,28 @@ def p_varcte(p):
     '''
     localvar = 'Const'
     global TemporalCounter
-    global Ti
-    global Td
-    global Tb
-    global Ts
+    global Ci
+    global Cd
+    global Cb
+    global Cs
 
     if type(p[1]) is int or type(p[1]) is float: # Verifica primero si es un id o constante
     	if float(p[1]).is_integer():
-        	localvar += currentf[-1]
-        	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf[-1],localvar,"int",Ti)
-        	TemporalCounter = TemporalCounter + 1
-        	Ti = Ti + 1
+            localvar += currentf[-1]
+            localvar += str(TemporalCounter)
+            print("metiendo",currentf[-1],localvar,"int",Ci )
+            DirectorioFunciones.addv(currentf[-1],localvar,"int",Ci)
+            TemporalCounter = TemporalCounter + 1
+            memory.addMemoryValue(Ci,p[1])
+            Ci = Ci + 1
             
     	else:
-        	localvar += currentf[-1]
-        	localvar += str(TemporalCounter)
-        	DirectorioFunciones.addv(currentf[-1],localvar,"double",Td)
-        	TemporalCounter = TemporalCounter + 1
-        	Td = Td + 1
-
+            localvar += currentf[-1]
+            localvar += str(TemporalCounter)
+            DirectorioFunciones.addv(currentf[-1],localvar,"double",Cd)
+            TemporalCounter = TemporalCounter + 1
+            memory.addMemoryValue(Cd,p[1])
+            Cd = Cd + 1
 
     #print("vcte",p[1], type(p[1]))
     
@@ -1138,3 +1199,5 @@ print("Variables de Modulo Prueba \n")
 DirectorioFunciones.getallv("prueba")
 print("####")
 print(DirectorioFunciones.listf())
+print("Probando Memoria")
+print(memory.getValue(32500))

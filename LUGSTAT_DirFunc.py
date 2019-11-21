@@ -46,6 +46,17 @@ class Directorio_de_Variables(object):
         else:
             print("Function does not exist")
 
+    def addarreglo(self, fname, arreglox):
+        if fname in self.listaf:
+            #print ("Function exists")
+            access = self.listaf[fname]
+            #if access['fvars'].searchbyname(arreglox) == True:
+            #    print("Variable already exists")
+            #else:
+            access['fvars'].addArr(arreglox)
+        else:
+            print("Function does not exist")
+
 
     def getallv(self, fname):
         if fname in self.listaf:

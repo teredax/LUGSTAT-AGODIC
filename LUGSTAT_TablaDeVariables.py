@@ -21,6 +21,9 @@ class Tabla_de_Variables(object):
     def search(self,vname):
         return vname in self.lista
 
+    def searchbyname(self, vname):
+        return vname in self.lista.keys()
+
     def get(self,vname):
         if self.search(vname): #Buscamos si existe 
             return self.lista[vname] #En ese caso regresamos variable completa
