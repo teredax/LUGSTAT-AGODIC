@@ -275,15 +275,19 @@ def p_vars(p):
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1
                 vmcounter+=1
                 #print(FuncionActual[i], "@#!#!@")
@@ -300,15 +304,19 @@ def p_vars(p):
             for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1
                 pfcounter+=1
                 #print(TipoActual[0], " of type")
@@ -397,15 +405,19 @@ def p_vars(p):
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1            
                 vfcounter+=1
                 #print(vfcounter, "im going in! first line", FuncionActual[i])
@@ -1220,7 +1232,7 @@ print(Quad.queue[0])
 
 rres = Quad.queue[0][1] + Quad.queue[0][2]
 
-print(memory.getValue(20000))
+print(memory.getValue(10000))
 
 print(rres)
 
