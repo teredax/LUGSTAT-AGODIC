@@ -10,15 +10,18 @@ class Memoria:
 
     def createMemory(self): #      G               L             T              C  
         self.memoria =      [[{},{},{},{}], [[{},{},{},{}]],[[{},{},{},{}]],[{},{},{},{}]] 
-    
+
+
     def addMemoryValue (self,direccion,valor):
         if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
             self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor # [Nivel es decir GLTC] [Tipo de variable][Index de variable]
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
+            print("se agrego a temp en la direccion", direccion)
             self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
+            print("se agrego a const en la direccion", direccion)
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
 
     def getAddressFrom(self, nivel, tipo, index):
@@ -29,11 +32,13 @@ class Memoria:
             return self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             return self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
-        elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
+        elif abs(direccion) // 10000 == 2:
             return self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
             return self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
 
+        else:
+            print("Address not found")
     def freeLocalMemory(self):
         self.memoria[1].pop #Al terminar una funcion eliminamos las variables locales
         
@@ -60,7 +65,10 @@ def main():
     memory.addMemoryValue(32500, 5.0)
     memory.addMemoryValue(35000, True)
     memory.addMemoryValue(37500, "Perro Constante")
-    print(memory.getValue(17500))
+    print(memory.getValue(20000))
+    memory.addMemoryValue(20000, 500) # test to edit value of mem
+    print(memory.getValue(20000))
+
     #memory.printMemory()
 
 if __name__== "__main__":

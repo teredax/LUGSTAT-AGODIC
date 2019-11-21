@@ -275,15 +275,19 @@ def p_vars(p):
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1
                 vmcounter+=1
                 #print(FuncionActual[i], "@#!#!@")
@@ -300,15 +304,19 @@ def p_vars(p):
             for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1
                 pfcounter+=1
                 #print(TipoActual[0], " of type")
@@ -397,15 +405,19 @@ def p_vars(p):
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                    memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                    memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                    memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                    memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1            
                 vfcounter+=1
                 #print(vfcounter, "im going in! first line", FuncionActual[i])
@@ -880,15 +892,19 @@ def p_expresion(p):
                 PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    memory.addMemoryValue(Tb,74)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    memory.addMemoryValue(Ts,74)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 #Ver en que momento borrar liberar temporales
@@ -935,15 +951,19 @@ def p_exp(p):
                 PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    memory.addMemoryValue(Tb,74)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    memory.addMemoryValue(Ts,74)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
@@ -982,6 +1002,10 @@ def p_termino(p):
             lTY = typetostr(lTY)
             oOP = POper.pop()
             global LineC
+            global Ti
+            global Td
+            global Tb
+            global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
@@ -990,7 +1014,14 @@ def p_termino(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
-                DirectorioFunciones.addv(currentf[-1],RFI, fTY,0) #Agregar identificacon de tipo 
+                if fTY == 'int':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
+                    Ti = Ti + 1
+                if fTY == 'double':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
+                    Td = Td + 1 
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -1189,15 +1220,20 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-print("")
+print("tu quadruplo resultante es:")
 print(Quad.queue)
 print("")
 print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
-print("Variables de Modulo Prueba \n")
-DirectorioFunciones.getallv("prueba")
-print("####")
-print(DirectorioFunciones.listf())
 print("Probando Memoria")
-print(memory.getValue(32500))
+
+print(Quad.queue[0])
+
+rres = Quad.queue[0][1] + Quad.queue[0][2]
+
+print(memory.getValue(10000))
+
+print(rres)
+
+
