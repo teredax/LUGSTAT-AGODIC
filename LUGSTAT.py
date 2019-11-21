@@ -880,15 +880,19 @@ def p_expresion(p):
                 PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    memory.addMemoryValue(Tb,74)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    memory.addMemoryValue(Ts,74)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 #Ver en que momento borrar liberar temporales
@@ -935,15 +939,19 @@ def p_exp(p):
                 PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
+                    memory.addMemoryValue(Tb,74)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
+                    memory.addMemoryValue(Ts,74)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
@@ -982,6 +990,10 @@ def p_termino(p):
             lTY = typetostr(lTY)
             oOP = POper.pop()
             global LineC
+            global Ti
+            global Td
+            global Tb
+            global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
@@ -990,7 +1002,14 @@ def p_termino(p):
                 quad = (oOP, lOP, rOP, RFI)
                 Quad.put(quad)
                 PilaO.append(RFI)
-                DirectorioFunciones.addv(currentf[-1],RFI, fTY,0) #Agregar identificacon de tipo 
+                if fTY == 'int':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
+                    memory.addMemoryValue(Ti,74)
+                    Ti = Ti + 1
+                if fTY == 'double':
+                    DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
+                    memory.addMemoryValue(Td,74)
+                    Td = Td + 1 
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -1189,15 +1208,20 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-print("")
+print("tu quadruplo resultante es:")
 print(Quad.queue)
 print("")
 print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
-print("Variables de Modulo Prueba \n")
-DirectorioFunciones.getallv("prueba")
-print("####")
-print(DirectorioFunciones.listf())
 print("Probando Memoria")
-print(memory.getValue(32500))
+
+print(Quad.queue[0])
+
+rres = Quad.queue[0][1] + Quad.queue[0][2]
+
+print(memory.getValue(20000))
+
+print(rres)
+
+
