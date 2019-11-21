@@ -336,9 +336,11 @@ def p_vars(p):
                     if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
+
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
-                                'final'  : Li + ValorArreglo[0] - 1
+                                'final'  : Li + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
@@ -351,7 +353,8 @@ def p_vars(p):
                             arreglo = {
                                 'name' : FuncionActual[i],
                                 'inicio' : Ld,
-                                'final'  : Ld + ValorArreglo[0] - 1
+                                'final'  : Ld + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
@@ -364,7 +367,8 @@ def p_vars(p):
                             arreglo = {
                                 'name' : FuncionActual[i],
                                 'inicio' : Lb,
-                                'final'  : Lb + ValorArreglo[0] - 1
+                                'final'  : Lb + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
@@ -377,7 +381,8 @@ def p_vars(p):
                             arreglo = {
                                 'name' : FuncionActual[i],
                                 'inicio' : Ls,
-                                'final'  : Ls + ValorArreglo[0] - 1
+                                'final'  : Ls + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
@@ -666,9 +671,14 @@ def p_asign(p):
     '''
     #print("!@#",p[1], p[2])
 
-    if p[2] is '=':
-        POper.append(p[2])
-        #print("equals",p[-1])
+    if p[2] is '=' or p[3] is '=':
+        
+        if p[2] is '=':
+            POper.append(p[2])
+        else:
+            POper.append(p[3])
+
+        #print("equals",p[3])
 
     PilaO.append(p[1])
     if type(p[1]) is int or type(p[1]) is float:
@@ -678,6 +688,7 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
+#        print(tar, "@#$@#$@#$@#$@#$@#$")
 
         if tar == None:
             print("Variable not found locally. Checking global scope..")
@@ -688,6 +699,7 @@ def p_asign(p):
             print("Variable doesn't exist!")
         else:
             tarfilter = tar['type']
+            #print(tar['type'], "#$@$@@#$")
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
         #print(index)
@@ -1228,12 +1240,5 @@ DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
 
-print(Quad.queue[0])
-
-rres = Quad.queue[0][1] + Quad.queue[0][2]
-
-print(memory.getValue(10000))
-
-print(rres)
 
 
