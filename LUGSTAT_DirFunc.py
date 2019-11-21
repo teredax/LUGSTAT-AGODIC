@@ -95,6 +95,11 @@ class Directorio_de_Variables(object):
         else:
             print("E404")
 
+    def getmemnum(self, fname, vname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return access['fvars'].getmloc(vname)
+
     def addparamtypes(self, fname, paramstoadd):
         if fname in self.listaf:
             access  = self.listaf[fname]
@@ -114,11 +119,11 @@ class Directorio_de_Variables(object):
 def main():
     print("reee")
     test = Directorio_de_Variables()
-    test.addf("func1", bool, 999,0,0)
-    test.addv("func1", "var1" , bool)
-    test.addv("func1", "var2" , bool)
+    test.addf("func1", bool, 999,0,0, 0)
+    test.addv("func1", "var1" , bool, 200)
+    test.addv("func1", "var2" , bool, 3)
     test.getallv("func1")
-    test.releaseloc("func1")
+    print(test.getmemnum("func1", "var1"))
 
 if __name__== "__main__":
   main()

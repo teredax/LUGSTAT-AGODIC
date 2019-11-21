@@ -30,6 +30,9 @@ class Tabla_de_Variables(object):
         else:
             return None
     
+    def getmloc(self, vname):
+        return self.lista[vname]['memoryloc']
+
     def getbyName(self):
         return self.lista
 

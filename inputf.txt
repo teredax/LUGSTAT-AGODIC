@@ -1,27 +1,6 @@
 lugstat lugstattest;
-
-var int1 : int;
-var arreglo1[5] : int;
-var matriz1[2][3] : int;
-var db1: double;
-func prueba2 : int (var param5: int;)
+var int0 : int;
+var int1[5] : int;
 {
-param5 = 1/2;
-}
-func prueba : int (var param5: double;)
-var meme, meme2 : int;
-var meme3[5] : int;
-{
-prueba2(1)
-}
-
-func prueba3 : int (var param5: double;)
-var meme, meme2 : int;
-{
-}
-
-{
-int1 = 1+(10*10);
-prueba(2.3)
-prueba2(1)
+int1[0] = 3;
 }
