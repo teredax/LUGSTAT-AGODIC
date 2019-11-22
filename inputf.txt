@@ -1,6 +1,8 @@
 lugstat lugstattest;
-var int0 : int;
-var int1[5] : int;
+
+var int1 : int;
+
 {
-int1[0] = 3;
+int1 = 1+(10*false);
+
 }
