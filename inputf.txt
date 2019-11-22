@@ -1,5 +1,5 @@
 lugstat lugstattest;
-
+var b1 : bool;
 var int1 : int;
 
 {
