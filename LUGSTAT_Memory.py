@@ -18,11 +18,25 @@ class Memoria:
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
-            print("se agrego a temp en la direccion", direccion)
+            #print("se agrego a temp en la direccion", direccion)
             self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
-            print("se agrego a const en la direccion", direccion)
+            #print("se agrego a const en la direccion", direccion)
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
+
+    def addNewMemory (self,direccion,valor):
+        if abs(direccion) // 10000 == 1: #Guardamos valor en Locales
+            self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
+            #print("se agrego a temp en la direccion", direccion)
+            self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+
+    def addOldMemory (self,direccion,valor):
+        if abs(direccion) // 10000 == 1: #Guardamos valor en Locales
+            self.memoria[1][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
+            print("se agrego a temp en la direccion", direccion)
+            self.memoria[2][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
 
     def getAddressFrom(self, nivel, tipo, index):
         return nivel * 10000 + tipo * 2500 + index

@@ -1,7 +1,6 @@
 lugstat lugstattest;
-var b1 : bool;
-var int1 : int;
+var int1,int2 : int;
 
 {
-b1 =True;
+int1 = 10*10;
 }

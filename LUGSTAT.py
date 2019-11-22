@@ -237,6 +237,7 @@ def p_lugstat(p):
 def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0)
+    memory.createLocalTemporal() #Creamos un contexto nuevo para la funcion
     global currentf
     global TemporalCounter
     TemporalCounter = 0
@@ -291,8 +292,12 @@ def p_vars(p):
                                 Li = Li + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
-                            memory.addMemoryValue(Li,70)
-                            Li = Li + 1
+                            if(Li == 10000):
+                                memory.addMemoryValue(Li,70)
+                                Li = Li + 1
+                            else:
+                                memory.addOldMemory(Li,70)
+                                Li = Li + 1
                 if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -560,7 +565,6 @@ def p_vars1(p):
             if p[1] not in FuncionActual:
                 FuncionActual.append(p[1])#En caso de tener valores de arreglo ejem test4[] Update a futuro. 
         else:
-            print("variable ",p[1], "tipo ", p[6])
             TipoActual.append(p[6]) 
             ValorArreglo.append(p[3])
             if p[1] not in FuncionActual:
@@ -1181,7 +1185,6 @@ def p_varcte(p):
     	if float(p[1]).is_integer():
             localvar += currentf[-1]
             localvar += str(TemporalCounter)
-            print("metiendo",currentf[-1],localvar,"int",Ci )
             DirectorioFunciones.addv(currentf[-1],localvar,"int",Ci)
             TemporalCounter = TemporalCounter + 1
             memory.addMemoryValue(Ci,p[1])
@@ -1353,3 +1356,4 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
+print(memory.getValue(10000))
