@@ -178,10 +178,6 @@ t_STRING = r'\".*\"'
 
 t_ignore_COMMENT = r'\#.*'
 
-def t_LOGICAL(t):
-    r'True|False'
-    return t
-
 def t_NUMERIC(t):
     r'\d+[eE][-+]?\d+|(\.\d+|\d+\.\d+)([eE][-+]?\d+)?'
     t.value = float(t.value)              
@@ -212,9 +208,6 @@ def t_ID(t):
      r'[a-zA-Z_][a-zA-Z_0-9]*'
      t.type = reserved.get(t.value,'ID')    # Check for reserved words
      return t
-
-
-
 
     # Build the lexer
 import ply.lex as lex
@@ -786,7 +779,6 @@ def p_asign(p):
         #print("equals",p[3])
 
     PilaO.append(p[1])
-    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -794,7 +786,7 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
-        #print(tar, "@#$@#$@#$@#$@#$@#$")
+#        print(tar, "@#$@#$@#$@#$@#$@#$")
 
         if tar == None:
             print("Variable not found locally. Checking global scope..")
@@ -820,6 +812,7 @@ def p_asign(p):
             lTY = Ptype.pop()
             lTY = typetostr(lTY)
             oOP = POper.pop()
+
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
@@ -833,8 +826,7 @@ def p_asign(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch")   
-                sys.exit() 
+                print("Type mismatch")    
 
 
 def p_asign2(p):
@@ -1031,8 +1023,7 @@ def p_expresion(p):
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
             else:
-                print("Type Mismatch!")
-                sys.exit()
+                print("Type mismatch")
 
 def p_exp(p):
     '''
@@ -1090,8 +1081,7 @@ def p_exp(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch")
-                sys.exit()
+                print("Type mismatch")
 
     #@8
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
@@ -1148,7 +1138,7 @@ def p_termino(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch")
+                print("Type mismatch")
 
 
 def p_factor(p):
@@ -1203,36 +1193,28 @@ def p_varcte(p):
     #print("vcte",p[1], type(p[1]))
     
     #@1
-
-    if p[1] == 'True' or p[1] == 'False':
-        #print("hi!")
-        Ptype.append('bool')
+    if type(p[1]) is int or type(p[1]) is float:
+        Ptype.append(type(p[1]))
         PilaO.append(p[1])
     else:
-        if type(p[1]) is int or type(p[1]) is float:
-            Ptype.append(type(p[1]))
-            PilaO.append(p[1])
-        else:
-            print("Looking in var table for type")
+        print("Looking in var table for type")
         #print(currentf, "#$#@$")
-            index=DirectorioFunciones.getdir(currentf[-1])
+        index=DirectorioFunciones.getdir(currentf[-1])
+        tar=index['fvars'].get(p[1])
+
+        if tar == None:
+            print("Variable not found locally. Checking global scope..")
+            index=DirectorioFunciones.getdir(currentf[0])
             tar=index['fvars'].get(p[1])
 
-            if tar == None:
-                print("Variable not found locally. Checking global scope..")
-                index=DirectorioFunciones.getdir(currentf[0])
-                tar=index['fvars'].get(p[1])
-
-            if tar == None:
-                print("Variable doesn't exist!")
-            else:
-                tarfilter = tar['type']
-                #print("tarfilter",tarfilter)
-                Ptype.append(tarfilter)
-                PilaO.append(p[1])
+        if tar == None:
+            print("Variable doesn't exist!")
+        else:
+            tarfilter = tar['type']
+            #print("tarfilter",tarfilter)
+            Ptype.append(tarfilter)
+            PilaO.append(p[1])
         #print(index)
-
-    
 
 def p_dwhile(p):
     '''
@@ -1358,3 +1340,6 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
+
+
+
