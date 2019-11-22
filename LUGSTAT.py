@@ -178,6 +178,12 @@ t_STRING = r'\".*\"'
 
 t_ignore_COMMENT = r'\#.*'
 
+
+def t_LOGICAL(t):
+    r'True|False'
+    return t
+
+
 def t_NUMERIC(t):
     r'\d+[eE][-+]?\d+|(\.\d+|\d+\.\d+)([eE][-+]?\d+)?'
     t.value = float(t.value)              
@@ -187,11 +193,6 @@ def t_NUMBER(t):
         r'\d+'
         t.value = int(t.value)
         return t
-
-def t_LOGICAL(t):
-	r'true|false'
-	return t
-
 
     # Ignored characters
 t_ignore = " \t"
@@ -779,6 +780,7 @@ def p_asign(p):
         #print("equals",p[3])
 
     PilaO.append(p[1])
+    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -786,7 +788,7 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
-#        print(tar, "@#$@#$@#$@#$@#$@#$")
+        #print(tar, "@#$@#$@#$@#$@#$@#$")
 
         if tar == None:
             print("Variable not found locally. Checking global scope..")
@@ -800,7 +802,6 @@ def p_asign(p):
             #print(tar['type'], "#$@$@@#$")
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
-        #print(index)
 
 
     if POper:
@@ -812,21 +813,19 @@ def p_asign(p):
             lTY = Ptype.pop()
             lTY = typetostr(lTY)
             oOP = POper.pop()
-
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Aqui ando", lTY,rTY,oOP )
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
-
             if fTY != 'error':
                 quad = (oOP, lOP, rOP)
                 Quad.put(quad)
-                print("mmi quad es ", quad)
+
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type mismatch")    
+                print("Type Mismatch")   
+                sys.exit() 
 
 
 def p_asign2(p):
@@ -1193,27 +1192,32 @@ def p_varcte(p):
     #print("vcte",p[1], type(p[1]))
     
     #@1
-    if type(p[1]) is int or type(p[1]) is float:
-        Ptype.append(type(p[1]))
+    if p[1] == 'True' or p[1] == 'False':
+        #print("hi!")
+        Ptype.append('bool')
         PilaO.append(p[1])
     else:
-        print("Looking in var table for type")
-        #print(currentf, "#$#@$")
-        index=DirectorioFunciones.getdir(currentf[-1])
-        tar=index['fvars'].get(p[1])
-
-        if tar == None:
-            print("Variable not found locally. Checking global scope..")
-            index=DirectorioFunciones.getdir(currentf[0])
+        if type(p[1]) is int or type(p[1]) is float:
+            Ptype.append(type(p[1]))
+            PilaO.append(p[1])
+        else:
+            print("Looking in var table for type")
+            #print(currentf, "#$#@$")
+            index=DirectorioFunciones.getdir(currentf[-1])
             tar=index['fvars'].get(p[1])
 
-        if tar == None:
-            print("Variable doesn't exist!")
-        else:
-            tarfilter = tar['type']
-            #print("tarfilter",tarfilter)
-            Ptype.append(tarfilter)
-            PilaO.append(p[1])
+            if tar == None:
+                print("Variable not found locally. Checking global scope..")
+                index=DirectorioFunciones.getdir(currentf[0])
+                tar=index['fvars'].get(p[1])
+
+            if tar == None:
+                print("Variable doesn't exist!")
+            else:
+                tarfilter = tar['type']
+                #print("tarfilter",tarfilter)
+                Ptype.append(tarfilter)
+                PilaO.append(p[1])
         #print(index)
 
 def p_dwhile(p):
