@@ -1,6 +1,6 @@
 lugstat lugstattest;
-var int0 : int;
-var int1[5] : int;
+var int1 : int;
+var b1: bool;
 {
-int1[0] = 3;
+b1 =1+True;
 }
