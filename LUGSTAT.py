@@ -188,6 +188,9 @@ def t_NUMBER(t):
         t.value = int(t.value)
         return t
 
+def t_LOGICAL(t):
+	r'true|false'
+	return t
 
 
     # Ignored characters
@@ -274,21 +277,69 @@ def p_vars(p):
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
-                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
-                    memory.addMemoryValue(Li,70)
-                    Li = Li + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Li,
+                                'final'  : Li + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-3],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Li,70)
+                                Li = Li + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
+                            memory.addMemoryValue(Li,70)
+                            Li = Li + 1
                 if(TipoActual[0] == 'double'):
-                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
-                    memory.addMemoryValue(Ld,70)
-                    Ld = Ld + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ld,
+                                'final'  : Ld + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-3],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ld,70)
+                                Ld = Ld + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
+                            memory.addMemoryValue(Ld,70)
+                            Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
-                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
-                    memory.addMemoryValue(Lb,70)
-                    Lb = Lb + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Lb,
+                                'final'  : Lb + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-3],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Lb,70)
+                                Lb = Lb + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
+                            memory.addMemoryValue(Lb,70)
+                            Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
-                    DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
-                    memory.addMemoryValue(Ls,70)
-                    Ls = Ls + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ls,
+                                'final'  : Ls + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-3],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ls,70)
+                                Ls = Ls + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
+                            memory.addMemoryValue(Ls,70)
+                            Ls = Ls + 1
                 vmcounter+=1
                 #print(FuncionActual[i], "@#!#!@")
         Li = 10000
@@ -303,21 +354,69 @@ def p_vars(p):
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
-                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
-                    memory.addMemoryValue(Li,70)
-                    Li = Li + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Li,
+                                'final'  : Li + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-5],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Li,70)
+                                Li = Li + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
+                            memory.addMemoryValue(Li,70)
+                            Li = Li + 1
                 if(TipoActual[0] == 'double'):
-                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
-                    memory.addMemoryValue(Ld,70)
-                    Ld = Ld + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ld,
+                                'final'  : Ld + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-5],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ld,70)
+                                Ld = Ld + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
+                            memory.addMemoryValue(Ld,70)
+                            Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
-                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
-                    memory.addMemoryValue(Lb,70)
-                    Lb = Lb + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Lb,
+                                'final'  : Lb + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-5],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Lb,70)
+                                Lb = Lb + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
+                            memory.addMemoryValue(Lb,70)
+                            Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
-                    DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
-                    memory.addMemoryValue(Ls,70)
-                    Ls = Ls + 1
+                        if len(ValorArreglo) > 0:
+                            arreglo = {
+                                'name' : FuncionActual[i],
+                                'inicio' : Ls,
+                                'final'  : Ls + ValorArreglo[0] - 1,
+                                'type' : TipoActual[0]
+                            }
+                            DirectorioFunciones.addarreglo(p[-5],arreglo)
+                            for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ls,70)
+                                Ls = Ls + 1
+                        else:     
+                            DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
+                            memory.addMemoryValue(Ls,70)
+                            Ls = Ls + 1
                 pfcounter+=1
                 #print(TipoActual[0], " of type")
                 #print(p[-1], "fds")
@@ -336,7 +435,6 @@ def p_vars(p):
                     if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
-
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
                                 'final'  : Li + ValorArreglo[0] - 1,
@@ -718,11 +816,13 @@ def p_asign(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
+            print("Aqui ando", lTY,rTY,oOP )
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
+
             if fTY != 'error':
                 quad = (oOP, lOP, rOP)
                 Quad.put(quad)
-
+                print("mmi quad es ", quad)
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
@@ -1063,6 +1163,7 @@ def p_varcte(p):
     | ID asign2
     | NUMERIC
     | NUMBER
+    | LOGICAL
     '''
     localvar = 'Const'
     global TemporalCounter

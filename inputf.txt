@@ -1,7 +1,7 @@
 lugstat lugstattest;
-var int0 : int;
-var int1[5] : int;
+
+var int1 : int;
+
 {
 b1 =True;
-
 }
