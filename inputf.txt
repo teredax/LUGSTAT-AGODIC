@@ -1,8 +1,6 @@
 lugstat lugstattest;
-
 var int1 : int;
-
+var b1: bool;
 {
-int1 = 1+(10*false);
-
+b1 =1+True;
 }
