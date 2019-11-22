@@ -1258,3 +1258,5 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
+
+
