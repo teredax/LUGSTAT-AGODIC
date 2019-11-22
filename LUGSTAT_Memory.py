@@ -19,7 +19,7 @@ class Memoria:
             self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
             print("se agrego a temp en la direccion", direccion)
-            self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor
+            self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
             print("se agrego a const en la direccion", direccion)
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
@@ -39,12 +39,14 @@ class Memoria:
 
         else:
             print("Address not found")
-    def freeLocalMemory(self):
+
+    def freeFunctionMemory(self):
         self.memoria[1].pop #Al terminar una funcion eliminamos las variables locales
-        
-    def freeTemporalMemory(self):
         self.memoria[2].pop #Al terminar una funcion eliminamos las variables Temporales
-        
+
+    def createLocalTemporal(self):
+        self.memoria[1].append([{},{},{},{}]) #Al crear una funcion siempre crear una nueva direccion
+        self.memoria[2].append([{},{},{},{}]) #Al crear una funcion eliminamos las variables Temporales
 
 
 def main():
