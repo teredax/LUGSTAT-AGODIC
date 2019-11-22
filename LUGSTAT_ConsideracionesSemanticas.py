@@ -141,10 +141,10 @@ class ConsideracionesSemanticas ():
         def get_tipo(self, Izq, Der, operador):
             return self.Consideracion[Izq][Der][operador]
 
-def main():
-    print("reee")
-    test = ConsideracionesSemanticas()
-    print(test.get_tipo('int', 'bool', '*'))
+#def main():
+#    print("reee")
+#    test = ConsideracionesSemanticas()
+#    print(test.get_tipo('int', 'int', '+'))
 
-if __name__== "__main__":
-  main()
+#if __name__== "__main__":
+#  main()
