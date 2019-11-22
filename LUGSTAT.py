@@ -797,6 +797,7 @@ def p_asign(p):
 
         if tar == None:
             print("Variable doesn't exist!")
+            sys.exit()
         else:
             tarfilter = tar['type']
             #print(tar['type'], "#$@$@@#$")
@@ -888,6 +889,7 @@ def p_en3(p):
 
     if tar == None:
         print("Variable doesn't exist!")
+        sys.exit()
     else:
         output = p[-1]
         global LineC
@@ -912,6 +914,7 @@ def p_cn1(p):
     LineC +=1
     if exp_type != 'bool':
         print("Type Mismatch!")
+        sys.exit()
     else:
         res = PilaO.pop()
         PJumps.append(LineC)
@@ -1022,7 +1025,8 @@ def p_expresion(p):
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
             else:
-                print("Type mismatch")
+                print("Type Mismatch!")
+                sys.exit()
 
 def p_exp(p):
     '''
@@ -1080,7 +1084,8 @@ def p_exp(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type mismatch")
+                print("Type Mismatch!")
+                sys.exit()
 
     #@8
     relopindex = {'>', '<', '=>' '<=', '!=', '=='}
@@ -1137,7 +1142,8 @@ def p_termino(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type mismatch")
+                print("Type Mismatch!")
+                sys.exit()
 
 
 def p_factor(p):
@@ -1213,6 +1219,7 @@ def p_varcte(p):
 
             if tar == None:
                 print("Variable doesn't exist!")
+                sys.exit()
             else:
                 tarfilter = tar['type']
                 #print("tarfilter",tarfilter)
@@ -1233,6 +1240,7 @@ def p_wn2(p):
     exp_type = typetostr(exp_type)
     if exp_type != 'bool':
         print("Type Mismatch!")
+        sys.exit()
     else:
         res = PilaO.pop()
         doloopstart = PJumps.pop()
@@ -1269,6 +1277,7 @@ def p_rn1(p):
 
     if tar == None:
         print("Variable doesn't exist!")
+        sys.exit()
     else:
         output = p[-1]
         global LineC
