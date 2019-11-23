@@ -1389,6 +1389,7 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
+
 print(memory.getValue(10000))
 
 print("")
