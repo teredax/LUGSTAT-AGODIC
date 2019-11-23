@@ -15,7 +15,7 @@ print(int1);
 int1 = 1+1;
 print("Hello Lugstat!");
 print("Input your age");
-read(doble1);
+read(bool3);
 
 do {
 int1 = 1+(1*1);

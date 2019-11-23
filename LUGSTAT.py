@@ -1841,7 +1841,10 @@ while Quad.empty() == False:
                     except ValueError:
                         rfy = 'error'
             else:
-                rfy = typetostr(type(userinput))
+                if userinput == 'True' or userinput == 'False':
+                    rfy = 'bool'
+                else:
+                    rfy = typetostr(type(userinput))
                 #print(rfy, "@")
             #print(tmem)
             #print(rfy)
