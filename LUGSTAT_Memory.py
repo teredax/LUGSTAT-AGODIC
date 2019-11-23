@@ -76,28 +76,20 @@ class Memoria:
         self.memoria[1].append([{},{},{},{}]) #Al crear una funcion siempre crear una nueva direccion
         self.memoria[2].append([{},{},{},{}]) #Al crear una funcion eliminamos las variables Temporales
 
+    def getType(self,direccion):
+        if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+            return "int"
+        elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
+            return "double" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
+            return "bool" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
+           return "string" #Crear funcion de no poder sobre escribir constantes
+
 
 def main():
     memory = Memoria()
-    memory.addMemoryValue(0, 5)
-    memory.addMemoryValue(2500, 5.0)
-    memory.addMemoryValue(5000, True)
-    memory.addMemoryValue(7500, "Perro Global")
-    memory.addMemoryValue(10000, 5)
-    memory.addMemoryValue(12500, 5.0)
-    memory.addMemoryValue(15000, True)
-    memory.addMemoryValue(17500, "Perro Local")
-    memory.addMemoryValue(20000, 5)
-    memory.addMemoryValue(22500, 5.0)
-    memory.addMemoryValue(25000, True)
-    memory.addMemoryValue(27500, "Perro Temporal")
-    memory.addMemoryValue(30000, 5)
-    memory.addMemoryValue(32500, 5.0)
-    memory.addMemoryValue(35000, True)
-    memory.addMemoryValue(37500, "Perro Constante")
-    print(memory.getValue(20000))
-    memory.addMemoryValue(20000, 500) # test to edit value of mem
-    print(memory.getValue(20000))
+    print(memory.getType(37500))
 
     #memory.printMemory()
 
