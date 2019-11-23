@@ -24,6 +24,14 @@ FuncionActual = []
 TipoActual = []
 ValorArreglo = []
 TemporalCounter = 0
+MemoryREG = []
+
+def findaddrfromREG(elem):
+    for i in range(0, len(MemoryREG)):
+        #print(elem, MemoryREG[i][0], len(MemoryREG), i, "#####")
+        if MemoryREG[i][0] == elem:
+            return MemoryREG[i][2]
+
 
 
 def typetostr(element):
@@ -289,14 +297,17 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Li)
                             if(Li == 10000):
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
                             else:
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
                 if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
@@ -309,14 +320,17 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
                             if(Ld == 12500):
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
                             else:
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                         if len(ValorArreglo) > 0:
@@ -329,11 +343,13 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
                             if(Lb == 15000):
                                 memory.addMemoryValue(Lb,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
                             else:
                                 memory.addMemoryValue(Lb,70)
@@ -349,14 +365,17 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
                             if(Ls == 12500):
                                 memory.addMemoryValue(Ls,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
                             else:
                                 memory.addMemoryValue(Ls,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
                 vmcounter+=1
                 #print(FuncionActual[i], "@#!#!@")
@@ -382,10 +401,13 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
+
                                 Li = Li + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
                             memory.addMemoryValue(Li,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                             Li = Li + 1
                 if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
@@ -398,10 +420,12 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
                             memory.addMemoryValue(Ld,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                             Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                         if len(ValorArreglo) > 0:
@@ -414,10 +438,12 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
                             memory.addMemoryValue(Lb,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                             Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                         if len(ValorArreglo) > 0:
@@ -430,10 +456,12 @@ def p_vars(p):
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
                             memory.addMemoryValue(Ls,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                             Ls = Ls + 1
                 pfcounter+=1
                 #print(TipoActual[0], " of type")
@@ -461,9 +489,13 @@ def p_vars(p):
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Li,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
                         else:     
                             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                            memory.addMemoryValue(Li,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                             Li = Li + 1
                     if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
@@ -475,9 +507,13 @@ def p_vars(p):
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ld,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
                         else:     
                             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                            memory.addMemoryValue(Ld,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                             Ld = Ld + 1
                     if(TipoActual[0] == 'bool'):
                         if len(ValorArreglo) > 0:
@@ -489,9 +525,13 @@ def p_vars(p):
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Lb,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
                         else:     
                             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                            memory.addMemoryValue(Lb,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                             Lb = Lb + 1
                     if(TipoActual[0] == 'string'):
                         if len(ValorArreglo) > 0:
@@ -503,9 +543,13 @@ def p_vars(p):
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for i in range(ValorArreglo[0]):
+                                memory.addMemoryValue(Ls,70)
+                                MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
                         else:     
                             DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                            memory.addMemoryValue(Ls,70)
+                            MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                             Ls = Ls + 1           
                     if currentf[-1] != currentf[0] and pfboolstackcond == True:
                        # print("FS@@@@@@@@@@@@@@@@@@@@@@@@D", TipoActual[0], FuncionActual[i])
@@ -1389,10 +1433,11 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
-
-print(memory.getValue(10000))
+#print(memory.getCurrentContextValue(10000))
 
 print("")
+print(MemoryREG)
+
 print("Maq V. INIT.")
 
 for i in range(0, Quad.qsize()):
@@ -1411,7 +1456,41 @@ for i in range(0, Quad.qsize()):
         print(OPP, LOP, ROP, RT)
 
         if OPP == '+':
-            None
+            # Si ambos son constantes nadamas hace la operacion sin tener que acceder a memoria por su valor
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = LOP + ROP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getValue(20000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = LOP + addrv
+                    memory.addMemoryValue(MM, res)
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP + addrv
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = LOPV + ROPV
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                    # Ninguno es un cte
+
         if OPP == '*':
             # Si ambos son constantes nadamas hace la operacion sin tener que acceder a memoria por su valor
             if type(LOP) is int or type(LOP) is float:
@@ -1419,19 +1498,107 @@ for i in range(0, Quad.qsize()):
                     res = LOP * ROP
                     memory.addMemoryValue(MM, res)
                     #print(memory.getValue(20000))
-                # El primer valor es cte pero el segundo no
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = LOP * addrv
+                    memory.addMemoryValue(MM, res)
 
-
-            if type(ROP) is int or type(ROP) is float:
+            else:
+                if type(ROP) is int or type(ROP) is float:
                 # El primer valor no es cte pero el segundo si
-                None
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP * addrv
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = LOPV * ROPV
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                    # Ninguno es un CTED
 
 
         if OPP == '-':
-            None
+            # Si ambos son constantes nadamas hace la operacion sin tener que acceder a memoria por su valor
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res =  ROP - LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res =  addrv - LOP
+                    memory.addMemoryValue(MM, res)
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP - addrv
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res =  ROPV - LOPV
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                    # Ninguno es un cte
 
         if OPP == '/':
-            None
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res =  ROP / LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res =  addrv / LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP / addrv
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res =  ROPV / LOPV
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(20000))
+                    # Ninguno es un cte
 
 
     if ActualQ[0] in opasign:
@@ -1439,4 +1606,6 @@ for i in range(0, Quad.qsize()):
         LOP = ActualQ[1]
         ROP = ActualQ[2]
         print(OPP, LOP, ROP)
+
+
 
