@@ -4,5 +4,5 @@ var doble1,doble2 : double;
 var bool3 : bool;
 
 {
-int1 = 10*10;
+int1 = 70+int2;
 }

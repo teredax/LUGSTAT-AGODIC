@@ -1017,24 +1017,33 @@ def p_expresion(p):
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
-                quad = (oOP, lOP, rOP, RFI)
-                Quad.put(quad)
-                PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    quad = (oOP, rOP, lOP, RFI, Ti)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
+                    quad = (oOP, rOP, lOP, RFI, Td)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
                     memory.addMemoryValue(Tb,74)
+                    quad = (oOP, rOP, lOP, RFI, Tb)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
                     memory.addMemoryValue(Ts,74)
+                    quad = (oOP, rOP, lOP, RFI, Ts)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 #Ver en que momento borrar liberar temporales
@@ -1077,24 +1086,33 @@ def p_exp(p):
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
-                quad = (oOP, rOP, lOP, RFI)
-                Quad.put(quad)
-                PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    quad = (oOP, rOP, lOP, RFI, Ti)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
+                    quad = (oOP, rOP, lOP, RFI, Td)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
                     memory.addMemoryValue(Tb,74)
+                    quad = (oOP, rOP, lOP, RFI, Tb)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Tb = Tb + 1
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
                     memory.addMemoryValue(Ts,74)
+                    quad = (oOP, rOP, lOP, RFI, Ts)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Ts = Ts + 1
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
@@ -1143,16 +1161,19 @@ def p_termino(p):
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
-                quad = (oOP, lOP, rOP, RFI)
-                Quad.put(quad)
-                PilaO.append(RFI)
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    quad = (oOP, rOP, lOP, RFI, Ti)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
+                    quad = (oOP, rOP, lOP, RFI, Td)
+                    Quad.put(quad)
+                    PilaO.append(RFI)
                     Td = Td + 1 
                 Ptype.append(fTY)
                 # if any operand were a temporal space return it to AVAIL??
@@ -1369,3 +1390,52 @@ DirectorioFunciones.getallv("lugstattest")
 print("\n")
 print("Probando Memoria")
 print(memory.getValue(10000))
+
+print("")
+print("Maq V. INIT.")
+
+for i in range(0, Quad.qsize()):
+    #print(Quad.get())
+    opbasicas = {'+', '-', '*', '/'}
+    opasign = {'='}
+    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
+    # Caso operacion
+    ActualQ = Quad.get()
+    if ActualQ[0] in opbasicas:
+        OPP = ActualQ[0]
+        LOP = ActualQ[1]
+        ROP = ActualQ[2]
+        RT = ActualQ[3]
+        MM = ActualQ[4]
+        print(OPP, LOP, ROP, RT)
+
+        if OPP == '+':
+            None
+        if OPP == '*':
+            # Si ambos son constantes nadamas hace la operacion sin tener que acceder a memoria por su valor
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = LOP * ROP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getValue(20000))
+                # El primer valor es cte pero el segundo no
+
+
+            if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                None
+
+
+        if OPP == '-':
+            None
+
+        if OPP == '/':
+            None
+
+
+    if ActualQ[0] in opasign:
+        OPP = ActualQ[0]
+        LOP = ActualQ[1]
+        ROP = ActualQ[2]
+        print(OPP, LOP, ROP)
+
