@@ -162,7 +162,7 @@ t_MULT   = r'\*'
 t_DIV  = r'/'
 t_PER = r'\%'
 #Relacionales
-t_RELOP = r'==|<|>|<=|>=|!='
+t_RELOP = r'==|<=|>=|<|>|!='
 t_GRE = r'<>'
 #Asignacion
 t_EQUALS  = r'\='
@@ -885,7 +885,7 @@ def p_asign(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch")   
+                print("Type Mismatch1")   
                 sys.exit() 
 
 
@@ -906,6 +906,7 @@ def p_escrt(p):
     '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
     | PRINT OPAREN expresion en1 CPAREN SCOLON
     | PRINT OPAREN STRING CPAREN en2 SCOLON
+    | PRINT OPAREN STRING  escrt2 CPAREN en2 SCOLON
     '''
 
 def p_escrt2(p):
@@ -969,11 +970,12 @@ def p_cond(p):
 def p_cn1(p):
     '''cn1 : empty'''
     exp_type = Ptype.pop()
+    #print(exp_type)
     exp_type = typetostr(exp_type)
     global LineC
     LineC +=1
     if exp_type != 'bool':
-        print("Type Mismatch!")
+        print("Type Mismatch2!")
         sys.exit()
     else:
         res = PilaO.pop()
@@ -1041,9 +1043,10 @@ def p_expresion(p):
     | expresion RELOP exp 
     '''
     #@9
-    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
+    relopindex = {'>', '<', '>=','<=', '!=', '=='}
     if POper:
-    	if POper[-1] in relopindex:
+        if POper[-1] in relopindex:
+            print("im going in")
             rOP = PilaO.pop()
             rTY = Ptype.pop()
             rTY = typetostr(rTY)
@@ -1098,8 +1101,9 @@ def p_expresion(p):
     			# if any operand were a temporal space return it to AVAIL??
     			#Next....
             else:
-                print("Type Mismatch!")
+                print("Type Mismatch3!")
                 sys.exit()
+
 
 def p_exp(p):
     '''
@@ -1107,7 +1111,12 @@ def p_exp(p):
     | termino PLUS exp
     | termino MINUS exp
     '''
-
+    #@8
+    relopindex = {'>', '<', '>=', '<=', '!=', '=='}
+    #print(p[-1])
+    if p[-1] in relopindex:
+        POper.append(p[-1])
+        #print("I put in", p[-1])
 
     #@2
     if p[-1] is '+' or p[-1] is '-':
@@ -1170,13 +1179,9 @@ def p_exp(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch!")
+                print("Type Mismatch4!")
                 sys.exit()
 
-    #@8
-    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
-    if p[-1] in relopindex:
-    	POper.append(p[-1])
 
 
 def p_termino(p):
@@ -1233,7 +1238,7 @@ def p_termino(p):
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
             else:
-                print("Type Mismatch!")
+                print("Type Mismatch5!")
                 sys.exit()
 
 
@@ -1329,7 +1334,7 @@ def p_wn2(p):
     exp_type = Ptype.pop()
     exp_type = typetostr(exp_type)
     if exp_type != 'bool':
-        print("Type Mismatch!")
+        print("Type Mismatch6!")
         sys.exit()
     else:
         res = PilaO.pop()
@@ -1438,6 +1443,7 @@ result = parser.parse(cache)
 
 print("tu quadruplo resultante es:")
 print(Quad.queue)
+
 print("")
 print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
@@ -1450,11 +1456,11 @@ print("")
 
 print("Maq V. INIT.")
 
-for i in range(0, Quad.qsize()):
-    #print(Quad.get())
+#print(Quad.qsize(), "$#$#$#$")
+while Quad.empty() == False:
     opbasicas = {'+', '-', '*', '/'}
     opasign = {'='}
-    relopindex = {'>', '<', '=>' '<=', '!=', '=='}
+    relopindex = {'>', '<', '>=', '<=', '!=', '=='}
     # Caso operacion
     ActualQ = Quad.get()
     if ActualQ[0] in opbasicas:
@@ -1617,20 +1623,33 @@ for i in range(0, Quad.qsize()):
         #print(OPP, LOP, ROP)
 
         #print("Both vars")
-        addr = findaddrfromREG(LOP)
-        #print(addr)
-        addrv = memory.getActualContextValue(addr)
-        LOPV = addrv
-        addr = findaddrfromREG(ROP)
-        memory.addMemoryValue(addr, LOPV)
+        if type(LOP) is int or type(LOP) is float:
+            addr = findaddrfromREG(ROP)
+            memory.addMemoryValue(addr, LOP)
+        else:
+            addr = findaddrfromREG(LOP)
+            #print(addr)
+            addrv = memory.getActualContextValue(addr)
+            LOPV = addrv
+            addr = findaddrfromREG(ROP)
+            memory.addMemoryValue(addr, LOPV)
+
         #print(memory.getActualContextValue(10001))
 
     if ActualQ[0] == "PRINT":
-        LOP = ActualQ[1]
-        addr = findaddrfromREG(LOP)
-        #print(addr)
-        addrv = memory.getActualContextValue(addr)
-        print(addrv)
+        #print(type(ActualQ[1]))
+        check = ActualQ[1]
+
+        if check[0] is "\"":
+            aux = ActualQ[1]
+            aux.strip('\"')
+            print(aux[1:-1])
+        else:
+            LOP = ActualQ[1]
+            addr = findaddrfromREG(LOP)
+            #print(addr)
+            addrv = memory.getActualContextValue(addr)
+            print(addrv)
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
@@ -1639,20 +1658,19 @@ for i in range(0, Quad.qsize()):
         RT = ActualQ[3]
         MM = ActualQ[4]
 
-
         if ActualQ[0] == '<':
         #print(OPP, LOP, ROP, RT)
             if type(LOP) is int or type(LOP) is float:
                 if type(ROP) is int or type(ROP) is float:
                     res = ROP < LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
                 else:
                     addr = findaddrfromREG(ROP)
                     addrv = memory.getActualContextValue(addr)
                     res = addrv < LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
 
             else:
                 if type(ROP) is int or type(ROP) is float:
@@ -1662,7 +1680,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res = ROP < addrv
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
 
                 else:
                     print("Both vars")
@@ -1674,7 +1692,155 @@ for i in range(0, Quad.qsize()):
                     ROPV = addrv
                     res = ROPV < LOPV
                     memory.addMemoryValue(MM, res)
-                    #print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(25000))
                     # Ninguno es un cte
 
+        if ActualQ[0] == '>':
+        #print(OPP, LOP, ROP, RT)
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = ROP > LOP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = addrv > LOP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP > addrv
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = ROPV > LOPV
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+                    # Ninguno es un cte
+
+        if ActualQ[0] == '>=':
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = ROP >= LOP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = addrv >= LOP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP >= addrv
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = ROPV >= LOPV
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+                    # Ninguno es un cte
+
+        if ActualQ[0] == '<=':
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = ROP <= LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(25000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = addrv <= LOP
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP <= addrv
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = ROPV <= LOPV
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(25000))
+                    # Ninguno es un cte
        
+    if ActualQ[1] == "GOTOF":
+        #print("gotofcond")
+        LOP = ActualQ[2]
+        #print(LOP)        
+        addr = findaddrfromREG(LOP)
+        #print(addr)
+        addrv = memory.getActualContextValue(addr)
+        LOPV = addrv
+        #print(LOPV)
+        advance = ActualQ[3] - ActualQ[0]
+        #print(advance)
+        if LOPV == False:
+            for i in range (0, advance-1):
+                trash =Quad.get()
+                #print(trash)
+        #print("skip complete")
+
+    if ActualQ[0] == "READ":
+            LOP = ActualQ[1]
+            addr = findaddrfromREG(LOP)
+            userinput = input()
+            if userinput.isdigit():
+                rfy = "int"
+            else:
+                rfy = typetostr(type(userinput))
+                #print(rfy, "@")
+            tmem = memory.getType(addr)
+            #print(tmem)
+            #print(rfy)
+            if tmem == rfy:
+                memory.addMemoryValue(addr, userinput)
+            else:
+                print("Input and variable Type Mismatch!7")
+                sys.exit()
+            #print(memory.getActualContextValue(10001))
+
+
+
+
+
