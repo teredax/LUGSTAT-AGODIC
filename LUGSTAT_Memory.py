@@ -24,30 +24,44 @@ class Memoria:
             #print("se agrego a const en la direccion", direccion)
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
 
-    def addActualMemory (self,direccion,valor):
+    def addActualMemoryContext (self,direccion,valor):
         if abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
             #print("se agrego a temp en la direccion", direccion)
             self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
 
-    def addOldMemory (self,direccion,valor):
+    def addOldMemoryContext (self,direccion,valor):
         if abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             self.memoria[1][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
             print("se agrego a temp en la direccion", direccion)
             self.memoria[2][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
 
-    def getAddressFrom(self, nivel, tipo, index):
+    def getAddressFrom(self, nivel, tipo, index): #Donde nivel es = global [0], local[1], temporal [3], constante [4] 
         return nivel * 10000 + tipo * 2500 + index
 
-    def getValue(self, direccion):
+
+    def getActualContextValue(self, direccion):
         if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
             return self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             return self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 2:
             return self.memoria[2][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+        elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
+            return self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+
+        else:
+            print("Address not found")
+
+    def getOldContextValue(self, direccion):
+        if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
+            return self.memoria[0][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+        elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
+            return self.memoria[1][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
+        elif abs(direccion) // 10000 == 2:
+            return self.memoria[2][-2][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
         elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
             return self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500]
 
