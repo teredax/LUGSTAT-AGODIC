@@ -28,7 +28,7 @@ MemoryREG = []
 
 def findaddrfromREG(elem):
     for i in range(0, len(MemoryREG)):
-        #print(elem, MemoryREG[i][0], len(MemoryREG), i, "#####")
+        #print(elem, MemoryREG[i][2], len(MemoryREG), i, "#####")
         if MemoryREG[i][0] == elem:
             return MemoryREG[i][2]
 
@@ -1064,6 +1064,7 @@ def p_expresion(p):
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    MemoryREG.append((RFI, fTY, Ti, 0))
                     quad = (oOP, rOP, lOP, RFI, Ti)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1072,12 +1073,14 @@ def p_expresion(p):
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
                     quad = (oOP, rOP, lOP, RFI, Td)
+                    MemoryREG.append((RFI, fTY, Td, 0))
                     Quad.put(quad)
                     PilaO.append(RFI)
                     Td = Td + 1
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
                     memory.addMemoryValue(Tb,74)
+                    MemoryREG.append((RFI, fTY, Tb, 0))
                     quad = (oOP, rOP, lOP, RFI, Tb)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1085,6 +1088,7 @@ def p_expresion(p):
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
                     memory.addMemoryValue(Ts,74)
+                    MemoryREG.append((RFI, fTY, Ts, 0))
                     quad = (oOP, rOP, lOP, RFI, Ts)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1133,6 +1137,7 @@ def p_exp(p):
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    MemoryREG.append((RFI, fTY, Ti, 0))
                     quad = (oOP, rOP, lOP, RFI, Ti)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1140,6 +1145,7 @@ def p_exp(p):
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
+                    MemoryREG.append((RFI, fTY, Td, 0))
                     quad = (oOP, rOP, lOP, RFI, Td)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1147,6 +1153,7 @@ def p_exp(p):
                 if fTY == 'bool':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Tb)
                     memory.addMemoryValue(Tb,74)
+                    MemoryREG.append((RFI, fTY, Tb, 0))
                     quad = (oOP, rOP, lOP, RFI, Tb)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1154,6 +1161,7 @@ def p_exp(p):
                 if fTY == 'string':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ts)
                     memory.addMemoryValue(Ts,74)
+                    MemoryREG.append((RFI, fTY, Ts, 0))
                     quad = (oOP, rOP, lOP, RFI, Ts)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1208,6 +1216,7 @@ def p_termino(p):
                 if fTY == 'int':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Ti)
                     memory.addMemoryValue(Ti,74)
+                    MemoryREG.append((RFI, fTY, Ti, 0))
                     quad = (oOP, rOP, lOP, RFI, Ti)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1215,6 +1224,7 @@ def p_termino(p):
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
                     memory.addMemoryValue(Td,74)
+                    MemoryREG.append((RFI, fTY, Td, 0))
                     quad = (oOP, rOP, lOP, RFI, Td)
                     Quad.put(quad)
                     PilaO.append(RFI)
@@ -1436,7 +1446,7 @@ print("Probando Memoria")
 #print(memory.getCurrentContextValue(10000))
 
 print("")
-print(MemoryREG)
+#print(MemoryREG)
 
 print("Maq V. INIT.")
 
@@ -1453,7 +1463,7 @@ for i in range(0, Quad.qsize()):
         ROP = ActualQ[2]
         RT = ActualQ[3]
         MM = ActualQ[4]
-        print(OPP, LOP, ROP, RT)
+        #print(OPP, LOP, ROP, RT)
 
         if OPP == '+':
             # Si ambos son constantes nadamas hace la operacion sin tener que acceder a memoria por su valor
@@ -1476,7 +1486,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res = ROP + addrv
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
 
                 else:
                     print("Both vars")
@@ -1488,7 +1498,7 @@ for i in range(0, Quad.qsize()):
                     ROPV = addrv
                     res = LOPV + ROPV
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
                     # Ninguno es un cte
 
         if OPP == '*':
@@ -1512,7 +1522,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res = ROP * addrv
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
 
                 else:
                     print("Both vars")
@@ -1524,7 +1534,7 @@ for i in range(0, Quad.qsize()):
                     ROPV = addrv
                     res = LOPV * ROPV
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
                     # Ninguno es un CTED
 
 
@@ -1534,7 +1544,7 @@ for i in range(0, Quad.qsize()):
                 if type(ROP) is int or type(ROP) is float:
                     res =  ROP - LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
                 else:
                     addr = findaddrfromREG(ROP)
                     addrv = memory.getActualContextValue(addr)
@@ -1549,7 +1559,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res = ROP - addrv
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
 
                 else:
                     print("Both vars")
@@ -1561,7 +1571,7 @@ for i in range(0, Quad.qsize()):
                     ROPV = addrv
                     res =  ROPV - LOPV
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
                     # Ninguno es un cte
 
         if OPP == '/':
@@ -1575,7 +1585,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res =  addrv / LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
 
             else:
                 if type(ROP) is int or type(ROP) is float:
@@ -1585,7 +1595,7 @@ for i in range(0, Quad.qsize()):
                     addrv = memory.getActualContextValue(addr)
                     res = ROP / addrv
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
 
                 else:
                     print("Both vars")
@@ -1597,15 +1607,74 @@ for i in range(0, Quad.qsize()):
                     ROPV = addrv
                     res =  ROPV / LOPV
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(20000))
+                    #print(memory.getActualContextValue(20000))
                     # Ninguno es un cte
-
 
     if ActualQ[0] in opasign:
         OPP = ActualQ[0]
         LOP = ActualQ[1]
         ROP = ActualQ[2]
-        print(OPP, LOP, ROP)
+        #print(OPP, LOP, ROP)
+
+        #print("Both vars")
+        addr = findaddrfromREG(LOP)
+        #print(addr)
+        addrv = memory.getActualContextValue(addr)
+        LOPV = addrv
+        addr = findaddrfromREG(ROP)
+        memory.addMemoryValue(addr, LOPV)
+        #print(memory.getActualContextValue(10001))
+
+    if ActualQ[0] == "PRINT":
+        LOP = ActualQ[1]
+        addr = findaddrfromREG(LOP)
+        #print(addr)
+        addrv = memory.getActualContextValue(addr)
+        print(addrv)
+
+    if ActualQ[0] in relopindex:
+        OPP = ActualQ[0]
+        LOP = ActualQ[1]
+        ROP = ActualQ[2]
+        RT = ActualQ[3]
+        MM = ActualQ[4]
 
 
+        if ActualQ[0] == '<':
+        #print(OPP, LOP, ROP, RT)
+            if type(LOP) is int or type(LOP) is float:
+                if type(ROP) is int or type(ROP) is float:
+                    res = ROP < LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(25000))
+                else:
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = addrv < LOP
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(25000))
 
+            else:
+                if type(ROP) is int or type(ROP) is float:
+                # El primer valor no es cte pero el segundo si
+                    #print(LOP)
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    res = ROP < addrv
+                    memory.addMemoryValue(MM, res)
+                    print(memory.getActualContextValue(25000))
+
+                else:
+                    print("Both vars")
+                    addr = findaddrfromREG(LOP)
+                    addrv = memory.getActualContextValue(addr)
+                    LOPV = addrv
+                    addr = findaddrfromREG(ROP)
+                    addrv = memory.getActualContextValue(addr)
+                    ROPV = addrv
+                    res = ROPV < LOPV
+                    memory.addMemoryValue(MM, res)
+                    #print(memory.getActualContextValue(20000))
+                    # Ninguno es un cte
+
+       
