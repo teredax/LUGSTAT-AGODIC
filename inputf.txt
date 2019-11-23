@@ -3,6 +3,8 @@ var int1,int2 : int;
 var doble1,doble2 : double;
 var bool3 : bool;
 
+
 {
-int1 = 70+int2;
+int1 = int1/2;
+print(int1);
 }
