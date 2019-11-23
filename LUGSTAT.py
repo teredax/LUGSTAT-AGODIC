@@ -1824,21 +1824,33 @@ while Quad.empty() == False:
     if ActualQ[0] == "READ":
             LOP = ActualQ[1]
             addr = findaddrfromREG(LOP)
+            tmem = memory.getType(addr)
             userinput = input()
-            if userinput.isdigit():
-                rfy = "int"
+
+            if(tmem == 'int' or tmem == 'double'):
+                if userinput.isdigit():
+                    rfy = "int"
+                    if(tmem == "double"):
+                        rfy = "double"
+                        userinput = float(userinput)
+                        print("Mi input doble es ",userinput)
+                else:
+                    try: #Controlamos si es un doble 
+                        float(userinput)
+                        rfy = "double"
+                    except ValueError:
+                        rfy = 'error'
             else:
                 rfy = typetostr(type(userinput))
                 #print(rfy, "@")
-            tmem = memory.getType(addr)
             #print(tmem)
             #print(rfy)
             if tmem == rfy:
                 memory.addMemoryValue(addr, userinput)
             else:
-                print("Input and variable Type Mismatch!7")
+                print("Input and variable Type Mismatch!")
                 sys.exit()
-            #print(memory.getActualContextValue(10001))
+                #print(memory.getActualContextValue(10001))
 
 
 

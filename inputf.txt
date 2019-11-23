@@ -1,5 +1,6 @@
 lugstat lugstattest;
 var int1,int2 : int;
+var string1 : string;
 var doble1,doble2 : double;
 var bool3 : bool;
 {
@@ -14,7 +15,7 @@ print(int1);
 int1 = 1+1;
 print("Hello Lugstat!");
 print("Input your age");
-read(int1);
+read(doble1);
 
 do {
 int1 = 1+(1*1);
