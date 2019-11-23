@@ -76,6 +76,15 @@ class Memoria:
         self.memoria[1].append([{},{},{},{}]) #Al crear una funcion siempre crear una nueva direccion
         self.memoria[2].append([{},{},{},{}]) #Al crear una funcion eliminamos las variables Temporales
 
+    def getType(self,direccion):
+        if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+            return "int"
+        elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
+            return "double" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
+            return "bool" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
+        elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
+           return "string" #Crear funcion de no poder sobre escribir constantes
 
 def main():
     memory = Memoria()
