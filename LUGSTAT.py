@@ -237,7 +237,7 @@ def p_lugstat(p):
 def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0)
-    memory.createLocalTemporal() #Creamos un contexto nuevo para la funcion
+    memory.createLocalTemporal() #Creamos un contexto nuevo para main este nunca se elimina
     global currentf
     global TemporalCounter
     TemporalCounter = 0
@@ -296,7 +296,7 @@ def p_vars(p):
                                 memory.addMemoryValue(Li,70)
                                 Li = Li + 1
                             else:
-                                memory.addOldMemory(Li,70)
+                                memory.addMemoryValue(Li,70)
                                 Li = Li + 1
                 if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
@@ -312,8 +312,12 @@ def p_vars(p):
                                 Ld = Ld + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ld)
-                            memory.addMemoryValue(Ld,70)
-                            Ld = Ld + 1
+                            if(Ld == 12500):
+                                memory.addMemoryValue(Li,70)
+                                Ld = Ld + 1
+                            else:
+                                memory.addMemoryValue(Li,70)
+                                Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -328,8 +332,12 @@ def p_vars(p):
                                 Lb = Lb + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Lb)
-                            memory.addMemoryValue(Lb,70)
-                            Lb = Lb + 1
+                            if(Lb == 15000):
+                                memory.addMemoryValue(Lb,70)
+                                Lb = Lb + 1
+                            else:
+                                memory.addMemoryValue(Lb,70)
+                                Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -344,8 +352,12 @@ def p_vars(p):
                                 Ls = Ls + 1
                         else:     
                             DirectorioFunciones.addv(p[-3],FuncionActual[i],TipoActual[0],Ls)
-                            memory.addMemoryValue(Ls,70)
-                            Ls = Ls + 1
+                            if(Ls == 12500):
+                                memory.addMemoryValue(Ls,70)
+                                Ls = Ls + 1
+                            else:
+                                memory.addMemoryValue(Ls,70)
+                                Ls = Ls + 1
                 vmcounter+=1
                 #print(FuncionActual[i], "@#!#!@")
         Li = 10000
@@ -436,7 +448,8 @@ def p_vars(p):
             Ls = 17500
     
     if p[-1] == ";":
-     #N linea de Variables (Usualmente de otro tipo)
+     #N linea de Variables (Usualmente de otro tipo) 
+     #VER DONDE METEMOS CONTEXTO PARA AGREGAR MEMORY VALUE O EN CUALQUIER OTRO CASO HACERLO HASTA MAQUINA VIRTUAL 
         for i in range(len(FuncionActual)):
                     if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
@@ -509,24 +522,23 @@ def p_vars(p):
         FuncionActual.clear()
         TipoActual.clear() 
         ValorArreglo.clear()
-    if p[-1] == ')': # Variables locales de una FUNC
-        #print("12321",FuncionActual)
+    if p[-1] == ')': # Variables locales de una FUNC EN CASO DE NECESITARLO AQUI CREAR UN CONTEXTO NUEVO LA PRIMERA VEZ QUE SE ENTRE AQUI  
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
-                    memory.addMemoryValue(Li,70)
+                    #memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
-                    memory.addMemoryValue(Ld,70)
+                    #memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
-                    memory.addMemoryValue(Lb,70)
+                    #memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
-                    memory.addMemoryValue(Ls,70)
+                    #memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1            
                 vfcounter+=1
                 #print(vfcounter, "im going in! first line", FuncionActual[i])

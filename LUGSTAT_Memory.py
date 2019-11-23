@@ -24,7 +24,7 @@ class Memoria:
             #print("se agrego a const en la direccion", direccion)
             self.memoria[3][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Crear funcion de no poder sobre escribir constantes
 
-    def addNewMemory (self,direccion,valor):
+    def addActualMemory (self,direccion,valor):
         if abs(direccion) // 10000 == 1: #Guardamos valor en Locales
             self.memoria[1][-1][((abs(direccion) % 10000) // 2500)][(abs(direccion) % 10000) % 2500] = valor #Agregamos un -1 ya que existe una local y una temporal por cada funcion
         elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales

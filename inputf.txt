@@ -1,5 +1,7 @@
 lugstat lugstattest;
 var int1,int2 : int;
+var doble1,doble2 : double;
+var bool3 : bool;
 
 {
 int1 = 10*10;
