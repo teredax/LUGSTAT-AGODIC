@@ -1900,6 +1900,45 @@ while Quad.empty() == False:
                 sys.exit()
                 #print(memory.getActualContextValue(10001))
                 
+
+
+    if ActualQ[0] == "DO":
+        operationstack.append(ActualQ)
+        i=0
+        while(ActualQ[1] != "GOTOV"):
+            ActualQ = Quad.queue[i]
+            operationstack.append(ActualQ)
+            i+=1
+            #print(ActualQ, "#@#@")
+        #print(operationstack, "This will be repeated")
+        WhileCond = True
+
+
+
+    if ActualQ[0] == "INIT":
+        funcstack.append(ActualQ)
+        i=0
+        while(ActualQ[1] != "END"):
+            ActualQ = Quad.get()
+            funcstack.append(ActualQ)
+        print(funcstack, "CurrentFunctions in stack")
+
+    if ActualQ[1] == "ERA":
+        memory.createLocalTemporal()
+        key = ActualQ[2]
+        print("Function Call to", key)
+#        fbackup = []
+#        fbackup.append(ActualQ)
+#        while(Quad.empty() == False):
+#            fbackup.append(Quad.get())
+            # se vacia el quadruplo a backup    
+
+
+#todo 
+#verificar multiples do whiles ? 
+#print(1) no werky, falta hacer un tipo de verificacion alli, los demas prints si jalan
+
+
     if ActualQ[0] == 'MEAN':
         #Meter arreglo, como data, ver como procesar en los quads
         data1 = [19, 46, 21, 18, 30]
@@ -1964,35 +2003,6 @@ while Quad.empty() == False:
    
         # Random Variates 
         R = erlang.rvs(a, scale = 2,  size = 10) 
-
-    if ActualQ[0] == "DO":
-        operationstack.append(ActualQ)
-        i=0
-        while(ActualQ[1] != "GOTOV"):
-            ActualQ = Quad.queue[i]
-            operationstack.append(ActualQ)
-            i+=1
-            #print(ActualQ, "#@#@")
-        #print(operationstack, "This will be repeated")
-        WhileCond = True
-
-
-
-    if ActualQ[0] == "INIT":
-        funcstack.append(ActualQ)
-        i=0
-        while(ActualQ[1] != "END"):
-            ActualQ = Quad.get()
-            funcstack.append(ActualQ)
-        #print(funcstack, "CurrentFunctions in stack")
-
-    if ActualQ[0] == "ERA":
-        memory.createLocalTemporal()
-        
-
-#todo 
-#verificar multiples do whiles ? 
-#print(1) no werky, falta hacer un tipo de verificacion alli, los demas prints si jalan
 
         # PDF 
         R = erlang.pdf(a, quantile, loc = 0, scale = 1) 
