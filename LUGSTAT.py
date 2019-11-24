@@ -477,10 +477,6 @@ def p_vars(p):
                 #print(pfcounter, "params!")
             FuncionActual.clear()
             TipoActual.clear()
-            Li = 10000
-            Ld = 12500
-            Lb = 15000
-            Ls = 17500
     
     if p[-1] == ";":
      #N linea de Variables (Usualmente de otro tipo) 
@@ -577,18 +573,22 @@ def p_vars(p):
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
+                    MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                     #memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
+                    MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                     #memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
+                    MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                     #memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
+                    MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                     #memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1            
                 vfcounter+=1
@@ -1654,6 +1654,7 @@ while Quad.empty() == False:
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
+            #print(addr)
             memory.addMemoryValue(addr, LOP)
         else:
             addr = findaddrfromREG(LOP)
@@ -1676,7 +1677,10 @@ while Quad.empty() == False:
             LOP = ActualQ[1]
             addr = findaddrfromREG(LOP)
             #print(addr)
-            addrv = memory.getActualContextValue(addr)
+            try:
+                addrv = memory.getActualContextValue(addr)
+            except KeyError:
+                addrv = memory.getOldContextValue(addr)
             print(addrv)
 
     if ActualQ[0] in relopindex:
@@ -1900,8 +1904,6 @@ while Quad.empty() == False:
                 sys.exit()
                 #print(memory.getActualContextValue(10001))
                 
-
-
     if ActualQ[0] == "DO":
         operationstack.append(ActualQ)
         i=0
@@ -1913,26 +1915,61 @@ while Quad.empty() == False:
         #print(operationstack, "This will be repeated")
         WhileCond = True
 
-
-
     if ActualQ[0] == "INIT":
         funcstack.append(ActualQ)
         i=0
         while(ActualQ[1] != "END"):
             ActualQ = Quad.get()
             funcstack.append(ActualQ)
-        print(funcstack, "CurrentFunctions in stack")
+        #print(funcstack, "CurrentFunctions in stack")
 
     if ActualQ[1] == "ERA":
         memory.createLocalTemporal()
-        key = ActualQ[2]
-        print("Function Call to", key)
-#        fbackup = []
-#        fbackup.append(ActualQ)
-#        while(Quad.empty() == False):
-#            fbackup.append(Quad.get())
-            # se vacia el quadruplo a backup    
+ 
+    if ActualQ[1] == "PARAM":
+        LOP = ActualQ[2]
+        ROP = ActualQ[3]
+        #print(LOP, ROP)
+        #print(memory.getActualContextValue(10002))
+        #print("Both vars")
+        if type(LOP) is int or type(LOP) is float:
+            addr = findaddrfromREG(ROP)
+            #print(addr)
+            memory.addMemoryValue(addr, LOP)
+            #print(memory.getActualContextValue(10000))
+        else:
+            addr = findaddrfromREG(LOP)
+            #print(addr)
+            addrv = memory.getActualContextValue(addr)
+            LOPV = addrv
+            addr = findaddrfromREG(ROP)
+            memory.addMemoryValue(addr, LOPV)
+            #print(memory.getActualContextValue(10001))
 
+    if ActualQ[1] == "GOSUB":
+        #print("Call to function", ActualQ[2])
+        key = ActualQ[2]
+        fbackup = []
+        while(Quad.empty() == False):
+            fbackup.append(Quad.get())
+            # se vacia el quadruplo a backup
+        addcond = False
+        for i in range(0, len(funcstack)):
+            Pendulum = funcstack[i]
+            if addcond:
+                Quad.put(Pendulum)
+            if Pendulum[1] == key:
+                addcond = True
+            if Pendulum[1] == "END":
+                addcond = False
+
+        #print(Quad.queue, "New Quad wihh injected function call")
+        for i in range( 0, len(fbackup)):
+            Quad.put(fbackup[i])
+
+    if ActualQ[1] == "END":
+        memory.freeFunctionMemory()
+        print("HI")
 
 #todo 
 #verificar multiples do whiles ? 
