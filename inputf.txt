@@ -1,20 +1,6 @@
 lugstat lugstattest;
 var int1, int2, int3 : int;
-
-func prueba : int ( var param1, param2: int; )
-var int9: int;	
 {
-
-if (3>2){
-print("thank you!");};
-int9= 3;
-}
-
-
-
-{
-
-prueba(2, 2)
 print("ok boomer");
 
 }
