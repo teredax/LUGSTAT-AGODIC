@@ -13,7 +13,12 @@ from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
-import statistics
+import statistics 
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from sklearn.datasets.samples_generator import make_blobs
+from sklearn.cluster import KMeans
 import sys
 
 DirectorioFunciones = Directorio_de_Variables()
@@ -141,6 +146,7 @@ reserved = {
     'func' : 'FUNC',
     'fx' : 'FX',
     'fy' : 'FY',
+    'euler': 'EULER',
     'rotate' : 'ROTATE',
     'transpose' : 'TRANSPOSE',
     'inverse' : 'INVERSE'
@@ -1398,6 +1404,7 @@ def p_metodos(p):
     | REF OPAREN mmmfunc CPAREN SCOLON
     | RREF OPAREN mmmfunc CPAREN SCOLON
     | MONT OPAREN mmmfunc CPAREN SCOLON
+    | EULER OPAREN CPAREN SCOLON
     '''
     output = p[-1]
     global LineC
@@ -1887,38 +1894,131 @@ while Quad.empty() == False:
         print("Standar Derivation ",x) 
 
     if ActualQ[0] == 'KMEANS':
-                #Meter arreglo, como data, ver como procesar en los quads
-        data1 = [19, 46, 21, 18, 30]
-        x = statistics.stdev(data1)
-        print("Standar Derivation ",x) 
-    
+        #Metemos conjunto de datos 1 y conjunto de datos 2 y numero de clusters
+        df = pd.DataFrame({
+            'x': [12, 20, 28, 18, 29, 33, 24, 45, 45, 52, 51, 52, 55, 53, 55, 61, 64, 69, 72],
+            'y': [39, 36, 30, 52, 54, 46, 55, 59, 63, 70, 66, 63, 58, 23, 14, 8, 19, 7, 24]
+        })
+
+        from sklearn.cluster import KMeans
+
+        kmeans = KMeans(n_clusters=3)
+        kmeans.fit(df)
+
+        labels = kmeans.predict(df)
+        centroids = kmeans.cluster_centers_
+
+        colmap = {1: 'r', 2: 'g', 3: 'b'}
+
+        fig = plt.figure(figsize=(5, 5))
+
+        colors = (list(map(lambda x: colmap[x+1], labels)))
+
+        plt.scatter(df['x'], df['y'], color=colors, alpha=0.5, edgecolor='k')
+        for idx, centroid in enumerate(centroids):
+            plt.scatter(*centroid, color=colmap[idx+1])
+        plt.xlim(0, 80)
+        plt.ylim(0, 80)
+        plt.show()
+        plt.clf()
+
     if ActualQ[0] == 'DERL':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+        from scipy.stats import erlang  
+        import seaborn as sb
+        #Creamos una variable random continua
+        numargs = erlang.numargs 
+        [a] = [0.6, ] * numargs 
+        rv = erlang(a) 
+        
+        quantile = np.arange (0.01, 1, 0.1) 
+   
+        # Random Variates 
+        R = erlang.rvs(a, scale = 2,  size = 10) 
+
+        # PDF 
+        R = erlang.pdf(a, quantile, loc = 0, scale = 1) 
+
+        distribution = np.linspace(0, np.minimum(rv.dist.b, 5)) 
+        
+        plot = plt.plot(distribution, rv.pdf(distribution)) 
+        plt.title("Erlang")
+
+        plt.show()
+        plt.clf()
 
     if ActualQ[0] == 'DBERN':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+        from scipy.stats import bernoulli
+        import seaborn as sb
+
+        #QUE ES LO QUE ASIGNAMOS, SIZE, PROBABILIDAD Y QUE MAS ?
+
+        data_bern = bernoulli.rvs(size=1000,p=0.6)
+        ax = sb.distplot(data_bern,
+                        kde=True,
+                        color='crimson',
+                        hist_kws={"linewidth": 25,'alpha':1})
+        ax.set(xlabel='Bernouli', ylabel='Frequency')
+        plt.show()
+        plt.clf()
 
     if ActualQ[0] == 'DPOI':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1) 
+        from scipy.stats import poisson
+        import seaborn as sb
+
+        #metemos mu y size uwu
+        data_binom = poisson.rvs(mu=4, size=10000)
+        ax = sb.distplot(data_binom,
+                        kde=True,
+                        color='green',
+                        hist_kws={"linewidth": 25,'alpha':1})
+        ax.set(xlabel='Poisson', ylabel='Frequency')
+        plt.show()
+        plt.clf()
 
     if ActualQ[0] == 'TRANSPOSE':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+        matrix=[[1,2,3],[4,5,6]] 
+        print(matrix) 
+        print("\n") 
+        print(np.transpose(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'INVERSE':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1) 
+        from numpy.linalg import inv
+        matrix = np.array([[1,1,1],[0,2,5],[2,5,-1]]) 
+        print(matrix) 
+        print("\n") 
+        print(inv(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'ROTATE':
         #Meter arreglo, como data, ver como procesar en los quads
         x = statistics.mean(data1)
 
     if ActualQ[0] == 'REF':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+        A = np.array([[60, 91, 26], [60, 3, 75], [45, 90, 31]], dtype='float')
+        b = np.array([1, 0, 0])
+
+        Ab = np.hstack([A, b.reshape(-1, 1)])
+
+        n = len(b)
+
+        for i in range(n):
+            a = Ab[i]
+
+            for j in range(i + 1, n):
+                b = Ab[j]
+                m = a[i] / b[i]
+                Ab[j] = a - m * b
+
+        for i in range(n - 1, -1, -1):
+            Ab[i] = Ab[i] / Ab[i, i]
+            a = Ab[i]
+
+            for j in range(i - 1, -1, -1):
+                b = Ab[j]
+                m = a[i] / b[i]
+                Ab[j] = a - m * b
+
+        x = Ab[:, 3]
+        print("REF",x)
 
     if ActualQ[0] == 'RREF':
         #Meter arreglo, como data, ver como procesar en los quads
@@ -1928,8 +2028,28 @@ while Quad.empty() == False:
         #Meter arreglo, como data, ver como procesar en los quads
         x = statistics.mean(data1)
 
-
-
-
-
+    if ActualQ[0] == 'EULER':
+        print('J.G., 2019           __gggrgM**M#mggg__')
+        print('                __wgNN@"B*P""mp""@d#"@N#Nw__')
+        print('              _g#@0F_a*F#  _*F9m_ ,F9*__9NG#g_')
+        print('           _mN#F  aM"    #p"    !q@    9NL "9#Qu_')
+        print('          g#MF _pP"L  _g@"9L_  _g""#__  g"9w_ 0N#p')
+        print('        _0F jL*"   7_wF     #_gF     9gjF   "bJ  9h_')
+        print('       j#  gAF    _@NL     _g@#_      J@u_    2#_  #_')
+        print('      ,FF_#" 9_ _#"  "b_  g@   "hg  _#"  !q_ jF "*_09_')
+        print('      F N"    #p"      Ng@       `#g"      "w@    "# t')
+        print('     j p#    g"9_     g@"9_      gP"#_     gF"q    Pb L')
+        print('     0J  k _@   9g_ j#"   "b_  j#"   "b_ _d"   q_ g  ##')
+        print('     #F  `NF     "#g"       "Md"       5N#      9W"  j#')
+        print('     #k  jFb_    g@"q_     _*"9m_     _*"R_    _#Np  J#')
+        print('     tApjF  9g  J"   9M_ _m"    9%_ _*"   "#  gF  9_jNF')
+        print('      k`N    "q#       9g@        #gF       ##"    #"j')
+        print('      `_0q_   #"q_    _&"9p_    _g"`L_    _*"#   jAF,"')
+        print('       9# "b_j   "b_ g"    *g _gF    9_ g#"  "L_*"qNF')
+        print('        "b_ "#_    "NL      _B#      _I@     j#" _#"')
+        print('          NM_0"*g_ j""9u_  gP  q_  _w@ ]_ _g*"F_g@')                
+        print('           "NNh_ !w#_   9#g"    "m*"   _#*" _dN@"')
+        print('              9##g_0@q__ #"4_  j*"k __*NF_g#@P"')
+        print('                "9NN#gIPNL_ "b@" _2M"Lg#N@F"')
+        print('                    ""P@*NN#gEZgNN@#@P""')
 
