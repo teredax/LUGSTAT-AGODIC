@@ -13,6 +13,7 @@ from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
+import statistics
 import sys
 
 DirectorioFunciones = Directorio_de_Variables()
@@ -1398,6 +1399,12 @@ def p_metodos(p):
     | RREF OPAREN mmmfunc CPAREN SCOLON
     | MONT OPAREN mmmfunc CPAREN SCOLON
     '''
+    output = p[-1]
+    global LineC
+    LineC+=1
+    print(p[1])
+    quad = (p[1].upper(), output)
+    Quad.put(quad)
 
 def p_expfunc(p):
     '''
@@ -1413,9 +1420,10 @@ def p_expfunc2(p):
 
 def p_mmmfunc(p):
     '''
-    mmmfunc : ID 
-    | OBRACKET  mmmarray CBRACKET
-	| OBRACKET mmmarray CBRACKET COMMA mmmfunc
+    mmmfunc : LCOR RCOR
+	| LCOR mmmarray RCOR COMMA mmmfunc
+    | LCOR mmmarray RCOR
+    | ID
 	| empty 
     '''
 
@@ -1854,6 +1862,72 @@ while Quad.empty() == False:
                 print("Input and variable Type Mismatch!")
                 sys.exit()
                 #print(memory.getActualContextValue(10001))
+                
+    if ActualQ[0] == 'MEAN':
+        #Meter arreglo, como data, ver como procesar en los quads
+        data1 = [19, 46, 21, 18, 30]
+        x = statistics.mean(data1) 
+        print("Mean ",x)
+
+    if ActualQ[0] == 'MEDIAN':
+        #Meter arreglo, como data, ver como procesar en los quads
+        data1 = [19, 46, 21, 18, 30]
+        x = statistics.median(data1)
+        print("Median ",x)
+
+    if ActualQ[0] == 'MODE':
+        data1 = [19, 46, 21, 18, 30]
+        x = statistics.mode(data1)
+        print("Mode ",x) 
+
+    if ActualQ[0] == 'STDV':
+        #Meter arreglo, como data, ver como procesar en los quads
+        data1 = [19, 46, 21, 18, 30]
+        x = statistics.stdev(data1)
+        print("Standar Derivation ",x) 
+
+    if ActualQ[0] == 'KMEANS':
+                #Meter arreglo, como data, ver como procesar en los quads
+        data1 = [19, 46, 21, 18, 30]
+        x = statistics.stdev(data1)
+        print("Standar Derivation ",x) 
+    
+    if ActualQ[0] == 'DERL':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
+    if ActualQ[0] == 'DBERN':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
+    if ActualQ[0] == 'DPOI':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1) 
+
+    if ActualQ[0] == 'TRANSPOSE':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
+    if ActualQ[0] == 'INVERSE':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1) 
+
+    if ActualQ[0] == 'ROTATE':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
+    if ActualQ[0] == 'REF':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
+    if ActualQ[0] == 'RREF':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1) 
+
+    if ActualQ[0] == 'MONT':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
+
 
 
 
