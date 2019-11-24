@@ -656,10 +656,13 @@ def p_modules(p):
 def p_mn1(p):
     '''mn1 : empty'''
     global pfboolstackcond
+    quad = ("INIT", p[-3])
+    Quad.put(quad)
     p[0] = p[-3]
     DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0)
     currentf.append(p[-3])
     pfboolstackcond = True
+
     #Agregamos la funcion al tener los datos de tipo y datos 
 
 
@@ -1053,7 +1056,7 @@ def p_expresion(p):
     relopindex = {'>', '<', '>=','<=', '!=', '=='}
     if POper:
         if POper[-1] in relopindex:
-            print("im going in")
+            #print("im going in")
             rOP = PilaO.pop()
             rTY = Ptype.pop()
             rTY = typetostr(rTY)
@@ -1335,7 +1338,11 @@ def p_dwhile(p):
     '''
 def p_wn1(p):
     '''wn1 : empty'''
+    global LineC
     PJumps.append(LineC+1)
+    quad = ("DO", LineC+1)
+    Quad.put(quad)
+    LineC+=1
 def p_wn2(p):
     '''wn2 : empty'''
     exp_type = Ptype.pop()
@@ -1346,8 +1353,8 @@ def p_wn2(p):
     else:
         res = PilaO.pop()
         doloopstart = PJumps.pop()
-        print("Your Quad is: ", LineC+1, "GotoV", doloopstart)
-        quad = (LineC+1, "GotoV", doloopstart)
+        print("Your Quad is: ", LineC+1, "GOTOV", doloopstart)
+        quad = (LineC+1, "GOTOV", doloopstart)
         Quad.put(quad)
 
 def p_wblock(p):
@@ -1463,6 +1470,10 @@ print("")
 print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
+
+print("Variables prueba \n")
+DirectorioFunciones.getallv("prueba")
+
 print("Probando Memoria")
 #print(memory.getCurrentContextValue(10000))
 
@@ -1470,8 +1481,11 @@ print("")
 #print(MemoryREG)
 
 print("Maq V. INIT.")
-
 #print(Quad.qsize(), "$#$#$#$")
+WhileCond = False
+operationstack = []
+backup = []
+funcstack = []
 while Quad.empty() == False:
     opbasicas = {'+', '-', '*', '/'}
     opasign = {'='}
@@ -1546,7 +1560,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(20000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1654,7 +1668,6 @@ while Quad.empty() == False:
     if ActualQ[0] == "PRINT":
         #print(type(ActualQ[1]))
         check = ActualQ[1]
-
         if check[0] is "\"":
             aux = ActualQ[1]
             aux.strip('\"')
@@ -1818,6 +1831,23 @@ while Quad.empty() == False:
                     memory.addMemoryValue(MM, res)
                     #print(memory.getActualContextValue(25000))
                     # Ninguno es un cte
+
+        #print("hi!")
+        if WhileCond == True and res == True:
+            #print("We're supposed to loop here!", operationstack)
+            while Quad.empty() == False:
+                backup.append(Quad.get())
+
+            #print("Quad emptied into aux,", backup)
+            for i in range(0, len(operationstack)):
+                Quad.put(operationstack[i])
+            #print("Added pending operations to quad", Quad.queue)
+            for i in range(0, len(backup)):
+                Quad.put(backup[i])
+            #print("Added original quad behind pending operations", Quad.queue)
+
+        if WhileCond == True and res == False:
+            WhileCond = False
        
     if ActualQ[1] == "GOTOF":
         #print("gotofcond")
@@ -1934,6 +1964,35 @@ while Quad.empty() == False:
    
         # Random Variates 
         R = erlang.rvs(a, scale = 2,  size = 10) 
+
+    if ActualQ[0] == "DO":
+        operationstack.append(ActualQ)
+        i=0
+        while(ActualQ[1] != "GOTOV"):
+            ActualQ = Quad.queue[i]
+            operationstack.append(ActualQ)
+            i+=1
+            #print(ActualQ, "#@#@")
+        #print(operationstack, "This will be repeated")
+        WhileCond = True
+
+
+
+    if ActualQ[0] == "INIT":
+        funcstack.append(ActualQ)
+        i=0
+        while(ActualQ[1] != "END"):
+            ActualQ = Quad.get()
+            funcstack.append(ActualQ)
+        #print(funcstack, "CurrentFunctions in stack")
+
+    if ActualQ[0] == "ERA":
+        memory.createLocalTemporal()
+        
+
+#todo 
+#verificar multiples do whiles ? 
+#print(1) no werky, falta hacer un tipo de verificacion alli, los demas prints si jalan
 
         # PDF 
         R = erlang.pdf(a, quantile, loc = 0, scale = 1) 
@@ -2052,4 +2111,5 @@ while Quad.empty() == False:
         print('              9##g_0@q__ #"4_  j*"k __*NF_g#@P"')
         print('                "9NN#gIPNL_ "b@" _2M"Lg#N@F"')
         print('                    ""P@*NN#gEZgNN@#@P""')
+
 

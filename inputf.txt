@@ -1,24 +1,6 @@
 lugstat lugstattest;
-var int1,int2 : int;
-var string1 : string;
-var doble1,doble2 : double;
-var bool3 : bool;
+var int1, int2, int3 : int;
 {
-int1 = 100-250;
-
-if (3>=10){
-int1=3;
-print(int1);	
-int1 = 2+2;
-};
-print(int1);
-int1 = 1+1;
-print("Hello Lugstat!");
-print("Input your age");
-euler();
-do {
-int1 = 1+(1*1);
-}
-while (3>9);
+print("ok boomer");
 
 }
