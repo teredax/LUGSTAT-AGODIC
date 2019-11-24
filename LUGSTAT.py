@@ -1676,12 +1676,13 @@ while Quad.empty() == False:
         else:
             LOP = ActualQ[1]
             addr = findaddrfromREG(LOP)
-            #print(addr)
+            print(addr)
             try:
                 addrv = memory.getActualContextValue(addr)
+                print(addrv)
             except KeyError:
                 addrv = memory.getOldContextValue(addr)
-            print(addrv)
+                print(addrv)
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
@@ -1921,10 +1922,14 @@ while Quad.empty() == False:
         while(ActualQ[1] != "END"):
             ActualQ = Quad.get()
             funcstack.append(ActualQ)
-        #print(funcstack, "CurrentFunctions in stack")
+        #print(funcstack, "CurrentFunctions in stack", ActualQ, Quad.queue)
+        ActualQ = (0,0,0,0,0)
 
     if ActualQ[1] == "ERA":
         memory.createLocalTemporal()
+        
+        print("Context generated")
+        #Creates context
  
     if ActualQ[1] == "PARAM":
         LOP = ActualQ[2]
@@ -1969,7 +1974,7 @@ while Quad.empty() == False:
 
     if ActualQ[1] == "END":
         memory.freeFunctionMemory()
-        print("HI")
+        print("Context Cleared")
 
 #todo 
 #verificar multiples do whiles ? 
