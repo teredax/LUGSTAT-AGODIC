@@ -1685,11 +1685,13 @@ while Quad.empty() == False:
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
-            if ActualQ[3]:
-                 memory.addMemoryValue(ActualQ[3], LOP)
-                 print("agregue en ",ActualQ[3])
-            else:
-                 memory.addMemoryValue(addr, LOP)
+            try:
+                if ActualQ[3]:
+                    memory.addMemoryValue(ActualQ[3], LOP)
+                    print("agregue en ",ActualQ[3])
+            except IndexError:
+                memory.addMemoryValue(addr, LOP)
+                print(addrv)
 
         else:
             addr = findaddrfromREG(LOP)
