@@ -1,6 +1,7 @@
 lugstat lugstattest;
 var int1, int2, int3 : int;
 
+
 func prueba : int ( var param1, param2: int; )
 var int9: int;	
 {
@@ -14,9 +15,11 @@ func prueba2 : int ( var param1, param2: int; )
 {
 }
 
+
 {
 
 prueba(2+1, 2)
 print("ok boomer");
+mont([1]);
 
 }

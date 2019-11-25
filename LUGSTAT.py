@@ -12,13 +12,21 @@ import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
+from sklearn.cluster import KMeans
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
 import statistics 
+import time
 import numpy as np
 import pandas as pd
+from sympy import Matrix
 from matplotlib import pyplot as plt
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.cluster import KMeans
+from scipy.stats import poisson
+from scipy.stats import erlang  
+from scipy.stats import bernoulli
+from numpy.linalg import inv
+import seaborn as sb
 import sys
 
 DirectorioFunciones = Directorio_de_Variables()
@@ -1969,7 +1977,6 @@ while Quad.empty() == False:
             'y': [39, 36, 30, 52, 54, 46, 55, 59, 63, 70, 66, 63, 58, 23, 14, 8, 19, 7, 24]
         })
 
-        from sklearn.cluster import KMeans
 
         kmeans = KMeans(n_clusters=3)
         kmeans.fit(df)
@@ -1992,8 +1999,7 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DERL':
-        from scipy.stats import erlang  
-        import seaborn as sb
+
         #Creamos una variable random continua
         numargs = erlang.numargs 
         [a] = [0.6, ] * numargs 
@@ -2016,8 +2022,6 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DBERN':
-        from scipy.stats import bernoulli
-        import seaborn as sb
 
         #QUE ES LO QUE ASIGNAMOS, SIZE, PROBABILIDAD Y QUE MAS ?
 
@@ -2031,8 +2035,7 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DPOI':
-        from scipy.stats import poisson
-        import seaborn as sb
+
 
         #metemos mu y size uwu
         data_binom = poisson.rvs(mu=4, size=10000)
@@ -2051,15 +2054,67 @@ while Quad.empty() == False:
         print(np.transpose(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'INVERSE':
-        from numpy.linalg import inv
         matrix = np.array([[1,1,1],[0,2,5],[2,5,-1]]) 
         print(matrix) 
         print("\n") 
         print(inv(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'ROTATE':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+
+        mat =[  
+            [1,  2,  3,  4 ], 
+            [5,  6,  7,  8 ], 
+            [9,  10, 11, 12 ], 
+            [13, 14, 15, 16 ]   
+        ] 
+  
+        top = 0
+        bottom = len(mat)-1
+    
+        left = 0
+        right = len(mat[0])-1
+    
+        while left < right and top < bottom: 
+    
+            # Store the first element of next row, 
+            # this element will replace first element of 
+            # current row 
+            prev = mat[top+1][left] 
+    
+            # Move elements of top row one step right 
+            for i in range(left, right+1): 
+                curr = mat[top][i] 
+                mat[top][i] = prev 
+                prev = curr 
+    
+            top += 1
+    
+            # Move elements of rightmost column one step downwards 
+            for i in range(top, bottom+1): 
+                curr = mat[i][right] 
+                mat[i][right] = prev 
+                prev = curr 
+    
+            right -= 1
+    
+            # Move elements of bottom row one step left 
+            for i in range(right, left-1, -1): 
+                curr = mat[bottom][i] 
+                mat[bottom][i] = prev 
+                prev = curr 
+    
+            bottom -= 1
+    
+            # Move elements of leftmost column one step upwards 
+            for i in range(bottom, top-1, -1): 
+                curr = mat[i][left] 
+                mat[i][left] = prev 
+                prev = curr 
+    
+            left += 1
+
+        for row in mat: 
+                print (row)
 
     if ActualQ[0] == 'REF':
         A = np.array([[60, 91, 26], [60, 3, 75], [45, 90, 31]], dtype='float')
@@ -2090,12 +2145,18 @@ while Quad.empty() == False:
         print("REF",x)
 
     if ActualQ[0] == 'RREF':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1) 
+        M = Matrix([[1, 0, 1, 3], [2, 3, 4, 7], [-1, -3, -3, -4]]) 
+
+        M_rref = M.rref()   
+
+        print("RREF", M_rref)
 
     if ActualQ[0] == 'MONT':
-        #Meter arreglo, como data, ver como procesar en los quads
-        x = statistics.mean(data1)
+        M = Matrix([[1, 0, 1, 3], [2, 3, 4, 7], [-1, -3, -3, -4]]) 
+
+        M_rref = M.rref()   
+
+        print("Montante", M_rref)
 
     if ActualQ[0] == 'EULER':
         print('J.G., 2019           __gggrgM**M#mggg__')
