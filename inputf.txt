@@ -4,8 +4,20 @@ var int1, int2, int3 : int;
 
 func prueba : int ( var param1, param2: int; )
 var int9: int;	{
+if (2>2){
+print("thank you!");
+}
+else{
+print("else!");
+};
+
 if (3>2){
-print("thank you!");};
+print("thank you!");
+}
+else{
+print("else!");
+};
+
 print(param1);
 print(param2);
 int9= 3;
