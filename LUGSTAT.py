@@ -90,6 +90,7 @@ pfboolstackcond= False
 paramk =0
 queryf = ""
 workingtypedirectory = []
+paramstack = []
 #--------------------
 #Setup of Non-Linear Statements
 PJumps = []
@@ -409,12 +410,13 @@ def p_vars(p):
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
-
+                                paramstack.append(FuncionActual[i])
                                 Li = Li + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Li)
                             memory.addMemoryValue(Li,70)
                             MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
+                            paramstack.append(FuncionActual[i])
                             Li = Li + 1
                 if(TipoActual[0] == 'double'):
                         if len(ValorArreglo) > 0:
@@ -428,11 +430,13 @@ def p_vars(p):
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
+                                paramstack.append(FuncionActual[i])
                                 Ld = Ld + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ld)
                             memory.addMemoryValue(Ld,70)
                             MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
+                            paramstack.append(FuncionActual[i])
                             Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                         if len(ValorArreglo) > 0:
@@ -446,11 +450,13 @@ def p_vars(p):
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
+                                paramstack.append(FuncionActual[i])
                                 Lb = Lb + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Lb)
                             memory.addMemoryValue(Lb,70)
                             MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
+                            paramstack.append(FuncionActual[i])
                             Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                         if len(ValorArreglo) > 0:
@@ -464,11 +470,13 @@ def p_vars(p):
                             for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
+                                paramstack.append(FuncionActual[i])
                                 Ls = Ls + 1
                         else:     
                             DirectorioFunciones.addv(p[-5],FuncionActual[i],TipoActual[0],Ls)
                             memory.addMemoryValue(Ls,70)
                             MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
+                            paramstack.append(FuncionActual[i])
                             Ls = Ls + 1
                 pfcounter+=1
                 #print(TipoActual[0], " of type")
@@ -750,7 +758,8 @@ def p_fcn2(p):
     if argT == argP:
         paramk+=1
         LineC+=1
-        quad = (LineC+1, "PARAM", argF, "param"+str(paramk))
+        pr = paramstack.pop()
+        quad = (LineC+1, "PARAM", argF, pr)
         Quad.put(quad)
     else:
         print("Arguement and Function Parameter type Mismatch!")
@@ -762,6 +771,7 @@ def p_fcn3(p):
     #print(paramk)
     global LineC
     global paramk
+    print(paramk,"#@!#!@#!@#!@")
     if DirectorioFunciones.getnparams(p[-7]) != paramk:
         print("Inconsistent number of arguements:parameters for function ", p[-7])
         sys.exit()
@@ -838,7 +848,7 @@ def p_asign(p):
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
     '''
-    #print("!@#",p[1], p[2])
+    print("!@#",p[1], p[2], p[3])
 
     if p[2] is '=' or p[3] is '=':
         
@@ -847,10 +857,35 @@ def p_asign(p):
         else:
             POper.append(p[3])
 
-        #print("equals",p[3])
+    #print("equals",p[3], type(p[3]))
+    
+    if p[3] != None:
+        index=DirectorioFunciones.getdir(currentf[-1])
+        tar=index['fvars'].get(p[3])
+        #Encontro algo que pudiera ser un ID
+        if tar == None: # No lo encontro en la funcion local, checamos si es global
+            print("Variable not found locally. Checking global scope..")
+            index=DirectorioFunciones.getdir(currentf[0])
+            tar=index['fvars'].get(p[3])
 
+        if tar == None:
+            print("Variable doesn't exist!")
+            sys.exit()
+            #Si no es global, ya bye
+        else:
+            tarfilter = tar['type'] #La encontro globalmente
+            #print(tar['type'], "#$@$@@#$")
+            #print("tarfilter",tarfilter)
+            Ptype.append(tarfilter)
+        if tar != None:
+            PilaO.append(p[3])
+            #Al final agrega el ID ya que ya sabe que si existe en alguno de los dos scopes
+
+
+
+    print("i skipped your shit bitch")
     PilaO.append(p[1])
-    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -874,7 +909,7 @@ def p_asign(p):
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
 
-
+    print(PilaO, "@!#!@#!(@#)#!@");
     if POper:
         if POper[-1] == '=':
             rOP = PilaO.pop()
@@ -1528,7 +1563,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(20000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1601,7 +1636,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(20000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1637,7 +1672,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(20000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1720,7 +1755,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(25000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1757,7 +1792,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(25000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1793,7 +1828,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(25000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1829,7 +1864,7 @@ while Quad.empty() == False:
                     #print(memory.getActualContextValue(25000))
 
                 else:
-                    print("Both vars")
+                    #print("Both vars")
                     addr = findaddrfromREG(LOP)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
@@ -1837,13 +1872,17 @@ while Quad.empty() == False:
                     addrv = memory.getActualContextValue(addr)
                     ROPV = addrv
                     res = ROPV <= LOPV
+                    #print(res,"@#@!##!!#@#!#!@")
                     memory.addMemoryValue(MM, res)
                     #print(memory.getActualContextValue(25000))
                     # Ninguno es un cte
 
         #print("hi!")
         if WhileCond == True and res == True:
+
             #print("We're supposed to loop here!", operationstack)
+            trash = Quad.get()
+            #print("hihi", Quad.queue)
             while Quad.empty() == False:
                 backup.append(Quad.get())
 
@@ -1851,11 +1890,13 @@ while Quad.empty() == False:
             for i in range(0, len(operationstack)):
                 Quad.put(operationstack[i])
             #print("Added pending operations to quad", Quad.queue)
-            for i in range(0, len(backup)):
+            for i in range(0, len(backup)-1):
+                #print("Putting :", backup[i], "IN the quad")
                 Quad.put(backup[i])
             #print("Added original quad behind pending operations", Quad.queue)
 
         if WhileCond == True and res == False:
+            #print("Closing while")
             WhileCond = False
        
     if ActualQ[1] == "GOTOF":
@@ -1910,7 +1951,6 @@ while Quad.empty() == False:
                 #print(memory.getActualContextValue(10001))
                 
     if ActualQ[0] == "DO":
-        operationstack.append(ActualQ)
         i=0
         while(ActualQ[1] != "GOTOV"):
             ActualQ = Quad.queue[i]
