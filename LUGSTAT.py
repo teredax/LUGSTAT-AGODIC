@@ -1474,6 +1474,10 @@ print("\n")
 print("Variables prueba \n")
 DirectorioFunciones.getallv("prueba")
 
+print("Variables prueba2 \n")
+DirectorioFunciones.getallv("prueba2")
+
+
 print("Probando Memoria")
 #print(memory.getCurrentContextValue(10000))
 
@@ -1679,9 +1683,10 @@ while Quad.empty() == False:
             #print(addr)
             try:
                 addrv = memory.getActualContextValue(addr)
+                print(addrv)
             except KeyError:
                 addrv = memory.getOldContextValue(addr)
-            print(addrv)
+                print(addrv)
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
@@ -1921,10 +1926,14 @@ while Quad.empty() == False:
         while(ActualQ[1] != "END"):
             ActualQ = Quad.get()
             funcstack.append(ActualQ)
-        #print(funcstack, "CurrentFunctions in stack")
+        #print(funcstack, "CurrentFunctions in stack", ActualQ, Quad.queue)
+        ActualQ = (0,0,0,0,0)
 
     if ActualQ[1] == "ERA":
         memory.createLocalTemporal()
+
+        #print("Context generated")
+        #Creates context
  
     if ActualQ[1] == "PARAM":
         LOP = ActualQ[2]
@@ -1969,7 +1978,7 @@ while Quad.empty() == False:
 
     if ActualQ[1] == "END":
         memory.freeFunctionMemory()
-        print("HI")
+        #print("Context Cleared")
 
 #todo 
 #verificar multiples do whiles ? 

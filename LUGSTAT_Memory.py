@@ -69,8 +69,8 @@ class Memoria:
             print("Address not found")
 
     def freeFunctionMemory(self):
-        self.memoria[1].pop #Al terminar una funcion eliminamos las variables locales
-        self.memoria[2].pop #Al terminar una funcion eliminamos las variables Temporales
+        self.memoria[1].pop() #Al terminar una funcion eliminamos las variables locales
+        self.memoria[2].pop() #Al terminar una funcion eliminamos las variables Temporales
 
     def createLocalTemporal(self):
         self.memoria[1].append([{},{},{},{}]) #Al crear una funcion siempre crear una nueva direccion
