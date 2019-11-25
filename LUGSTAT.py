@@ -1112,7 +1112,6 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
-    print("es que soy arreglo xd")
     if p[-1] == '[':
         p[0] = p[1]
 
