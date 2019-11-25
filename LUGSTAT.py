@@ -12,21 +12,13 @@ import ply.yacc as yacc
 from LUGSTAT_DirFunc import Directorio_de_Variables
 from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
 from LUGSTAT_Memory import Memoria
-from sklearn.cluster import KMeans
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
 import statistics 
-import time
 import numpy as np
 import pandas as pd
-from sympy import Matrix
 from matplotlib import pyplot as plt
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.cluster import KMeans
-from scipy.stats import poisson
-from scipy.stats import erlang  
-from scipy.stats import bernoulli
-from numpy.linalg import inv
-import seaborn as sb
 import sys
 
 DirectorioFunciones = Directorio_de_Variables()
@@ -310,7 +302,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for j in range(ValorArreglo[0]):
+                            for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -499,7 +491,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for j in range(ValorArreglo[0]):
+                            for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -517,7 +509,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for j in range(ValorArreglo[0]):
+                            for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
@@ -535,7 +527,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for j in range(ValorArreglo[0]):
+                            for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
@@ -553,7 +545,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for j in range(ValorArreglo[0]):
+                            for i in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
@@ -866,7 +858,7 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
-        print(tar.get("inicio"), "@#$@#$@#$@#$@#$@#$")
+        #print(tar, "@#$@#$@#$@#$@#$@#$")
 
         if tar == None:
             print("Variable not found locally. Checking global scope..")
@@ -897,12 +889,8 @@ def p_asign(p):
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
-                if p[2] is '=':
-                    quad = (oOP, lOP, rOP)
-                    Quad.put(quad)
-                else:
-                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
-                    Quad.put(quad)
+                quad = (oOP, lOP, rOP)
+                Quad.put(quad)
 
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -913,26 +901,16 @@ def p_asign(p):
 
 def p_asign2(p):
     '''
-    asign2 : LCOR expresion RCOR LCOR varcte RCOR
-    | LCOR expresion RCOR LCOR expresion RCOR
-    | LCOR varcte RCOR LCOR expresion RCOR
-    | LCOR varcte RCOR LCOR varcte RCOR
-    | LCOR expresion RCOR
-    | LCOR varcte RCOR 
+    asign2 : LCOR expresion RCOR asign3
+    | LCOR varcte RCOR asign3 
     '''
-    try:
-        p[4]
-        p[0] = p[2] + p[5]
-    except:
-        p[0] = p[2]
 
 def p_asign3(p):
     '''
     asign3 : LCOR expresion RCOR
     | LCOR varcte RCOR 
-    '''
-    print("hue")
-    p[0] = p[1]
+    | empty'''
+
 
 def p_escrt(p):
     '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
@@ -1135,7 +1113,6 @@ def p_expresion(p):
             else:
                 print("Type Mismatch3!")
                 sys.exit()
-    p[0] = p[1]
 
 
 def p_exp(p):
@@ -1214,7 +1191,7 @@ def p_exp(p):
             else:
                 print("Type Mismatch4!")
                 sys.exit()
-    p[0] = p[1]
+
 
 
 def p_termino(p):
@@ -1223,7 +1200,6 @@ def p_termino(p):
     | factor MULT termino
     | factor DIV termino
     '''
-    p[0] = p[1]
 
 
 
@@ -1285,10 +1261,9 @@ def p_factor(p):
 
     #@6
     if (p[-1] == '('):
-        POper.append("|")
+    	POper.append("|")
     	#pls help? no se si va a faltar un reset para que ignore lo que esta antes
-    else:
-        p[0] = p[1]
+
     #@7
     if (p[-1] == ')'):
     	POper.pop()
@@ -1301,7 +1276,6 @@ def p_varcte(p):
     | NUMBER
     | LOGICAL
     '''
-    p[0] = p[1]
     localvar = 'Const'
     global TemporalCounter
     global Ci
@@ -1679,18 +1653,13 @@ while Quad.empty() == False:
         OPP = ActualQ[0]
         LOP = ActualQ[1]
         ROP = ActualQ[2]
-        
         #print(OPP, LOP, ROP)
 
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
-            if ActualQ[3]:
-                 memory.addMemoryValue(ActualQ[3], LOP)
-                 print("agregue en ",ActualQ[3])
-            else:
-                 memory.addMemoryValue(addr, LOP)
-
+            #print(addr)
+            memory.addMemoryValue(addr, LOP)
         else:
             addr = findaddrfromREG(LOP)
             #print(addr)
@@ -2053,6 +2022,7 @@ while Quad.empty() == False:
             'y': [39, 36, 30, 52, 54, 46, 55, 59, 63, 70, 66, 63, 58, 23, 14, 8, 19, 7, 24]
         })
 
+        from sklearn.cluster import KMeans
 
         kmeans = KMeans(n_clusters=3)
         kmeans.fit(df)
@@ -2075,7 +2045,8 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DERL':
-
+        from scipy.stats import erlang  
+        import seaborn as sb
         #Creamos una variable random continua
         numargs = erlang.numargs 
         [a] = [0.6, ] * numargs 
@@ -2098,6 +2069,10 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DBERN':
+        from scipy.stats import bernoulli
+        import seaborn as sb
+
+        #QUE ES LO QUE ASIGNAMOS, SIZE, PROBABILIDAD Y QUE MAS ?
 
         data_bern = bernoulli.rvs(size=1000,p=0.6)
         ax = sb.distplot(data_bern,
@@ -2109,7 +2084,8 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'DPOI':
-
+        from scipy.stats import poisson
+        import seaborn as sb
 
         #metemos mu y size uwu
         data_binom = poisson.rvs(mu=4, size=10000)
@@ -2128,65 +2104,15 @@ while Quad.empty() == False:
         print(np.transpose(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'INVERSE':
+        from numpy.linalg import inv
         matrix = np.array([[1,1,1],[0,2,5],[2,5,-1]]) 
         print(matrix) 
         print("\n") 
         print(inv(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'ROTATE':
-
-        mat =[  
-            [1,  2,  3,  4 ], 
-            [5,  6,  7,  8 ], 
-            [9,  10, 11, 12 ], 
-            [13, 14, 15, 16 ]   
-        ] 
-  
-        top = 0
-        bottom = len(mat)-1
-    
-        left = 0
-        right = len(mat[0])-1
-    
-        while left < right and top < bottom: 
-    
-            # Pivotear y guardar elementos
-            prev = mat[top+1][left] 
-    
-            # Mover elementos de arriba a izq
-            for i in range(left, right+1): 
-                curr = mat[top][i] 
-                mat[top][i] = prev 
-                prev = curr 
-    
-            top += 1
-    
-            # Mover a la derecha por columna
-            for i in range(top, bottom+1): 
-                curr = mat[i][right] 
-                mat[i][right] = prev 
-                prev = curr 
-    
-            right -= 1
-    
-            # Mover elementos de abajo al lado  
-            for i in range(right, left-1, -1): 
-                curr = mat[bottom][i] 
-                mat[bottom][i] = prev 
-                prev = curr 
-    
-            bottom -= 1
-    
-            # Mover los elementos de izq a top 
-            for i in range(bottom, top-1, -1): 
-                curr = mat[i][left] 
-                mat[i][left] = prev 
-                prev = curr 
-    
-            left += 1
-
-        for row in mat: 
-                print (row)
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
 
     if ActualQ[0] == 'REF':
         A = np.array([[60, 91, 26], [60, 3, 75], [45, 90, 31]], dtype='float')
@@ -2217,18 +2143,12 @@ while Quad.empty() == False:
         print("REF",x)
 
     if ActualQ[0] == 'RREF':
-        M = Matrix([[1, 0, 1, 3], [2, 3, 4, 7], [-1, -3, -3, -4]]) 
-
-        M_rref = M.rref()   
-
-        print("RREF", M_rref)
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1) 
 
     if ActualQ[0] == 'MONT':
-        M = Matrix([[1, 0, 1, 3], [2, 3, 4, 7], [-1, -3, -3, -4]]) 
-
-        M_rref = M.rref()   
-
-        print("Montante", M_rref)
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
 
     if ActualQ[0] == 'EULER':
         print('J.G., 2019           __gggrgM**M#mggg__')
