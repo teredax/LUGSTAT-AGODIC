@@ -750,7 +750,8 @@ def p_fcn2(p):
     if argT == argP:
         paramk+=1
         LineC+=1
-        quad = (LineC+1, "PARAM", argF, "param"+str(paramk))
+        pr = paramstack.pop()
+        quad = (LineC+1, "PARAM", argF, pr)
         Quad.put(quad)
     else:
         print("Arguement and Function Parameter type Mismatch!")
@@ -849,8 +850,10 @@ def p_asign(p):
 
         #print("equals",p[3])
 
+
+    print("i skipped your shit bitch")
     PilaO.append(p[1])
-    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -1843,7 +1846,10 @@ while Quad.empty() == False:
 
         #print("hi!")
         if WhileCond == True and res == True:
+
             #print("We're supposed to loop here!", operationstack)
+            trash = Quad.get()
+            #print("hihi", Quad.queue)
             while Quad.empty() == False:
                 backup.append(Quad.get())
 
@@ -1851,7 +1857,8 @@ while Quad.empty() == False:
             for i in range(0, len(operationstack)):
                 Quad.put(operationstack[i])
             #print("Added pending operations to quad", Quad.queue)
-            for i in range(0, len(backup)):
+            for i in range(0, len(backup)-1):
+                #print("Putting :", backup[i], "IN the quad")
                 Quad.put(backup[i])
             #print("Added original quad behind pending operations", Quad.queue)
 
