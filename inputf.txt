@@ -1,25 +1,48 @@
 lugstat lugstattest;
-func fibo : int ( var limite: int; )
-var local1, local2, cont, res: int;	
-{
-local1 = 1;
-local2 = 1;
-print(local1+local2);
-cont =1;
-res = local1+local2;
-do {
-local1 = local2;
-local2 = res;
-res = local1+local2;
-cont = cont+1;
-print(res);
+var int1, int2, int3 : int;
+var int4[5] : int;
+var mat[2][2] : int;
+
+func prueba : int ( var param1, param2: int; )
+var int9: int;	{
+if (2>2){
+print("thank you!");
 }
-while (cont <limite);
+else{
+print("else!");
+};
+
+if (3>2){
+print("thank you!");
+}
+else{
+print("else!");
+};
+
+print(param1);
+print(param2);
+int9= 3;
+print(int9);
+}
+func prueba2 : int ( var param1, param2: int; )
+var int10: int;	
+{
+print("hello prueba2");
+print(param1);
+print(param2);
+print(int10);
+}
 
 
-}
 {
-print("hi! Welcome!");
-fibo(5)
+prueba2(2+1, 2)
+print("ok");
+int4[0] = 3;
+int4[1 + 1] = 5;
+int4[1] = 8;
+mat[0][0] = 9;
+mat[0][0] = 10;
+print(int4[0]);
+print(mat[0][0]);
 
 }
