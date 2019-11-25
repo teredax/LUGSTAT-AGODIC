@@ -1980,6 +1980,13 @@ while Quad.empty() == False:
         memory.freeFunctionMemory()
         #print("Context Cleared")
 
+    if ActualQ[1] == "GOTO":
+        advance = ActualQ[3] - ActualQ[0]
+
+        for i in range (0, advance-1):
+            trash = Quad.get()
+
+
 #todo 
 #verificar multiples do whiles ? 
 #print(1) no werky, falta hacer un tipo de verificacion alli, los demas prints si jalan
@@ -2167,5 +2174,3 @@ while Quad.empty() == False:
         print('              9##g_0@q__ #"4_  j*"k __*NF_g#@P"')
         print('                "9NN#gIPNL_ "b@" _2M"Lg#N@F"')
         print('                    ""P@*NN#gEZgNN@#@P""')
-
-
