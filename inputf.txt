@@ -1,5 +1,6 @@
 lugstat lugstattest;
 var input: int;
+var int4[5] : int;
 func fibo : int ( var limite: int; )
 var local1, local2, cont, res: int;	
 {
@@ -28,6 +29,9 @@ fibo(inputsito)
 }
 
 {
+int4[0] = 3;
+int4[1+1] = 5;
+print(int4[0]);
 print("Input N for fibo");
 read(input);
 fibo(input)

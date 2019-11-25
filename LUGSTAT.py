@@ -304,7 +304,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -327,7 +327,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
@@ -350,7 +350,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
@@ -372,7 +372,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
@@ -408,7 +408,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 paramstack.append(FuncionActual[i])
@@ -428,7 +428,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 paramstack.append(FuncionActual[i])
@@ -448,7 +448,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 paramstack.append(FuncionActual[i])
@@ -468,7 +468,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 paramstack.append(FuncionActual[i])
@@ -500,7 +500,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -518,7 +518,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
@@ -536,7 +536,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
@@ -554,7 +554,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
@@ -857,7 +857,7 @@ def p_asign(p):
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
     '''
-    print("!@#",p[1], p[2], p[3])
+    #print("!@#",p[1], p[2], p[3])
 
     if p[2] is '=' or p[3] is '=':
         
@@ -868,7 +868,8 @@ def p_asign(p):
 
     #print("equals",p[3], type(p[3]))
     
-    if p[3] != None:
+    if p[3] != None and p[3] != '=':
+        print("Mi p3 es ",p[3])
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[3])
         #Encontro algo que pudiera ser un ID
@@ -933,8 +934,13 @@ def p_asign(p):
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
-                quad = (oOP, lOP, rOP)
-                Quad.put(quad)
+                if p[2] is '=':
+                    quad = (oOP, lOP, rOP)
+                    Quad.put(quad)
+                else:
+                    print("Mi p[2 fue]",p[2])
+                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                    Quad.put(quad)
 
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -945,9 +951,19 @@ def p_asign(p):
 
 def p_asign2(p):
     '''
-    asign2 : LCOR expresion RCOR asign3
-    | LCOR varcte RCOR asign3 
+    asign2 : LCOR expresion RCOR LCOR varcte RCOR
+    | LCOR expresion RCOR LCOR expresion RCOR
+    | LCOR varcte RCOR LCOR expresion RCOR
+    | LCOR varcte RCOR LCOR varcte RCOR
+    | LCOR expresion RCOR
+    | LCOR varcte RCOR 
     '''
+    try:
+        p[4]
+        p[0] = p[2] + p[5]
+    except:
+        p[0] = p[2]
+        print("Mi p[0] vale ",p[0])
 
 def p_asign3(p):
     '''
@@ -1096,6 +1112,10 @@ def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
     '''
+    print("es que soy arreglo xd")
+    if p[-1] == '[':
+        p[0] = p[1]
+
     #@9
     relopindex = {'>', '<', '>=','<=', '!=', '=='}
     if POper:
@@ -1165,6 +1185,7 @@ def p_exp(p):
     | termino PLUS exp
     | termino MINUS exp
     '''
+    p[0] = p[1]
     #@8
     relopindex = {'>', '<', '>=', '<=', '!=', '=='}
     #print(p[-1])
@@ -1244,6 +1265,7 @@ def p_termino(p):
     | factor MULT termino
     | factor DIV termino
     '''
+    p[0] = p[1]
 
 
 
@@ -1307,7 +1329,8 @@ def p_factor(p):
     if (p[-1] == '('):
     	POper.append("|")
     	#pls help? no se si va a faltar un reset para que ignore lo que esta antes
-
+    else:
+        p[0] = p[1]
     #@7
     if (p[-1] == ')'):
     	POper.pop()
@@ -1320,6 +1343,7 @@ def p_varcte(p):
     | NUMBER
     | LOGICAL
     '''
+    p[0] = p[1]
     localvar = 'Const'
     global TemporalCounter
     global Ci
@@ -1689,8 +1713,12 @@ while Quad.empty() == False:
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
-            #print(addr)
-            memory.addMemoryValue(addr, LOP)
+            try: 
+                if ActualQ[3]:
+                    memory.addMemoryValue(ActualQ[3], LOP)
+                    print("agregue en ",ActualQ[3])
+            except IndexError:
+                 memory.addMemoryValue(addr, LOP)
         else:
             addr = findaddrfromREG(LOP)
             #print(addr)
