@@ -1474,6 +1474,10 @@ print("\n")
 print("Variables prueba \n")
 DirectorioFunciones.getallv("prueba")
 
+print("Variables prueba2 \n")
+DirectorioFunciones.getallv("prueba2")
+
+
 print("Probando Memoria")
 #print(memory.getCurrentContextValue(10000))
 
@@ -1676,7 +1680,7 @@ while Quad.empty() == False:
         else:
             LOP = ActualQ[1]
             addr = findaddrfromREG(LOP)
-            print(addr)
+            #print(addr)
             try:
                 addrv = memory.getActualContextValue(addr)
                 print(addrv)
@@ -1927,8 +1931,8 @@ while Quad.empty() == False:
 
     if ActualQ[1] == "ERA":
         memory.createLocalTemporal()
-        
-        print("Context generated")
+
+        #print("Context generated")
         #Creates context
  
     if ActualQ[1] == "PARAM":
@@ -1974,7 +1978,7 @@ while Quad.empty() == False:
 
     if ActualQ[1] == "END":
         memory.freeFunctionMemory()
-        print("Context Cleared")
+        #print("Context Cleared")
 
 #todo 
 #verificar multiples do whiles ? 
