@@ -20,6 +20,7 @@ from matplotlib import pyplot as plt
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.cluster import KMeans
 import sys
+import copy
 
 DirectorioFunciones = Directorio_de_Variables()
 ConsideracionesSemanticas = ConsideracionesSemanticas()
@@ -252,7 +253,7 @@ def p_lugstat(p):
 
 def p_addmain(p):
     '''addmain : empty'''
-    DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0)
+    DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0, 0)
     memory.createLocalTemporal() #Creamos un contexto nuevo para main este nunca se elimina
     global currentf
     global TemporalCounter
@@ -664,10 +665,11 @@ def p_modules(p):
 def p_mn1(p):
     '''mn1 : empty'''
     global pfboolstackcond
+    global paramstack
     quad = ("INIT", p[-3])
     Quad.put(quad)
     p[0] = p[-3]
-    DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0)
+    DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0, 0)
     currentf.append(p[-3])
     pfboolstackcond = True
 
@@ -710,18 +712,23 @@ def p_mn2(p):
 def p_mn3(p):
     '''mn3 : empty'''
     global vfcounter
+    global paramstack
     DirectorioFunciones.addvarnum(currentf[-1], vfcounter)
+    DirectorioFunciones.addparamsstack(currentf[-1], paramstack)
+    print(paramstack)
+    paramstack = []
 
     vfcounter=0
 
 def p_funccall(p):
-    ''' funccall : ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3 '''
+    ''' funccall : ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3
+    | ID OPAREN fcn1 ID fcn2 funccall2 CPAREN '''
 
 
 def p_fcn1(p):
     ''' fcn1 : empty'''
     global LineC
-    #print(p[-2])
+    #print(p[-2], "AAAAAAAAAAA")
     if DirectorioFunciones.search(p[-2]):
         LineC+=1
         quad = (LineC+1, "ERA", p[-2])
@@ -738,7 +745,6 @@ def p_fcn1(p):
     workingtypedirectory = DirectorioFunciones.getparamtypes(queryf)
     #print(workingtypedirectory, "@#$@#")
     
-
 
 def p_fcn2(p):
     ''' fcn2 : empty'''
@@ -758,8 +764,10 @@ def p_fcn2(p):
     if argT == argP:
         paramk+=1
         LineC+=1
-        pr = paramstack.pop()
-        quad = (LineC+1, "PARAM", argF, pr)
+        pr = DirectorioFunciones.getparamsstack(queryf)
+        prr = pr.pop()
+        #print("AAAAAAAAAAAAAAA", prr)
+        quad = (LineC+1, "PARAM", argF, prr)
         Quad.put(quad)
     else:
         print("Arguement and Function Parameter type Mismatch!")
@@ -785,6 +793,7 @@ def p_fcn3(p):
 
 def p_funccall2(p):
     ''' funccall2 : COMMA expresion fcn2 funccall2
+    | ID fcn2 funccall2
     | empty '''
     
 
@@ -883,9 +892,9 @@ def p_asign(p):
 
 
 
-    print("i skipped your shit bitch")
+    #print("i skipped your shit bitch")
     PilaO.append(p[1])
-    print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
+    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -1506,19 +1515,6 @@ print("Variables lugstat MAIN \n")
 DirectorioFunciones.getallv("lugstattest")
 print("\n")
 
-print("Variables prueba \n")
-DirectorioFunciones.getallv("prueba")
-
-print("Variables prueba2 \n")
-DirectorioFunciones.getallv("prueba2")
-
-
-print("Probando Memoria")
-#print(memory.getCurrentContextValue(10000))
-
-print("")
-#print(MemoryREG)
-
 print("Maq V. INIT.")
 #print(Quad.qsize(), "$#$#$#$")
 WhileCond = False
@@ -1879,9 +1875,10 @@ while Quad.empty() == False:
 
         #print("hi!")
         if WhileCond == True and res == True:
-
+            backup = []
             #print("We're supposed to loop here!", operationstack)
             trash = Quad.get()
+
             #print("hihi", Quad.queue)
             while Quad.empty() == False:
                 backup.append(Quad.get())
@@ -1890,10 +1887,10 @@ while Quad.empty() == False:
             for i in range(0, len(operationstack)):
                 Quad.put(operationstack[i])
             #print("Added pending operations to quad", Quad.queue)
-            for i in range(0, len(backup)-1):
+            for i in range(0, len(backup)):
                 #print("Putting :", backup[i], "IN the quad")
                 Quad.put(backup[i])
-            #print("Added original quad behind pending operations", Quad.queue)
+            #print("Added original quad behind pending operations", Quad.queue, "$$$", backup)
 
         if WhileCond == True and res == False:
             #print("Closing while")
@@ -1929,6 +1926,8 @@ while Quad.empty() == False:
                         rfy = "double"
                         userinput = float(userinput)
                         print("Mi input doble es ",userinput)
+                    else:
+                        userinput = int(userinput)
                 else:
                     try: #Controlamos si es un doble 
                         float(userinput)
@@ -1988,9 +1987,12 @@ while Quad.empty() == False:
             #print(memory.getActualContextValue(10000))
         else:
             addr = findaddrfromREG(LOP)
-            #print(addr)
-            addrv = memory.getActualContextValue(addr)
-            LOPV = addrv
+            try:
+                addrv = memory.getActualContextValue(addr)
+                LOPV = addrv
+            except KeyError:
+                addrv = memory.getOldContextValue(addr)
+                LOPV = addrv
             addr = findaddrfromREG(ROP)
             memory.addMemoryValue(addr, LOPV)
             #print(memory.getActualContextValue(10001))
@@ -2012,12 +2014,16 @@ while Quad.empty() == False:
             if Pendulum[1] == "END":
                 addcond = False
 
-        #print(Quad.queue, "New Quad wihh injected function call")
         for i in range( 0, len(fbackup)):
             Quad.put(fbackup[i])
+        #print(Quad.queue, "New Quad with injected function call")
+
 
     if ActualQ[1] == "END":
         memory.freeFunctionMemory()
+        backup = []
+        operationstack = []
+        #print(Quad.queue)
         #print("Context Cleared")
 
     if ActualQ[1] == "GOTO":

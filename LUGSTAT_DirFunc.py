@@ -10,7 +10,7 @@ class Directorio_de_Variables(object):
         self.listaf = {}
 
 
-    def addf(self, fname, ftype, procstart, nparams, nvars, typeparams):
+    def addf(self, fname, ftype, procstart, nparams, nvars, typeparams, params):
     	self.listaf[fname] = {
     	'name' : fname,
     	'ftype': ftype,
@@ -18,7 +18,8 @@ class Directorio_de_Variables(object):
         'ProcS': procstart,
         'Nparams': nparams,
         'Nvars' : nvars,
-        'TypeParams': typeparams
+        'TypeParams': typeparams,
+        'Params': params
     	}
 
 
@@ -114,6 +115,16 @@ class Directorio_de_Variables(object):
             access['Nvars'] = nvars
             #print(access['Nvars'], access)
 
+    def getparamsstack(self, fname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return copy.copy(access['Params'])
+
+
+    def addparamsstack(self, fname, params):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            access['Params'] = params
 
 
 def main():

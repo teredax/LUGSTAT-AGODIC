@@ -1,11 +1,13 @@
 lugstat lugstattest;
+var input: int;
 func fibo : int ( var limite: int; )
 var local1, local2, cont, res: int;	
 {
+print("The first N fibo elements are...");
 local1 = 1;
 local2 = 1;
-print(local1+local2);
 cont =1;
+print(local1+local2);
 res = local1+local2;
 do {
 local1 = local2;
@@ -14,12 +16,20 @@ res = local1+local2;
 cont = cont+1;
 print(res);
 }
-while (cont <limite);
+while (cont <= limite-1);
 
 
 }
+
+func fibo2 : int ( var inputsito: int; )
 {
-print("hi! Welcome!");
-fibo(5)
+print("i got this parameter and ill be sending it to fibo1");
+fibo(inputsito)
+}
+
+{
+print("Input N for fibo");
+read(input);
+fibo(input)
 
 }
