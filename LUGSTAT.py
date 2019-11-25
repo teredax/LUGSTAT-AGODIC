@@ -310,7 +310,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -503,7 +503,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Li,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
@@ -521,7 +521,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ld,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
                                 Ld = Ld + 1
@@ -539,7 +539,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Lb,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
                                 Lb = Lb + 1
@@ -557,7 +557,7 @@ def p_vars(p):
                                 'type' : TipoActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
-                            for i in range(ValorArreglo[0]):
+                            for j in range(ValorArreglo[0]):
                                 memory.addMemoryValue(Ls,70)
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
                                 Ls = Ls + 1
@@ -866,7 +866,7 @@ def p_asign(p):
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
-        #print(tar, "@#$@#$@#$@#$@#$@#$")
+        print(tar.get("inicio"), "@#$@#$@#$@#$@#$@#$")
 
         if tar == None:
             print("Variable not found locally. Checking global scope..")
@@ -897,8 +897,12 @@ def p_asign(p):
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
-                quad = (oOP, lOP, rOP)
-                Quad.put(quad)
+                if p[2] is '=':
+                    quad = (oOP, lOP, rOP)
+                    Quad.put(quad)
+                else:
+                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                    Quad.put(quad)
 
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -909,16 +913,26 @@ def p_asign(p):
 
 def p_asign2(p):
     '''
-    asign2 : LCOR expresion RCOR asign3
-    | LCOR varcte RCOR asign3 
+    asign2 : LCOR expresion RCOR LCOR varcte RCOR
+    | LCOR expresion RCOR LCOR expresion RCOR
+    | LCOR varcte RCOR LCOR expresion RCOR
+    | LCOR varcte RCOR LCOR varcte RCOR
+    | LCOR expresion RCOR
+    | LCOR varcte RCOR 
     '''
+    try:
+        p[4]
+        p[0] = p[2] + p[5]
+    except:
+        p[0] = p[2]
 
 def p_asign3(p):
     '''
     asign3 : LCOR expresion RCOR
     | LCOR varcte RCOR 
-    | empty'''
-
+    '''
+    print("hue")
+    p[0] = p[1]
 
 def p_escrt(p):
     '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
@@ -1121,6 +1135,7 @@ def p_expresion(p):
             else:
                 print("Type Mismatch3!")
                 sys.exit()
+    p[0] = p[1]
 
 
 def p_exp(p):
@@ -1199,7 +1214,7 @@ def p_exp(p):
             else:
                 print("Type Mismatch4!")
                 sys.exit()
-
+    p[0] = p[1]
 
 
 def p_termino(p):
@@ -1208,6 +1223,7 @@ def p_termino(p):
     | factor MULT termino
     | factor DIV termino
     '''
+    p[0] = p[1]
 
 
 
@@ -1269,9 +1285,10 @@ def p_factor(p):
 
     #@6
     if (p[-1] == '('):
-    	POper.append("|")
+        POper.append("|")
     	#pls help? no se si va a faltar un reset para que ignore lo que esta antes
-
+    else:
+        p[0] = p[1]
     #@7
     if (p[-1] == ')'):
     	POper.pop()
@@ -1284,6 +1301,7 @@ def p_varcte(p):
     | NUMBER
     | LOGICAL
     '''
+    p[0] = p[1]
     localvar = 'Const'
     global TemporalCounter
     global Ci
@@ -1657,12 +1675,22 @@ while Quad.empty() == False:
         OPP = ActualQ[0]
         LOP = ActualQ[1]
         ROP = ActualQ[2]
+        
         #print(OPP, LOP, ROP)
 
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
+<<<<<<< Updated upstream
             memory.addMemoryValue(addr, LOP)
+=======
+            if ActualQ[3]:
+                 memory.addMemoryValue(ActualQ[3], LOP)
+                 print("agregue en ",ActualQ[3])
+            else:
+                 memory.addMemoryValue(addr, LOP)
+
+>>>>>>> Stashed changes
         else:
             addr = findaddrfromREG(LOP)
             #print(addr)
@@ -2023,8 +2051,6 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'DBERN':
 
-        #QUE ES LO QUE ASIGNAMOS, SIZE, PROBABILIDAD Y QUE MAS ?
-
         data_bern = bernoulli.rvs(size=1000,p=0.6)
         ax = sb.distplot(data_bern,
                         kde=True,
@@ -2076,12 +2102,10 @@ while Quad.empty() == False:
     
         while left < right and top < bottom: 
     
-            # Store the first element of next row, 
-            # this element will replace first element of 
-            # current row 
+            # Pivotear y guardar elementos
             prev = mat[top+1][left] 
     
-            # Move elements of top row one step right 
+            # Mover elementos de arriba a izq
             for i in range(left, right+1): 
                 curr = mat[top][i] 
                 mat[top][i] = prev 
@@ -2089,7 +2113,7 @@ while Quad.empty() == False:
     
             top += 1
     
-            # Move elements of rightmost column one step downwards 
+            # Mover a la derecha por columna
             for i in range(top, bottom+1): 
                 curr = mat[i][right] 
                 mat[i][right] = prev 
@@ -2097,7 +2121,7 @@ while Quad.empty() == False:
     
             right -= 1
     
-            # Move elements of bottom row one step left 
+            # Mover elementos de abajo al lado  
             for i in range(right, left-1, -1): 
                 curr = mat[bottom][i] 
                 mat[bottom][i] = prev 
@@ -2105,7 +2129,7 @@ while Quad.empty() == False:
     
             bottom -= 1
     
-            # Move elements of leftmost column one step upwards 
+            # Mover los elementos de izq a top 
             for i in range(bottom, top-1, -1): 
                 curr = mat[i][left] 
                 mat[i][left] = prev 
