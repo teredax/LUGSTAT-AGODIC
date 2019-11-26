@@ -90,6 +90,7 @@ print(mat[1][1]);
 print("Input N for fibo non recursive");
 read(input);
 fibo(input)
+mean([1,2,3,4,5]);
 
 
 }

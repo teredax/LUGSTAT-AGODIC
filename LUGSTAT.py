@@ -33,6 +33,7 @@ DimActual = []
 ValorArreglo = []
 TemporalCounter = 0
 MemoryREG = []
+Datasetcte = []
 pr = 0
 
 def findaddrfromREG(elem):
@@ -1526,7 +1527,7 @@ def p_rn1(p):
 
 def p_metodos(p):
     '''
-    metodos : MEAN OPAREN mmmfunc CPAREN SCOLON
+    metodos : MEAN fe1 OPAREN arrfun CPAREN SCOLON
     | MEDIAN OPAREN mmmfunc CPAREN SCOLON
     | MODE OPAREN mmmfunc CPAREN SCOLON
     | STDV OPAREN mmmfunc CPAREN SCOLON
@@ -1542,13 +1543,28 @@ def p_metodos(p):
     | MONT OPAREN mmmfunc CPAREN SCOLON
     | EULER OPAREN CPAREN SCOLON
     '''
-    #output = p[-1]
-    #global LineC
-    #LineC+=1
-    #print(p[1], p[3])
-    #quad = (p[1].upper(), output)
-    #Quad.put(quad)
     
+def p_fe1(p):
+    '''fe1 : empty'''
+    global LineC
+    LineC+=1
+    print(p[-1])
+    quad = ("MEAN", LineC+1)
+    Quad.put(quad)
+    Datasetcte.clear()
+
+def p_arrfun(p): #Funcion que utiliza un solo arreglo
+    '''arrfun : LCOR datasetarr RCOR'''
+    quad =("ARGS", Datasetcte)
+    print("Mande",quad)
+    Quad.put(quad)
+
+def p_datasetarr(p):
+    '''
+    datasetarr : varcte
+    | varcte COMMA datasetarr
+    '''
+    Datasetcte.append(p[1])
 
 #Se genera quadruplo identificador
 def p_dmn1(p):
@@ -2241,9 +2257,11 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'MEAN':
         #Meter arreglo, como data, ver como procesar en los quads
-        data1 = [19, 46, 21, 18, 30]
+        args = Quad.get()
+        print("Mi ARGS es ",args)
+        data1 = args[1]
         x = statistics.mean(data1) 
-        print("Mean ",x)
+        print("La media del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'MEDIAN':
         #Meter arreglo, como data, ver como procesar en los quads
