@@ -1528,9 +1528,9 @@ def p_rn1(p):
 def p_metodos(p):
     '''
     metodos : MEAN fe1 OPAREN arrfun CPAREN SCOLON
-    | MEDIAN OPAREN mmmfunc CPAREN SCOLON
-    | MODE OPAREN mmmfunc CPAREN SCOLON
-    | STDV OPAREN mmmfunc CPAREN SCOLON
+    | MEDIAN fe2 OPAREN arrfun CPAREN SCOLON
+    | MODE fe3 OPAREN arrfun CPAREN SCOLON
+    | STDV fe4 OPAREN arrfun CPAREN SCOLON
     | KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
     | DERL dmn1 OPAREN expfunc CPAREN SCOLON
     | DBERN OPAREN expfunc CPAREN SCOLON
@@ -1553,10 +1553,36 @@ def p_fe1(p):
     Quad.put(quad)
     Datasetcte.clear()
 
+def p_fe2(p):
+    '''fe2 : empty'''
+    global LineC
+    LineC+=1
+    print(p[-1])
+    quad = ("MEDIAN", LineC+1)
+    Quad.put(quad)
+    Datasetcte.clear()
+
+def p_fe3(p):
+    '''fe3 : empty'''
+    global LineC
+    LineC+=1
+    print(p[-1])
+    quad = ("MODE", LineC+1)
+    Quad.put(quad)
+    Datasetcte.clear()
+
+def p_fe4(p):
+    '''fe4 : empty'''
+    global LineC
+    LineC+=1
+    print(p[-1])
+    quad = ("STDV", LineC+1)
+    Quad.put(quad)
+    Datasetcte.clear()
+
 def p_arrfun(p): #Funcion que utiliza un solo arreglo
     '''arrfun : LCOR datasetarr RCOR'''
     quad =("ARGS", Datasetcte)
-    print("Mande",quad)
     Quad.put(quad)
 
 def p_datasetarr(p):
@@ -2256,7 +2282,6 @@ while Quad.empty() == False:
             trash = Quad.get()
 
     if ActualQ[0] == 'MEAN':
-        #Meter arreglo, como data, ver como procesar en los quads
         args = Quad.get()
         print("Mi ARGS es ",args)
         data1 = args[1]
@@ -2264,21 +2289,25 @@ while Quad.empty() == False:
         print("La media del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'MEDIAN':
-        #Meter arreglo, como data, ver como procesar en los quads
-        data1 = [19, 46, 21, 18, 30]
+        args = Quad.get()
+        print("Mi ARGS es ",args)
+        data1 = args[1]
         x = statistics.median(data1)
-        print("Median ",x)
+        print("La mediana del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'MODE':
-        data1 = [19, 46, 21, 18, 30]
-        x = statistics.mode(data1)
-        print("Mode ",x) 
+        args = Quad.get()
+        print("Mi ARGS es ",args)
+        data1 = args[1]
+        x = statistics.median(data1)
+        print("La moda del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'STDV':
-        #Meter arreglo, como data, ver como procesar en los quads
-        data1 = [19, 46, 21, 18, 30]
-        x = statistics.stdev(data1)
-        print("Standar Derivation ",x) 
+        args = Quad.get()
+        print("Mi ARGS es ",args)
+        data1 = args[1]
+        x = statistics.median(data1)
+        print("La desviación standard del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'KMEANS':
         #Metemos conjunto de datos 1 y conjunto de datos 2 y numero de clusters
