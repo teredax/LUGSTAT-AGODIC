@@ -73,20 +73,7 @@ print(res);
 }
 
 {
-int4[0] = 3;
-int4[1+1] = 5;
-print(int4[0]);
-print("Input N for fibo non recursive");
-read(input);
-fibo(input)
 
-print("fibo recursive, first 4 elements");
-fiborec(1,1,1,2, 4)
-
-print("Input N for fact non recursive");
-read(input);
-facto(input)
-print("fact recursive for 4");
-factorec(1, 2, 4)
+derl(1,1,1);
 
 }

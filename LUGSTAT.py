@@ -1471,7 +1471,7 @@ def p_metodos(p):
     | MODE OPAREN mmmfunc CPAREN SCOLON
     | STDV OPAREN mmmfunc CPAREN SCOLON
     | KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
-    | DERL OPAREN expfunc CPAREN SCOLON
+    | DERL dmn1 OPAREN expfunc CPAREN SCOLON
     | DBERN OPAREN expfunc CPAREN SCOLON
     | DPOI OPAREN expfunc2 CPAREN SCOLON
     | TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
@@ -1482,11 +1482,21 @@ def p_metodos(p):
     | MONT OPAREN mmmfunc CPAREN SCOLON
     | EULER OPAREN CPAREN SCOLON
     '''
-    output = p[-1]
+    #output = p[-1]
+    #global LineC
+    #LineC+=1
+    #print(p[1], p[3])
+    #quad = (p[1].upper(), output)
+    #Quad.put(quad)
+    
+
+#Se genera quadruplo identificador
+def p_dmn1(p):
+    '''dmn1 : empty'''
     global LineC
     LineC+=1
-    print(p[1])
-    quad = (p[1].upper(), output)
+    print(p[-1])
+    quad = ("DERL START", LineC+1)
     Quad.put(quad)
 
 def p_expfunc(p):
@@ -1494,6 +1504,12 @@ def p_expfunc(p):
     expfunc : ID COMMA ID COMMA ID
     | varcte COMMA varcte COMMA varcte
     '''
+
+    #Se agarran los argumentos
+    #print("ARGS", p[1], p[3], p[5])
+    quad =("ARGS", p[1], p[3], p[5])
+    Quad.put(quad)
+
 
 def p_expfunc2(p):
     '''
@@ -2201,23 +2217,31 @@ while Quad.empty() == False:
         plt.show()
         plt.clf()
 
-    if ActualQ[0] == 'DERL':
+    if ActualQ[0] == 'DERL START':
         from scipy.stats import erlang  
         import seaborn as sb
         #Creamos una variable random continua
-        numargs = erlang.numargs 
+
+        # El quadruplo que sigue siempre van a ser los argumentos
+        args = Quad.get()
+        #print(args)
+        a1 = args[1]
+        a2 = args[2]
+        a3 = args[3]
+
+        numargs = erlang.numargs
         [a] = [0.6, ] * numargs 
         rv = erlang(a) 
         
-        quantile = np.arange (0.01, 1, 0.1) 
+        quantile = np.arange (0, 15, 0.1) 
    
         # Random Variates 
         R = erlang.rvs(a, scale = 2,  size = 10) 
-
+        print(R)
         # PDF 
         R = erlang.pdf(a, quantile, loc = 0, scale = 1) 
 
-        distribution = np.linspace(0, np.minimum(rv.dist.b, 5)) 
+        distribution = np.linspace(0, np.minimum(rv.dist.b, 10)) 
         
         plot = plt.plot(distribution, rv.pdf(distribution)) 
         plt.title("Erlang")
