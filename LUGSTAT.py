@@ -32,6 +32,7 @@ TipoActual = []
 ValorArreglo = []
 TemporalCounter = 0
 MemoryREG = []
+pr = 0
 
 def findaddrfromREG(elem):
     for i in range(0, len(MemoryREG)):
@@ -740,17 +741,18 @@ def p_fcn1(p):
 
     global queryf
     global workingtypedirectory
+    global pr
     queryf = p[-2]
     print("queryff " , queryf)
     workingtypedirectory = DirectorioFunciones.getparamtypes(queryf)
     #print(workingtypedirectory, "@#$@#")
-    
+    pr = DirectorioFunciones.getparamsstack(queryf)
 
 def p_fcn2(p):
     ''' fcn2 : empty'''
     global paramk
     global LineC
-
+    global pr
     argT = Ptype.pop()
     argT = typetostr(argT)
     argF = PilaO.pop()
@@ -764,7 +766,7 @@ def p_fcn2(p):
     if argT == argP:
         paramk+=1
         LineC+=1
-        pr = DirectorioFunciones.getparamsstack(queryf)
+        
         prr = pr.pop()
         #print("AAAAAAAAAAAAAAA", prr)
         quad = (LineC+1, "PARAM", argF, prr)
@@ -1731,20 +1733,25 @@ while Quad.empty() == False:
     if ActualQ[0] == "PRINT":
         #print(type(ActualQ[1]))
         check = ActualQ[1]
-        if check[0] is "\"":
-            aux = ActualQ[1]
-            aux.strip('\"')
-            print(aux[1:-1])
+        
+        if type(check) is float or type(check) is int:
+            print(check)
+
         else:
-            LOP = ActualQ[1]
-            addr = findaddrfromREG(LOP)
-            #print(addr)
-            try:
-                addrv = memory.getActualContextValue(addr)
-                print(addrv)
-            except KeyError:
-                addrv = memory.getOldContextValue(addr)
-                print(addrv)
+            if check[0] is "\"":
+                aux = ActualQ[1]
+                aux.strip('\"')
+                print(aux[1:-1])
+            else:
+                LOP = ActualQ[1]
+                addr = findaddrfromREG(LOP)
+                #print(addr)
+                try:
+                    addrv = memory.getActualContextValue(addr)
+                    print(addrv)
+                except KeyError:
+                    addrv = memory.getOldContextValue(addr)
+                    print(addrv)
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
@@ -1780,6 +1787,7 @@ while Quad.empty() == False:
                 else:
                     #print("Both vars")
                     addr = findaddrfromREG(LOP)
+                    #print(addr)
                     addrv = memory.getActualContextValue(addr)
                     LOPV = addrv
                     addr = findaddrfromREG(ROP)
@@ -2005,7 +2013,6 @@ while Quad.empty() == False:
             WhileCond = False
             backup = []
             operationstack = []
-
        
     if ActualQ[1] == "GOTOF":
         #print("gotofcond")
@@ -2129,7 +2136,6 @@ while Quad.empty() == False:
             Quad.put(fbackup[i])
         #print(Quad.queue, "New Quad with injected function call")
 
-
     if ActualQ[1] == "END":
         memory.freeFunctionMemory()
         backup = []
@@ -2142,12 +2148,6 @@ while Quad.empty() == False:
 
         for i in range (0, advance-1):
             trash = Quad.get()
-
-
-#todo 
-#verificar multiples do whiles ? 
-#print(1) no werky, falta hacer un tipo de verificacion alli, los demas prints si jalan
-
 
     if ActualQ[0] == 'MEAN':
         #Meter arreglo, como data, ver como procesar en los quads
