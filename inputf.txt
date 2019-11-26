@@ -91,6 +91,5 @@ print("Input N for fibo non recursive");
 read(input);
 fibo(input)
 
-derl(2,6,4);
 
 }
