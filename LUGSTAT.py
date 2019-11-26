@@ -29,6 +29,7 @@ memory = Memoria()
 
 FuncionActual = []
 TipoActual = []
+DimActual = []
 ValorArreglo = []
 TemporalCounter = 0
 MemoryREG = []
@@ -302,7 +303,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
                                 'final'  : Li + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -325,7 +327,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ld,
                                 'final'  : Ld + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -348,7 +351,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Lb,
                                 'final'  : Lb + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -370,7 +374,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ls,
                                 'final'  : Ls + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -396,6 +401,7 @@ def p_vars(p):
         FuncionActual.clear()
         TipoActual.clear()
         ValorArreglo.clear()
+        DimActual.clear()
     else:
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             #print(currentf, "$@#$@#")
@@ -406,7 +412,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
                                 'final'  : Li + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -426,7 +433,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ld,
                                 'final'  : Ld + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -446,7 +454,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Lb,
                                 'final'  : Lb + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -466,7 +475,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ls,
                                 'final'  : Ls + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(p[-5],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -498,7 +508,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
                                 'final'  : Li + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -516,7 +527,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ld,
                                 'final'  : Ld + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -534,7 +546,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Lb,
                                 'final'  : Lb + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -552,7 +565,8 @@ def p_vars(p):
                                 'name' : FuncionActual[i],
                                 'inicio' : Ls,
                                 'final'  : Ls + ValorArreglo[0] - 1,
-                                'type' : TipoActual[0]
+                                'type' : TipoActual[0],
+                                'dim' : DimActual[0]
                             }
                             DirectorioFunciones.addarreglo(currentf[-1],arreglo)
                             for j in range(ValorArreglo[0]):
@@ -579,6 +593,7 @@ def p_vars(p):
         FuncionActual.clear()
         TipoActual.clear() 
         ValorArreglo.clear()
+        DimActual.clear()
     if p[-1] == ')': # Variables locales de una FUNC EN CASO DE NECESITARLO AQUI CREAR UN CONTEXTO NUEVO LA PRIMERA VEZ QUE SE ENTRE AQUI  
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
@@ -611,6 +626,7 @@ def p_vars(p):
         FuncionActual.clear()
         TipoActual.clear()
         ValorArreglo.clear()
+        DimActual.clear()
 
            
 
@@ -635,11 +651,13 @@ def p_vars1(p):
         if p[5]== "[":
             TipoActual.append(p[9])
             ValorArreglo.append(p[3] * p[6])
+            DimActual.append(p[6])
             if p[1] not in FuncionActual:
                 FuncionActual.append(p[1])#En caso de tener valores de arreglo ejem test4[] Update a futuro. 
         else:
             TipoActual.append(p[6]) 
             ValorArreglo.append(p[3])
+            DimActual.append(0)
             if p[1] not in FuncionActual:
                 FuncionActual.append(p[1])#En caso de tener valores de arreglo ejem test4[] Update a futuro. 
             p[0] = p[3]
@@ -897,7 +915,7 @@ def p_asign(p):
 
     #print("i skipped your shit bitch")
     PilaO.append(p[1])
-    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
@@ -921,7 +939,7 @@ def p_asign(p):
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
 
-    print(PilaO, "@!#!@#!(@#)#!@");
+    print(PilaO, "@!#!@#!(@#)#!@")
     if POper:
         if POper[-1] == '=':
             rOP = PilaO.pop()
@@ -940,9 +958,18 @@ def p_asign(p):
                     quad = (oOP, lOP, rOP)
                     Quad.put(quad)
                 else:
-                    print("Mi p[2 fue]",p[2])
-                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
-                    Quad.put(quad)
+                    try:
+                        if p[5]:
+                            if p[4] is not None:
+                                tar2=index['fvars'].get(p[4])
+                                quad = (oOP, lOP, rOP,tar.get("inicio") + p[2],tar2.get("inicio"))
+                                Quad.put(quad)
+                            else:
+                                quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                                Quad.put(quad)
+                    except:
+                        quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                        Quad.put(quad)
 
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -961,11 +988,15 @@ def p_asign2(p):
     | LCOR varcte RCOR 
     '''
     try:
-        p[4]
-        p[0] = p[2] + p[5]
+        if p[4] == '[':
+            index=DirectorioFunciones.getdir(currentf[0])            
+            tar=index['fvars'].get(p[-1])
+            print("funcionapls",tar.get('dim'))
+            p[0] = p[2] + p[5]
+            if(tar.get('dim') > 0):
+                p[0] = (p[2] * tar.get('dim')) + p[5]
     except:
         p[0] = p[2]
-        print("Mi p[0] vale ",p[0])
 
 def p_asign3(p):
     '''
@@ -997,9 +1028,38 @@ def p_en1(p):
     output = PilaO.pop()
     #print("PrintOut", output)
     global LineC
-    LineC+=1
-    quad = ("PRINT", output)
-    Quad.put(quad)
+
+    index=DirectorioFunciones.getdir(currentf[0])            
+    tar=index['fvars'].get(output)
+            
+    #-----------------
+    try:
+        PilaO[1]
+        output2 = PilaO.pop()
+        try:
+            if(tar.get('dim') > 0):
+                output3 = PilaO.pop()
+                matriz = (output3 * tar.get('dim')) + output2
+                quad = ("PRINT", output,matriz)
+                LineC+=1
+                Quad.put(quad)
+            else:
+                quad = ("PRINT", output,output2)
+                print("debo de ser",quad)
+                LineC+=1
+                Quad.put(quad)
+        except:                
+            quad = ("PRINT", output,output2)
+            print("debo de ser",quad)
+            LineC+=1
+            Quad.put(quad)
+    except:
+        quad = ("PRINT", output)
+        LineC+=1
+        Quad.put(quad)
+    #-----------------
+
+
 
 def p_en2(p):
     '''en2 : empty'''
@@ -1732,8 +1792,12 @@ while Quad.empty() == False:
             addr = findaddrfromREG(ROP)
             try: 
                 if ActualQ[3]:
-                    memory.addMemoryValue(ActualQ[3], LOP)
-                    print("agregue en ",ActualQ[3])
+                    try: 
+                        if ActualQ[4]:
+                            valuefromarray = memory.getActualContextValue(ActualQ[4]+LOP)
+                            memory.addMemoryValue(ActualQ[3], valuefromarray)
+                    except IndexError:
+                        memory.addMemoryValue(ActualQ[3], LOP)
             except IndexError:
                  memory.addMemoryValue(addr, LOP)
         else:
@@ -1761,13 +1825,23 @@ while Quad.empty() == False:
             else:
                 LOP = ActualQ[1]
                 addr = findaddrfromREG(LOP)
-                #print(addr)
                 try:
-                    addrv = memory.getActualContextValue(addr)
-                    print(addrv)
-                except KeyError:
-                    addrv = memory.getOldContextValue(addr)
-                    print(addrv)
+                    if ActualQ[2] or ActualQ[2] == 0:
+                        if type(ActualQ[2]) is int:
+                            try:
+                                addrv = memory.getActualContextValue(addr+ActualQ[2])
+                                print(addrv)
+                            except KeyError:
+                                addrv = memory.getOldContextValue(addr+ActualQ[2])
+                                print(addrv)
+
+                except IndexError:
+                    try:
+                        addrv = memory.getActualContextValue(addr)
+                        print(addrv)
+                    except KeyError:
+                        addrv = memory.getOldContextValue(addr)
+                        print(addrv)    
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
