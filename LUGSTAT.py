@@ -1868,12 +1868,14 @@ while Quad.empty() == False:
                 if type(ROP) is int or type(ROP) is float:
                     res = ROP <= LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
                 else:
                     addr = findaddrfromREG(ROP)
                     addrv = memory.getActualContextValue(addr)
                     res = addrv <= LOP
                     memory.addMemoryValue(MM, res)
+                    #print(addrv, LOP, res,"@#@!##!!#@#!#!@")
+                    
                     #print(memory.getActualContextValue(25000))
 
             else:
@@ -1905,7 +1907,7 @@ while Quad.empty() == False:
                 if type(ROP) is int or type(ROP) is float:
                     res = ROP == LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
                 else:
                     addr = findaddrfromREG(ROP)
                     addrv = memory.getActualContextValue(addr)
@@ -1945,12 +1947,14 @@ while Quad.empty() == False:
                 if type(ROP) is int or type(ROP) is float:
                     res = ROP != LOP
                     memory.addMemoryValue(MM, res)
-                    print(memory.getActualContextValue(25000))
+                    #print(memory.getActualContextValue(25000))
                 else:
                     addr = findaddrfromREG(ROP)
                     addrv = memory.getActualContextValue(addr)
                     res = addrv != LOP
                     memory.addMemoryValue(MM, res)
+                    #print(res,"@#@!##!!#@#!#!@")
+
                     #print(memory.getActualContextValue(25000))
 
             else:
@@ -1961,6 +1965,8 @@ while Quad.empty() == False:
                     addrv = memory.getActualContextValue(addr)
                     res = ROP != addrv
                     memory.addMemoryValue(MM, res)
+                    #print(res,"@#@!##!!#@#!#!@")
+
                     #print(memory.getActualContextValue(25000))
 
                 else:
@@ -1972,7 +1978,6 @@ while Quad.empty() == False:
                     addrv = memory.getActualContextValue(addr)
                     ROPV = addrv
                     res = ROPV != LOPV
-                    #print(res,"@#@!##!!#@#!#!@")
                     memory.addMemoryValue(MM, res)
                     #print(memory.getActualContextValue(25000))
                     # Ninguno es un cte
@@ -1998,6 +2003,9 @@ while Quad.empty() == False:
         if WhileCond == True and res == False:
             #print("Closing while")
             WhileCond = False
+            backup = []
+            operationstack = []
+
        
     if ActualQ[1] == "GOTOF":
         #print("gotofcond")

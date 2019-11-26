@@ -2,37 +2,35 @@ lugstat lugstattest;
 var input: int;
 var int4[5] : int;
 func fibo : int ( var limite: int; )
-var local1, local2, cont, res: int;	
-{
+var local1, local2, cont, res: int;	{
 print("The first N fibo elements are...");
 local1 = 1;
 local2 = 1;
 cont =1;
-
 if(limite == 1){
-	print("2");
-}
+	print("2");}
 else{
 print(local1+local2);
 res = local1+local2;
-do {
-local1 = local2;
+do {local1 = local2;
 local2 = res;
 res = local1+local2;
 cont = cont+1;
-print(res);
-}
-while (cont <= limite-1);
-};
-
-}
-
-func fibo2 : int ( var inputsito: int; )
-{
+print(res);}
+while (cont <= limite-1);};}
+func fibo2 : int ( var inputsito: int; ){
 print("i got this parameter and ill be sending it to fibo1");
-fibo(inputsito)
-}
-
+fibo(inputsito)}
+func facto : int (var input: int;)
+var res, i : int;{
+res = 1;
+i = 2;
+do {
+res = res * i; 
+i = i+1;}
+while(i <= input);
+print("The N Factorial is...");
+print(res);}
 {
 int4[0] = 3;
 int4[1+1] = 5;
@@ -40,5 +38,7 @@ print(int4[0]);
 print("Input N for fibo");
 read(input);
 fibo(input)
-
+print("Input N for facto");
+read(input);
+facto(input)
 }
