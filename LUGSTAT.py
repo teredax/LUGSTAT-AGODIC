@@ -938,7 +938,6 @@ def p_asign(p):
                     quad = (oOP, lOP, rOP)
                     Quad.put(quad)
                 else:
-                    print("Mi p[2 fue]",p[2])
                     quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
                     Quad.put(quad)
 
@@ -963,7 +962,6 @@ def p_asign2(p):
         p[0] = p[2] + p[5]
     except:
         p[0] = p[2]
-        print("Mi p[0] vale ",p[0])
 
 def p_asign3(p):
     '''
@@ -973,11 +971,14 @@ def p_asign3(p):
 
 
 def p_escrt(p):
-    '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
+    '''escrt :  PRINT OPAREN ID LCOR varcte RCOR en1 CPAREN SCOLON
+    | PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
+    | PRINT OPAREN ID LCOR expresion RCOR en1 CPAREN SCOLON
     | PRINT OPAREN expresion en1 CPAREN SCOLON
     | PRINT OPAREN STRING CPAREN en2 SCOLON
     | PRINT OPAREN STRING  escrt2 CPAREN en2 SCOLON
     '''
+
 
 def p_escrt2(p):
     '''escrt2 : COMMA escrt3
@@ -992,11 +993,18 @@ def p_escrt3(p):
 
 def p_en1(p):
     '''en1 : empty'''
+    #if p[-1] == ']':
     output = PilaO.pop()
-    #print("PrintOut", output)
+    try:
+        PilaO[1]
+        output2 = PilaO.pop()
+        print("para ",output,"mando ",output2)
+        quad = ("PRINT", output,output2)
+    except:
+        quad = ("PRINT", output)
+    print("PrintOutEn1", output)
     global LineC
     LineC+=1
-    quad = ("PRINT", output)
     Quad.put(quad)
 
 def p_en2(p):
@@ -1184,7 +1192,17 @@ def p_exp(p):
     | termino PLUS exp
     | termino MINUS exp
     '''
-    p[0] = p[1]
+    try:
+        p[2]
+        if(p[-1] is '['):
+            print("QUE VERGAS ES ",p[-1])
+            p[0] = p[1] + p[3]
+        else:
+            p[0] = p[1]
+    except:
+        p[0] = p[1]
+    
+    
     #@8
     relopindex = {'>', '<', '>=', '<=', '!=', '=='}
     #print(p[-1])
@@ -1729,22 +1747,37 @@ while Quad.empty() == False:
         #print(memory.getActualContextValue(10001))
 
     if ActualQ[0] == "PRINT":
-        #print(type(ActualQ[1]))
+
         check = ActualQ[1]
-        if check[0] is "\"":
-            aux = ActualQ[1]
-            aux.strip('\"')
-            print(aux[1:-1])
+        
+        if type(check) is float or type(check) is int:
+            print(check)
+
         else:
-            LOP = ActualQ[1]
-            addr = findaddrfromREG(LOP)
-            #print(addr)
-            try:
-                addrv = memory.getActualContextValue(addr)
-                print(addrv)
-            except KeyError:
-                addrv = memory.getOldContextValue(addr)
-                print(addrv)
+            if check[0] is "\"":
+                aux = ActualQ[1]
+                aux.strip('\"')
+                print(aux[1:-1])
+            else:
+                LOP = ActualQ[1]
+                addr = findaddrfromREG(LOP)
+                try:
+                    if ActualQ[2]:
+                        if type(ActualQ[2]) is int:
+                            try:
+                                addrv = memory.getActualContextValue(addr+ActualQ[2])
+                                print(addrv)
+                            except KeyError:
+                                addrv = memory.getOldContextValue(addr+ActualQ[2])
+                                print(addrv)
+
+                except IndexError:
+                    try:
+                        addrv = memory.getActualContextValue(addr)
+                        print(addrv)
+                    except KeyError:
+                        addrv = memory.getOldContextValue(addr)
+                        print(addrv)               
 
     if ActualQ[0] in relopindex:
         OPP = ActualQ[0]
