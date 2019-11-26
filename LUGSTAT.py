@@ -2229,21 +2229,12 @@ while Quad.empty() == False:
         a2 = args[2]
         a3 = args[3]
 
-        numargs = erlang.numargs
-        [a] = [0.6, ] * numargs 
-        rv = erlang(a) 
-        
-        quantile = np.arange (0, 15, 0.1) 
-   
-        # Random Variates 
-        R = erlang.rvs(a, scale = 2,  size = 10) 
-        print(R)
-        # PDF 
-        R = erlang.pdf(a, quantile, loc = 0, scale = 1) 
-
-        distribution = np.linspace(0, np.minimum(rv.dist.b, 10)) 
-        
-        plot = plt.plot(distribution, rv.pdf(distribution)) 
+        x = np.linspace(0, 5, 100) 
+  
+        # Varying positional arguments 
+        y1 = erlang.pdf(x, a1, a2) 
+        y2 = erlang.pdf(x, a1, a3) 
+        plt.plot(x, y1, "*", x, y2, "r--") 
         plt.title("Erlang")
 
         plt.show()
