@@ -159,7 +159,7 @@ reserved = {
 
 
 tokens = [
-        'PLUS', 'MINUS', 'MULT','DIV','EQUALS','OPAREN', 'STRING', 
+        'PLUS', 'MINUS', 'MULT','DIV','EQUALS','OPAREN', 
         'CPAREN', 'ID','OBRACKET', 'CBRACKET', 'GREATERTHAN', 
         'LESSTHAN', 'GRE','COLON','SCOLON','COMMA', 'NUMBER',
         'PER','EQ','LESSEQ','GREATEQ','DIFF','LCOR','RCOR',
@@ -238,12 +238,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-print ("Despliegue de Tokens \n")
-while True:
-     tok = lexer.token()
-     if not tok: 
-         break      # No more input
-     print(tok)
+#print ("Despliegue de Tokens \n")
+#while True:
+#     tok = lexer.token()
+#     if not tok: 
+#         break      # No more input
+     #print(tok)
      
 #LUGSTAT
 
@@ -691,12 +691,12 @@ def p_mn7(p):
     global pftypestack
     quad = (LineC+1, "END", currentf[-1])
     Quad.put(quad)
-    print("STATUS1:", currentf)
+    #print("STATUS1:", currentf)
     currentf.pop()
 
     #pftypestack = []
 
-    print("STATUS2:", currentf)
+    #print("STATUS2:", currentf)
     TemporalCounter = 0
     #DirectorioFuncionedef p_savename(p):
     '''savename : empty'''
@@ -722,7 +722,7 @@ def p_mn3(p):
     global paramstack
     DirectorioFunciones.addvarnum(currentf[-1], vfcounter)
     DirectorioFunciones.addparamsstack(currentf[-1], paramstack)
-    print(paramstack)
+    #print(paramstack)
     paramstack = []
 
     vfcounter=0
@@ -749,7 +749,7 @@ def p_fcn1(p):
     global workingtypedirectory
     global pr
     queryf = p[-2]
-    print("queryff " , queryf)
+    #print("queryff " , queryf)
     workingtypedirectory = DirectorioFunciones.getparamtypes(queryf)
     #print(workingtypedirectory, "@#$@#")
     pr = DirectorioFunciones.getparamsstack(queryf)
@@ -763,12 +763,12 @@ def p_fcn2(p):
     argT = typetostr(argT)
     argF = PilaO.pop()
     #print(pftypestack, '#@$')
-    print(queryf)
+    #print(queryf)
     getp = workingtypedirectory
     #print(getp, "getppp")
     argP = getp.pop()
     #print(DirectorioFunciones.getparamtypes(queryf), "#@$#$@@#%$^&$^#")
-    print(argT, argP, argF)
+    #print(argT, argP, argF)
     if argT == argP:
         paramk+=1
         LineC+=1
@@ -786,7 +786,7 @@ def p_fcn3(p):
     #print(paramk)
     global LineC
     global paramk
-    print(paramk,"#@!#!@#!@#!@")
+    #print(paramk,"#@!#!@#!@#!@")
     if DirectorioFunciones.getnparams(p[-7]) != paramk:
         print("Inconsistent number of arguements:parameters for function ", p[-7])
         sys.exit()
@@ -820,10 +820,10 @@ def p_block(p):
     '''
     global currentf
     global TemporalCounter
-    print("STATUS:", currentf)
+    #print("STATUS:", currentf)
     currentf.pop()
     TemporalCounter = 0
-    print("STATUS:", currentf)
+    #print("STATUS:", currentf)
     
 def p_block2(p):
     '''
@@ -875,7 +875,7 @@ def p_asign(p):
 
     
     if p[3] != None and p[3] != '=':
-        print("Mi p3 es ",p[3])
+        #print("Mi p3 es ",p[3])
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[3])
         #Encontro algo que pudiera ser un ID
@@ -899,11 +899,11 @@ def p_asign(p):
 
 
     PilaO.append(p[1])
-    print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
+    #print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
         Ptype.append(type(p[1]))
     else:
-        print("Looking in var table for type")
+        #print("Looking in var table for type")
         #print(currentf, "#$#@$")
         index=DirectorioFunciones.getdir(currentf[-1])
         tar=index['fvars'].get(p[1])
@@ -923,7 +923,7 @@ def p_asign(p):
             #print("tarfilter",tarfilter)
             Ptype.append(tarfilter)
 
-    print(PilaO, "@!#!@#!(@#)#!@")
+    #print(PilaO, "@!#!@#!(@#)#!@")
     if POper:
         if POper[-1] == '=':
             rOP = PilaO.pop()
@@ -936,7 +936,7 @@ def p_asign(p):
             global LineC
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
+            #print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 if p[2] is '=':
                     try:
@@ -984,7 +984,7 @@ def p_asign2(p):
         if p[4] == '[':
             index=DirectorioFunciones.getdir(currentf[0])            
             tar=index['fvars'].get(p[-1])
-            print("Mi litimite es ",tar.get('final'))
+            #print("Mi litimite es ",tar.get('final'))
             p[0] = p[2] + p[5]
             if(tar.get('dim') > 0): #Calculamos la direccion final dimensionado de la manera siguiente base de matriz * dimension + columna a elegir 
                 p[0] = (p[2] * tar.get('dim')) + p[5]
@@ -1038,12 +1038,12 @@ def p_en1(p):
                 Quad.put(quad)
             else:
                 quad = ("PRINT", output,output2)
-                print("debo de ser",quad)
+                #print("debo de ser",quad)
                 LineC+=1
                 Quad.put(quad)
         except:                
             quad = ("PRINT", output,output2)
-            print("debo de ser",quad)
+            #print("debo de ser",quad)
             LineC+=1
             Quad.put(quad)
     except:
@@ -1105,7 +1105,7 @@ def p_cn1(p):
     else:
         res = PilaO.pop()
         PJumps.append(LineC)
-        print("Your Quad is: [[", LineC, "]]", "GOTOF", res, 0)
+        #print("Your Quad is: [[", LineC, "]]", "GOTOF", res, 0)
         quad = (LineC, "GOTOF", res, 0)
         Quad.put(quad)
 
@@ -1113,7 +1113,7 @@ def p_cn1(p):
 def p_cn2(p):
     '''cn2 : empty'''
     cend = PJumps.pop()
-    print(LineC+1, "----Im exiting the if into this line----")
+    #print(LineC+1, "----Im exiting the if into this line----")
     FILL(cend, LineC+1)
     #print(Quad.queue)
 
@@ -1123,7 +1123,7 @@ def p_cn3(p):
     LineC +=1
     quad = (LineC, "GOTO", 0, 0)
     Quad.put(quad)
-    print("Your Quad is: [[", LineC, "]]", "GOTO", 0, 0)
+    #print("Your Quad is: [[", LineC, "]]", "GOTO", 0, 0)
     false = PJumps.pop()
     PJumps.append(LineC)
     FILL(false, LineC+1)
@@ -1173,7 +1173,6 @@ def p_expresion(p):
     relopindex = {'>', '<', '>=','<=', '!=', '=='}
     if POper:
         if POper[-1] in relopindex:
-            #print("im going in")
             rOP = PilaO.pop()
             rTY = Ptype.pop()
             rTY = typetostr(rTY)
@@ -1188,7 +1187,7 @@ def p_expresion(p):
             global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
+            #print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
                 if fTY == 'int':
@@ -1268,7 +1267,7 @@ def p_exp(p):
             global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
+            #print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
                 if fTY == 'int':
@@ -1344,7 +1343,7 @@ def p_termino(p):
             global Ts
             LineC +=1
             fTY = ConsideracionesSemanticas.get_tipo(lTY, rTY, oOP)
-            print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
+            #print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 RFI = AVAIL.next()
                 if fTY == 'int':
@@ -1431,7 +1430,7 @@ def p_varcte(p):
             Ptype.append(type(p[1]))
             PilaO.append(p[1])
         else:
-            print("Looking in var table for type")
+            #print("Looking in var table for type")
             #print(currentf, "#$#@$")
             index=DirectorioFunciones.getdir(currentf[-1])
             tar=index['fvars'].get(p[1])
@@ -1472,7 +1471,7 @@ def p_wn2(p):
     else:
         res = PilaO.pop()
         doloopstart = PJumps.pop()
-        print("Your Quad is: ", LineC+1, "GOTOV", doloopstart)
+        #print("Your Quad is: ", LineC+1, "GOTOV", doloopstart)
         quad = (LineC+1, "GOTOV", doloopstart)
         Quad.put(quad)
 
@@ -1492,7 +1491,7 @@ def p_readln(p):
 
 def p_rn1(p):
     '''rn1 : empty '''
-    print("Checking if variable to read and write onto exists")
+    #print("Checking if variable to read and write onto exists")
     index=DirectorioFunciones.getdir(currentf[-1])
     tar=index['fvars'].get(p[-1])
 
@@ -1534,7 +1533,7 @@ def p_fe1(p):
     '''fe1 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("MEAN", LineC+1)
     Quad.put(quad)
     Datasetcte.clear()
@@ -1543,7 +1542,7 @@ def p_fe2(p):
     '''fe2 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("MEDIAN", LineC+1)
     Quad.put(quad)
     Datasetcte.clear()
@@ -1552,7 +1551,7 @@ def p_fe3(p):
     '''fe3 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("MODE", LineC+1)
     Quad.put(quad)
     Datasetcte.clear()
@@ -1561,7 +1560,7 @@ def p_fe4(p):
     '''fe4 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("STDV", LineC+1)
     Quad.put(quad)
     Datasetcte.clear()
@@ -1570,7 +1569,7 @@ def p_fe5(p):
     '''fe5 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("KMEANS", LineC+1)
     Quad.put(quad)
     Datasetcte.clear()
@@ -1612,7 +1611,7 @@ def p_dmn1(p):
     '''dmn1 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("DERL START", LineC+1)
     Quad.put(quad)
 
@@ -1620,7 +1619,7 @@ def p_dbrn1(p):
     '''dbrn1 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("DBERN", LineC+1)
     Quad.put(quad)
 
@@ -1628,7 +1627,7 @@ def p_dp1(p):
     '''dp1 : empty'''
     global LineC
     LineC+=1
-    print(p[-1])
+    #print(p[-1])
     quad = ("DPOI", LineC+1)
     Quad.put(quad)
 
@@ -1758,13 +1757,13 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-print("tu quadruplo resultante es:")
-print(Quad.queue)
+#print("tu quadruplo resultante es:")
+#print(Quad.queue)
 
-print("")
-print("Variables lugstat MAIN \n")
-DirectorioFunciones.getallv("lugstattest")
-print("\n")
+#print("")
+#print("Variables lugstat MAIN \n")
+#DirectorioFunciones.getallv("lugstattest")
+#print("\n")
 
 print("Maq V. INIT.")
 #print(Quad.qsize(), "$#$#$#$")
