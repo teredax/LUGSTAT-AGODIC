@@ -1,6 +1,7 @@
 # CompiladoresAgoDic
 Repositorio para nuestro proyecto para la clase de compiladores
 
+
  __        __    __   ______    ______   ________  ______   ________ 
 /  |      /  |  /  | /      \  /      \ /        |/      \ /        |
 $$ |      $$ |  $$ |/$$$$$$  |/$$$$$$  |$$$$$$$$//$$$$$$  |$$$$$$$$/ 
@@ -10,20 +11,28 @@ $$ |      $$ |  $$ |$$ |$$$$ | $$$$$$  |   $$ |  $$$$$$$$ |   $$ |
 $$ |_____ $$ \__$$ |$$ \__$$ |/  \__$$ |   $$ |  $$ |  $$ |   $$ |   
 $$       |$$    $$/ $$    $$/ $$    $$/    $$ |  $$ |  $$ |   $$ |   
 $$$$$$$$/  $$$$$$/   $$$$$$/   $$$$$$/     $$/   $$/   $$/    $$/    
-                                                                     
-                                                                    
+
 
 Manual de usuario 
 
 Pre requisitos:
+
 Dependencias necesarias para versión funcional del código
-Numpy que usamos como np
-Pandas que usamos como pd
-Matplotlib que usamos como plt
-Sklearn.datasets
-Sklearn clusters
-Scipy.stats
+
+--@Numpy que usamos como np
+
+--@Pandas que usamos como pd
+
+--@Matplotlib que usamos como plt
+
+--@ Sklearn.datasets
+
+--@Sklearn clusters
+
+--@ Scipy.stats
+
 Seabron que usamos como sb
+
 Sympy 
 
 La instalación de estas dependencias se hacen de la siguiente manera 
