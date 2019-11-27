@@ -1,6 +1,3 @@
-# CompiladoresAgoDic
-Repositorio para nuestro proyecto para la clase de compiladores
-
  __        __    __   ______    ______   ________  ______   ________ 
 /  |      /  |  /  | /      \  /      \ /        |/      \ /        |
 $$ |      $$ |  $$ |/$$$$$$  |/$$$$$$  |$$$$$$$$//$$$$$$  |$$$$$$$$/ 

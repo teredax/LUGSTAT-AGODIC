@@ -1527,7 +1527,7 @@ def p_metodos(p):
     | ROTATE tp3 OPAREN mmmfunc CPAREN SCOLON
     | REF tp4 OPAREN mmmfunc CPAREN SCOLON
     | RREF tp5 OPAREN mmmfunc CPAREN SCOLON
-    | EULER OPAREN CPAREN SCOLON
+    | EULER tp6 OPAREN CPAREN SCOLON
     '''
     
 def p_fe1(p):
@@ -1676,6 +1676,13 @@ def p_tp5(p):
     Quad.put(quad)
     DatasetArr.clear()
     Datasetcte.clear()
+
+def p_tp6(p):
+    '''tp6 : empty'''
+    global LineC
+    LineC+=1
+    quad = ("EULER", LineC+1)
+    Quad.put(quad)
 
 def p_expfunc(p):
     '''
