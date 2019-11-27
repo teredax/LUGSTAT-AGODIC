@@ -1,8 +1,8 @@
 lugstat lugstattest;
 var input, iterador: int;
-var mat[3][3] :int;
-var int4[5] : int;
-var int5[5] : int;
+var mat[3][3]: int;
+var int4[4]: int;
+
 
 func fibo : int ( var limite: int; )
 var local1, local2, cont, res: int;	{
@@ -78,11 +78,8 @@ print(res);
 {
 iterador = 1;
 print(iterador);
-int4[0] = 40;
-int4[1] = 100;
-int4[0] = int4[1];
-iterador = 8;
-iterador = 60;
+int4[0] = 100;
+print("El valor de mi posicion inicial del arreglo es");
 print(int4[0]);
 
 
@@ -98,4 +95,8 @@ read(input);
 facto(input)
 print("fact recursive for 4");
 factorec(1, 2, 4)
+
+kmeans(3,[12, 20, 28, 18, 29, 33, 24, 45, 45, 52, 51, 52, 55, 53, 55, 61, 64, 69, 72],[39, 36, 30, 52, 54, 46, 55, 59, 63, 70, 66, 63, 58, 23, 14, 8, 19, 7, 24]);
+
 }
+

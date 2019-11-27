@@ -246,9 +246,6 @@ while True:
      print(tok)
      
 #LUGSTAT
-
-
-
 def p_lugstat(p):
     '''
     lugstat : LUGSTAT ID SCOLON addmain lugstat2 lugstat3 mnv block
