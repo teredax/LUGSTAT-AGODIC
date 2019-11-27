@@ -145,6 +145,7 @@ reserved = { #palabras reservadas
     'ref' : 'REF',
     'rref' : 'RREF',
     'mont' : 'MONT',
+    'return' : 'RETURN',
     'char' : 'CHAR',
     'string': 'STRING',
     'func' : 'FUNC',
@@ -237,12 +238,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-#print ("Despliegue de Tokens \n")
-#while True:
-#     tok = lexer.token()
-#     if not tok: 
-#         break      # No more input
-     #print(tok)
+print ("Despliegue de Tokens \n")
+while True:
+     tok = lexer.token()
+     if not tok: 
+         break      # No more input
+     print(tok)
      
 #LUGSTAT
 def p_lugstat(p):
@@ -849,7 +850,49 @@ def p_estatuto(p):
     | dwhile
     | readln
     | funccall
+    | regreso
     '''
+
+def p_regreso(p):
+    ''' regreso : RETURN OPAREN ID regnum1 CPAREN SCOLON
+    | RETURN OPAREN expresion regnum2 CPAREN SCOLON
+    '''
+
+def p_regnum1(p):
+    ''' regnum1 :  '''
+    #print(p[-1], "^^^^^^^^^^^^^^^^")
+    quad = ("RETURN", p[-1])
+    # agarra el tipo de retorno de currentf
+    # agarra el tipo que se quiere regresar
+    # lo pone en el quadruplo dependiendo se si es 
+    currentftype = DirectorioFunciones.getftype(currentf[-1])
+    #print(currentftype, "#@#@#@#@#@")
+    rtype = DirectorioFunciones.getvtype(currentf[-1], p[-1])
+    #print(rtype)
+    if currentftype == rtype:
+        Quad.put(quad)
+    else:
+        print("Returned value does not match function return value!")
+        sys.exit()
+
+def p_regnum2(p):
+    ''' regnum2 :  '''
+
+    #print(PilaO.pop(), "^^^^^^^^^^^^^^^^")
+    tret = PilaO.pop()
+    quad = ("RETURN", tret)
+        # agarra el tipo de retorno de currentf
+    # agarra el tipo que se quiere regresar
+    # lo pone en el quadruplo dependiendo se si es 
+    currentftype = DirectorioFunciones.getftype(currentf[-1])
+    #print(currentftype, "#@#@#@#@#@")
+    rtype = DirectorioFunciones.getvtype(currentf[-1], tret)
+    #print(rtype)
+    if currentftype == rtype:
+        Quad.put(quad)
+    else:
+        print("Returned value does not match function return value!")
+        sys.exit()
 
 def p_asign(p):
     '''
@@ -1015,9 +1058,8 @@ def p_escrt3(p):
 def p_en1(p):
     '''en1 : empty'''
     output = PilaO.pop()
-    #print("PrintOut", output)
+    print("PrintOut", output)
     global LineC
-
     index=DirectorioFunciones.getdir(currentf[0])            
     tar=index['fvars'].get(output)
             
@@ -1060,6 +1102,7 @@ def p_en2(p):
 
 def p_en3(p):
     '''en3 : empty'''
+    #print("#@#@#@#@#", p[-1])
     print("Checking if variable to print exists", p[-1])
     index=DirectorioFunciones.getdir(currentf[-1])
     tar=index['fvars'].get(p[-1])
@@ -1753,8 +1796,8 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-#print("tu quadruplo resultante es:")
-#print(Quad.queue)
+print("tu quadruplo resultante es:")
+print(Quad.queue)
 
 #print("")
 #print("Variables lugstat MAIN \n")
@@ -2587,7 +2630,6 @@ while Quad.empty() == False:
                 print (mat[i][j], end = ' ') 
             print ("") 
   
-
     if ActualQ[0] == 'REF':
 
         args = Quad.get()
@@ -2664,3 +2706,7 @@ while Quad.empty() == False:
         print('              9##g_0@q__ #"4_  j*"k __*NF_g#@P"')
         print('                "9NN#gIPNL_ "b@" _2M"Lg#N@F"')
         print('                    ""P@*NN#gEZgNN@#@P""')
+
+    if ActualQ[0] == 'RETURN':
+        # Verifica antes que el tipo de retorno concuerte con el de la variable que se mando
+        print("")

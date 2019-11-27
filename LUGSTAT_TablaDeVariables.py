@@ -29,6 +29,9 @@ class Tabla_de_Variables(object):
             return self.lista[vname] #En ese caso regresamos variable completa
         else:
             return None
+
+    def getvtype(self, vname):
+        return self.lista[vname]['type']
     
     def getmloc(self, vname):
         return self.lista[vname]['memoryloc']

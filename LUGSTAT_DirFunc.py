@@ -23,6 +23,11 @@ class Directorio_de_Variables(object):
     	}
 
 
+    def getftype(self, fname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return copy.copy(access['ftype'])
+
     def search(self, fquery):
     	return fquery in self.listaf
 
@@ -92,6 +97,11 @@ class Directorio_de_Variables(object):
         if fname in self.listaf:
             access = self.listaf[fname]
             return access['fvars'].getmloc(vname)
+
+    def getvtype(self, fname, vname):
+        if fname in self.listaf:
+            access = self.listaf[fname]
+            return access['fvars'].getvtype(vname)
 
     def addparamtypes(self, fname, paramstoadd):
         if fname in self.listaf:
