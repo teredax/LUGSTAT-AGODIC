@@ -78,10 +78,24 @@ print(res);
 {
 iterador = 1;
 print(iterador);
-int4[0] = iterador;
+int4[0] = 40;
+int4[1] = 100;
+int4[0] = int4[1];
+iterador = 8;
+iterador = 60;
 print(int4[0]);
+
+
 print("Input N for fibo non recursive");
 read(input);
 fibo(input)
 
+print("fibo recursive, first 4 elements");
+fiborec(1,1,1,2, 4)
+
+print("Input N for fact non recursive");
+read(input);
+facto(input)
+print("fact recursive for 4");
+factorec(1, 2, 4)
 }

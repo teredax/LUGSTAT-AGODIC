@@ -9,9 +9,9 @@
 import queue as Queue
 import ply.lex as lex
 import ply.yacc as yacc
-from LUGSTAT_DirFunc import Directorio_de_Variables
-from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas
-from LUGSTAT_Memory import Memoria
+from LUGSTAT_DirFunc import Directorio_de_Variables #Directorio de variables 
+from LUGSTAT_ConsideracionesSemanticas import ConsideracionesSemanticas #Cubo de considerciones semanticas 
+from LUGSTAT_Memory import Memoria #Importamos la memoria a usar 
 from LUGSTAT_DIRECCIONES import * #Importamos nuestras direcciones base
 import statistics 
 import numpy as np
@@ -22,33 +22,32 @@ from sklearn.cluster import KMeans
 import sys
 import copy
 
-DirectorioFunciones = Directorio_de_Variables()
-ConsideracionesSemanticas = ConsideracionesSemanticas()
-memory = Memoria()
+DirectorioFunciones = Directorio_de_Variables() #Creamos nuestro directorio de variables
+ConsideracionesSemanticas = ConsideracionesSemanticas() #Creamos nuestro cubo de consideraciones semanticas 
+memory = Memoria() #Inicializamos memoria 
 
 
-FuncionActual = []
-TipoActual = []
-DimActual = []
-ValorArreglo = []
+FuncionActual = [] #Lista para guardar la funcion actual a ingresar a nuestra tabala de funciones 
+TipoActual = [] #Lista para guardar el tipo actual de variable a ingresar
+DimActual = [] #Dimension de matriz actual 
+ValorArreglo = [] #Valor de arreglo
 TemporalCounter = 0
 MemoryREG = []
-Datasetcte = []
-Datasetcte2 = []
-DatasetArr = []
+Datasetcte = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte 
+Datasetcte2 = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte 
+DatasetArr = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte para matrices 
 pr = 0
 
+#Busca en Reg
 def findaddrfromREG(elem):
     for i in range(0, len(MemoryREG)):
-        #print(elem, MemoryREG[i][2], len(MemoryREG), i, "#####")
         if MemoryREG[i][0] == elem:
             return MemoryREG[i][2]
 
 
-
+#Tipo del elemento 
 def typetostr(element):
 
-	#print(element)
 	stringvalues = {'int', 'double', 'float', 'string', 'bool'}
 	if element in stringvalues:
 		return element
@@ -63,7 +62,7 @@ def typetostr(element):
 		if element is bool:
 			return 'bool'
 
-
+#Avail 
 class AVAIL(object):
     def __init__(self):
         self.AvailC = 0
@@ -107,8 +106,6 @@ def FILL(elem1, elem2):
 
     for i in range ( 0, Quad.qsize()):
         if Quad.queue[i][0] == elem1:
-            #print("Found it!")
-            #print(Quad.queue[i][0], "#", Quad.queue[i][1])
             a = Quad.queue[i][0]
             b = Quad.queue[i][1]
             c = Quad.queue[i][2]
@@ -116,8 +113,9 @@ def FILL(elem1, elem2):
             Quad.queue[i] = (a, b, c, elem2)
 
 
+#Aquí se ingresa el archivo a compilar
+InputF= open("inputf.txt", "r")
 
-InputF= open("inputf.txt", "r") 
 cache=InputF.read()
 reserved = {
     'if' : 'IF',
@@ -259,7 +257,7 @@ def p_lugstat(p):
 def p_addmain(p):
     '''addmain : empty'''
     DirectorioFunciones.addf(p[-2],None, 0, 0, 0, 0, 0)
-    memory.createLocalTemporal() #Creamos un contexto nuevo para main este nunca se elimina
+    memory.createLocalTemporal() #Creamos un contexto nuevo para main
     global currentf
     global TemporalCounter
     TemporalCounter = 0
@@ -286,7 +284,6 @@ def p_vars(p):
     '''
     vars : VAR vars1 
     '''
-    #print("C", FuncionActual)
     global vmcounter
     global vfcounter
     global pfcounter
@@ -296,12 +293,11 @@ def p_vars(p):
     global Ld
     global Lb
     global Ls
-    #print("currentf: ", p[-1], " p-4", p[-4])
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
-                        if len(ValorArreglo) > 0:
+                        if len(ValorArreglo) > 0: #En caso de que tenga un arreglo disponible lo ingresamos 
                             arreglo = {
                                 'name' : FuncionActual[i],
                                 'inicio' : Li,
@@ -311,7 +307,7 @@ def p_vars(p):
                             }
                             DirectorioFunciones.addarreglo(p[-3],arreglo)
                             for j in range(ValorArreglo[0]):
-                                memory.addMemoryValue(Li,70)
+                                memory.addMemoryValue(Li,70) #Se agrega al registro de memoria y a la memoria de main 
                                 MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
                                 Li = Li + 1
                         else:     
@@ -494,10 +490,7 @@ def p_vars(p):
                             paramstack.append(FuncionActual[i])
                             Ls = Ls + 1
                 pfcounter+=1
-                #print(TipoActual[0], " of type")
-                #print(p[-1], "fds")
                 pftypestack.append(TipoActual[0])
-                #print(pfcounter, "params!")
             FuncionActual.clear()
             TipoActual.clear()
     
@@ -583,7 +576,6 @@ def p_vars(p):
                             Ls = Ls + 1           
                     if currentf[-1] != currentf[0] and pfboolstackcond == True:
                        # print("FS@@@@@@@@@@@@@@@@@@@@@@@@D", TipoActual[0], FuncionActual[i])
-                        #print("regular function var, not a param", FuncionActual[i])
                         #print(p[1], "#@#@#@#@##")
                         pftypestack.append(TipoActual[0])
                         pfcounter+=1
@@ -597,31 +589,25 @@ def p_vars(p):
         TipoActual.clear() 
         ValorArreglo.clear()
         DimActual.clear()
-    if p[-1] == ')': # Variables locales de una FUNC EN CASO DE NECESITARLO AQUI CREAR UN CONTEXTO NUEVO LA PRIMERA VEZ QUE SE ENTRE AQUI  
+    if p[-1] == ')': # Variables locales de una FUNC 
         for i in range(len(FuncionActual)):
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
-                    #memory.addMemoryValue(Li,70)
                     Li = Li + 1
                 if(TipoActual[0] == 'double'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ld)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Ld, 70))
-                    #memory.addMemoryValue(Ld,70)
                     Ld = Ld + 1
                 if(TipoActual[0] == 'bool'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Lb)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Lb, 70))
-                    #memory.addMemoryValue(Lb,70)
                     Lb = Lb + 1
                 if(TipoActual[0] == 'string'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Ls)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Ls, 70))
-                    #memory.addMemoryValue(Ls,70)
                     Ls = Ls + 1            
                 vfcounter+=1
-                #print(vfcounter, "im going in! first line", FuncionActual[i])
-                #print("regular function var, not a param", FuncionActual[i])
         Li = 10000
         Ld = 12500
         Lb = 15000
@@ -645,7 +631,6 @@ def p_vars1(p):
     | ID asign2 COMMA vars1
     '''
     
-    #print("vars: ",p[1],p[2],p[3])
     if p[2] == ":":                
         TipoActual.append(p[3]) #Guardamos tipo actual
         if p[1] not in FuncionActual:
@@ -789,7 +774,6 @@ def p_fcn2(p):
         LineC+=1
         
         prr = pr.pop()
-        #print("AAAAAAAAAAAAAAA", prr)
         quad = (LineC+1, "PARAM", argF, prr)
         Quad.put(quad)
     else:
@@ -889,7 +873,6 @@ def p_asign(p):
         else:
             POper.append(p[3])
 
-    #print("equals",p[3], type(p[3]))
     
     if p[3] != None and p[3] != '=':
         print("Mi p3 es ",p[3])
@@ -904,7 +887,7 @@ def p_asign(p):
         if tar == None:
             print("Variable doesn't exist!")
             sys.exit()
-            #Si no es global, ya bye
+            #Si no es global, nos retiramos
         else:
             tarfilter = tar['type'] #La encontro globalmente
             #print(tar['type'], "#$@$@@#$")
@@ -915,8 +898,6 @@ def p_asign(p):
             #Al final agrega el ID ya que ya sabe que si existe en alguno de los dos scopes
 
 
-
-    #print("i skipped your shit bitch")
     PilaO.append(p[1])
     print(p[1], "@@@@@@@@@@@@@@@@@@@@@@@@")
     if type(p[1]) is int or type(p[1]) is float:
@@ -958,15 +939,24 @@ def p_asign(p):
             print("Your Quad is: ", "Line : [[", LineC, "]]" , lOP, rTY, rOP, lTY, oOP, fTY)
             if fTY != 'error':
                 if p[2] is '=':
-                    quad = (oOP, lOP, rOP)
-                    Quad.put(quad)
+                    try:
+                        if p[5]:
+                            quad = (oOP, lOP, rOP,p[4],'arr')
+                            Quad.put(quad)                            
+                    except:
+                        quad = (oOP, lOP, rOP)
+                        Quad.put(quad)
                 else:
                     try:
                         if p[5]:
-                            if p[4] is not None:
-                                tar2=index['fvars'].get(p[4])
-                                quad = (oOP, lOP, rOP,tar.get("inicio") + p[2],tar2.get("inicio"))
-                                Quad.put(quad)
+                            if p[4] is not None: #En caso de tener una cuarta y quinta posición significa que pertenece a una expresion
+                                if p[5] == ';': #Usamos ; para revisar si pertenece a un arreglo o matriz 
+                                    quad = (oOP, p[4], rOP,tar.get("inicio") + p[2])
+                                    Quad.put(quad)
+                                else:
+                                    tar2=index['fvars'].get(p[4]) 
+                                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2],tar2.get("inicio"))
+                                    Quad.put(quad)
                             else:
                                 quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
                                 Quad.put(quad)
@@ -994,9 +984,9 @@ def p_asign2(p):
         if p[4] == '[':
             index=DirectorioFunciones.getdir(currentf[0])            
             tar=index['fvars'].get(p[-1])
-            print("funcionapls",tar.get('dim'))
+            print("Mi litimite es ",tar.get('final'))
             p[0] = p[2] + p[5]
-            if(tar.get('dim') > 0):
+            if(tar.get('dim') > 0): #Calculamos la direccion final dimensionado de la manera siguiente base de matriz * dimension + columna a elegir 
                 p[0] = (p[2] * tar.get('dim')) + p[5]
     except:
         p[0] = p[2]
@@ -1172,7 +1162,6 @@ def p_xyfunc(p):
     | empty
     '''
 
-#RE REVISAR DIAGRAMA
 def p_expresion(p):
     '''expresion : exp 
     | expresion RELOP exp 
@@ -1392,7 +1381,6 @@ def p_factor(p):
     #@6
     if (p[-1] == '('):
     	POper.append("|")
-    	#pls help? no se si va a faltar un reset para que ignore lo que esta antes
     else:
         p[0] = p[1]
     #@7
@@ -1436,7 +1424,6 @@ def p_varcte(p):
     
     #@1
     if p[1] == 'True' or p[1] == 'False':
-        #print("hi!")
         Ptype.append('bool')
         PilaO.append(p[1])
     else:
@@ -1599,7 +1586,7 @@ def p_arrfun(p): #Funcion que utiliza un solo arreglo
     quad =("ARGS", Datasetcte)
     Quad.put(quad)
 
-def p_arrfun2(p): #Funcion que utiliza un solo arreglo
+def p_arrfun2(p): 
     '''arrfun2 : LCOR datasetarr RCOR'''
 
 
@@ -1715,9 +1702,7 @@ def p_mmmfunc(p):
 	| LCOR mmmarray RCOR
     | ID
     '''
-    print("Deberia salir mi matrix ",DatasetArr)
     quad =("ARGS", DatasetArr)
-    print("Mande",quad)
     Quad.put(quad)
 
 
@@ -1739,20 +1724,15 @@ def p_datasetarr4(p):
     
     try:
         if p[2] == ',':
-            print("Debe ser 1",len(DatasetArr))
             DatasetArr[len(DatasetArr)-1].append(p[1])
             if(p[-1] == '['):
                 DatasetArr[len(DatasetArr)-1].reverse()
-                print("Meto ",Datasetcte, " a ",DatasetArr)
 
     except IndexError:
         if p[-1] == ',':
-                print("agregando cuando hay comma",p[1])
                 Datasetcte.clear()
                 DatasetArr.append([p[1]])
-                print("Tengo ",DatasetArr)
         else:
-            print("agregando cuando no hay comma",p[1])
             DatasetArr.append(Datasetcte)
 
 
@@ -1957,26 +1937,43 @@ while Quad.empty() == False:
                 if ActualQ[3]:
                     try: 
                         if ActualQ[4]:
-                            valuefromarray = memory.getActualContextValue(ActualQ[4]+LOP)
-                            memory.addMemoryValue(ActualQ[3], valuefromarray)
+                            if ActualQ[4] == 'arr':
+                                valuefromarray = memory.getActualContextValue(addr + ActualQ[3])
+                                memory.addMemoryValue(ActualQ[2], valuefromarray)
+                            else:
+                                valuefromarray = memory.getActualContextValue(ActualQ[4]+LOP)
+                                memory.addMemoryValue(ActualQ[3], valuefromarray)
                     except IndexError:
                         memory.addMemoryValue(ActualQ[3], LOP)
             except IndexError:
                  memory.addMemoryValue(addr, LOP)
         else:
-            addr = findaddrfromREG(LOP)
-            #print(addr)
-            addrv = memory.getActualContextValue(addr)
-            LOPV = addrv
-            addr = findaddrfromREG(ROP)
-            memory.addMemoryValue(addr, LOPV)
+            try: 
+                if ActualQ[4]:
+                    if ActualQ[4] == 'arr':
+                                addr3 = findaddrfromREG(LOP)
+                                valuefromarray = memory.getActualContextValue(addr3 + ActualQ[3])
+                                addr2 = findaddrfromREG(ROP)
+                                print("Metiendo en ",ROP,"El valor de",valuefromarray,"con la dir",addr2)
+                                memory.addMemoryValue(addr2, valuefromarray)
+                    else:
+                            addr = findaddrfromREG(LOP)
+                            addrv = memory.getActualContextValue(addr)
+                            LOPV = addrv
+                            addr = findaddrfromREG(ROP)
+                            memory.addMemoryValue(addr, LOPV)
+            except IndexError:
+                addr = findaddrfromREG(LOP)
+                addrv = memory.getActualContextValue(addr)
+                LOPV = addrv
+                addr = findaddrfromREG(ROP)
+                memory.addMemoryValue(addr, LOPV)
 
         #print(memory.getActualContextValue(10001))
 
     if ActualQ[0] == "PRINT":
         #print(type(ActualQ[1]))
         check = ActualQ[1]
-        
         if type(check) is float or type(check) is int:
             print(check)
 
@@ -2469,7 +2466,6 @@ while Quad.empty() == False:
     if ActualQ[0] == 'DERL START':
         from scipy.stats import erlang  
         import seaborn as sb
-        #Creamos una variable random continua
 
         # El quadruplo que sigue siempre van a ser los argumentos
         args = Quad.get()
@@ -2640,7 +2636,7 @@ while Quad.empty() == False:
         # Use sympy.rref() method  
         M_rref = M.rref()   
             
-        print("The Row echelon form of matrix M and the pivot columns : {}".format(M_rref))   
+        print("La forma escalonada de la fila de la matriz : {}".format(M_rref))   
 
     if ActualQ[0] == 'EULER':
         print('J.G., 2019           __gggrgM**M#mggg__')

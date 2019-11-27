@@ -38,7 +38,6 @@ class Directorio_de_Variables(object):
 
     def addv(self, fname, vname, vtype,loc):
         if fname in self.listaf:
-            #print ("Function exists")
             access = self.listaf[fname]
             if access['fvars'].search(vname) == True:
                 print("Variable already exists")
@@ -49,11 +48,7 @@ class Directorio_de_Variables(object):
 
     def addarreglo(self, fname, arreglox):
         if fname in self.listaf:
-            #print ("Function exists")
             access = self.listaf[fname]
-            #if access['fvars'].searchbyname(arreglox) == True:
-            #    print("Variable already exists")
-            #else:
             access['fvars'].addArr(arreglox)
         else:
             print("Function does not exist")
@@ -78,19 +73,16 @@ class Directorio_de_Variables(object):
     def getnparams(self, fname):
         if fname in self.listaf:
             access = self.listaf[fname]
-            #print (access['Nparams'])
             return access['Nparams']
 
     def addparams(self, fname, nparams):
         if fname in self.listaf:
             access = self.listaf[fname]
             access['Nparams'] = nparams
-            #print(access['Nparams'])
 
     def getparamtypes(self, fname):
         if fname in self.listaf:
             access = self.listaf[fname]
-            #print("tarf",access['TypeParams'])
             access2 = copy.copy(access['TypeParams'])
             return access2
         else:
@@ -105,15 +97,11 @@ class Directorio_de_Variables(object):
         if fname in self.listaf:
             access  = self.listaf[fname]
             access['TypeParams'] = paramstoadd
-            #print("targ",access['TypeParams'], access)
-
-
 
     def addvarnum(self, fname, nvars):
         if fname in self.listaf:
             access = self.listaf[fname]
             access['Nvars'] = nvars
-            #print(access['Nvars'], access)
 
     def getparamsstack(self, fname):
         if fname in self.listaf:

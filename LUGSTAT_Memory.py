@@ -77,60 +77,56 @@ class Memoria:
         self.memoria[2].append([{},{},{},{}]) #Al crear una funcion eliminamos las variables Temporales
 
     def getType(self,direccion):
-        if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+        if((abs(direccion) % 10000) // 2500) == 0: 
             return "int"
-        elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
-            return "double" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-        elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
-            return "bool" #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-        elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
-           return "string" #Crear funcion de no poder sobre escribir constantes
+        elif ((abs(direccion) % 10000) // 2500) == 1: 
+            return "double" 
+        elif ((abs(direccion) % 10000) // 2500) == 2: 
+            return "bool" 
+        elif ((abs(direccion) % 10000) // 2500) == 3: 
+           return "string" 
 
     def getBase(self,direccion):
-        if abs(direccion) // 10000 == 0: #Guardamos valor en Globales
-            if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+        if abs(direccion) // 10000 == 0: 
+            if((abs(direccion) % 10000) // 2500) == 0: 
                 return 0
-            elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
-                return 2500 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
-                return 5000 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
-                return 7500 #Crear funcion de no poder sobre escribir constantes
-        elif abs(direccion) // 10000 == 1: #Guardamos valor en Locales
-            if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+            elif ((abs(direccion) % 10000) // 2500) == 1: 
+                return 2500 
+            elif ((abs(direccion) % 10000) // 2500) == 2: 
+                return 5000 
+            elif ((abs(direccion) % 10000) // 2500) == 3: 
+                return 7500 
+        elif abs(direccion) // 10000 == 1: 
+            if((abs(direccion) % 10000) // 2500) == 0: 
                 return 10000
-            elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
-                return 12500 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
-                return 15000 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
-                return 17500 #Crear funcion de no poder sobre escribir constantes #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-        elif abs(direccion) // 10000 == 2: #Guardamos valor en Temporales
-            #print("se agrego a temp en la direccion", direccion)
-            if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+            elif ((abs(direccion) % 10000) // 2500) == 1: 
+                return 12500 
+            elif ((abs(direccion) % 10000) // 2500) == 2: 
+                return 15000 
+            elif ((abs(direccion) % 10000) // 2500) == 3: 
+                return 17500 
+        elif abs(direccion) // 10000 == 2: 
+            if((abs(direccion) % 10000) // 2500) == 0: 
                 return 20000
-            elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
-                return 225000 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
-                return 25000 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
-                return 27500 #Crear funcion de no poder sobre escribir constantes #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-        elif abs(direccion) // 10000 == 3: #Guardamos valor en Constantes
-            #print("se agrego a const en la direccion", direccion)
-            if((abs(direccion) % 10000) // 2500) == 0: #Guardamos valor en Globales
+            elif ((abs(direccion) % 10000) // 2500) == 1: 
+                return 225000 
+            elif ((abs(direccion) % 10000) // 2500) == 2: 
+                return 25000 
+            elif ((abs(direccion) % 10000) // 2500) == 3:
+                return 27500 
+        elif abs(direccion) // 10000 == 3: 
+            if((abs(direccion) % 10000) // 2500) == 0: 
                 return 30000
-            elif ((abs(direccion) % 10000) // 2500) == 1: #Guardamos valor en Locales
-                return 32500 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 2: #Guardamos valor en Temporales
-                return 35000 #Agregamos un -1 ya que existe una local y una temporal por cada funcion
-            elif ((abs(direccion) % 10000) // 2500) == 3: #Guardamos valor en Constantes
-                return 37500 #Crear funcion de no poder sobre escribir constantes
+            elif ((abs(direccion) % 10000) // 2500) == 1: 
+                return 32500 
+            elif ((abs(direccion) % 10000) // 2500) == 2:
+                return 35000 
+            elif ((abs(direccion) % 10000) // 2500) == 3: 
+                return 37500 
 
 def main():
     memory = Memoria()
     print(memory.getType(37500))
-
-    #memory.printMemory()
 
 if __name__== "__main__":
   main()
