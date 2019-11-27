@@ -34,8 +34,6 @@ ValorArreglo = []
 TemporalCounter = 0
 MemoryREG = []
 Datasetcte = []
-Datasetcte2 = []
-DatasetArr = []
 pr = 0
 
 def findaddrfromREG(elem):
@@ -1497,6 +1495,8 @@ def p_wblock(p):
 def p_dwhileconds(p):
     '''
     dwhileconds : expresion dwhileconds
+    | expresion AND dwhileconds
+    | expresion OR dwhileconds
     | empty
     '''
 
@@ -1531,15 +1531,16 @@ def p_metodos(p):
     | MEDIAN fe2 OPAREN arrfun CPAREN SCOLON
     | MODE fe3 OPAREN arrfun CPAREN SCOLON
     | STDV fe4 OPAREN arrfun CPAREN SCOLON
-    | KMEANS fe5 OPAREN kval CPAREN SCOLON
+    | KMEANS OPAREN varcte COMMA mmmfunc CPAREN SCOLON
     | DERL dmn1 OPAREN expfunc CPAREN SCOLON
-    | DBERN dbrn1 OPAREN expfunc2 CPAREN SCOLON
-    | DPOI dp1 OPAREN expfunc2 CPAREN SCOLON
-    | TRANSPOSE tp1 OPAREN mmmfunc CPAREN SCOLON
-    | INVERSE tp2 OPAREN mmmfunc CPAREN SCOLON
-    | ROTATE tp3 OPAREN mmmfunc CPAREN SCOLON
-    | REF tp4 OPAREN mmmfunc CPAREN SCOLON
-    | RREF tp5 OPAREN mmmfunc CPAREN SCOLON
+    | DBERN OPAREN expfunc CPAREN SCOLON
+    | DPOI OPAREN expfunc2 CPAREN SCOLON
+    | TRANSPOSE OPAREN mmmfunc CPAREN SCOLON
+    | INVERSE OPAREN mmmfunc CPAREN SCOLON
+    | ROTATE OPAREN mmmfunc CPAREN SCOLON
+    | REF OPAREN mmmfunc CPAREN SCOLON
+    | RREF OPAREN mmmfunc CPAREN SCOLON
+    | MONT OPAREN mmmfunc CPAREN SCOLON
     | EULER OPAREN CPAREN SCOLON
     '''
     
@@ -1579,32 +1580,10 @@ def p_fe4(p):
     Quad.put(quad)
     Datasetcte.clear()
 
-def p_fe5(p):
-    '''fe5 : empty'''
-    global LineC
-    LineC+=1
-    print(p[-1])
-    quad = ("KMEANS", LineC+1)
-    Quad.put(quad)
-    Datasetcte.clear()
-    Datasetcte2.clear()
-
-def p_kval(p):
-    ''' kval : varcte COMMA arrfun2 COMMA arrfun3'''
-    quad =("ARGS",p[1], Datasetcte,Datasetcte2)
-    Quad.put(quad)
-
 def p_arrfun(p): #Funcion que utiliza un solo arreglo
     '''arrfun : LCOR datasetarr RCOR'''
     quad =("ARGS", Datasetcte)
     Quad.put(quad)
-
-def p_arrfun2(p): #Funcion que utiliza un solo arreglo
-    '''arrfun2 : LCOR datasetarr RCOR'''
-
-
-def p_arrfun3(p): #Funcion que utiliza un solo arreglo
-    '''arrfun3 : LCOR datasetarr2 RCOR'''
 
 def p_datasetarr(p):
     '''
@@ -1612,13 +1591,6 @@ def p_datasetarr(p):
     | varcte COMMA datasetarr
     '''
     Datasetcte.append(p[1])
-
-def p_datasetarr2(p):
-    '''
-    datasetarr2 : varcte
-    | varcte COMMA datasetarr2
-    '''
-    Datasetcte2.append(p[1])
 
 #Se genera quadruplo identificador
 def p_dmn1(p):
@@ -1629,73 +1601,14 @@ def p_dmn1(p):
     quad = ("DERL START", LineC+1)
     Quad.put(quad)
 
-def p_dbrn1(p):
-    '''dbrn1 : empty'''
-    global LineC
-    LineC+=1
-    print(p[-1])
-    quad = ("DBERN", LineC+1)
-    Quad.put(quad)
-
-def p_dp1(p):
-    '''dp1 : empty'''
-    global LineC
-    LineC+=1
-    print(p[-1])
-    quad = ("DPOI", LineC+1)
-    Quad.put(quad)
-
-def p_tp1(p):
-    '''tp1 : empty'''
-    global LineC
-    LineC+=1
-    quad = ("TRANSPOSE", LineC+1)
-    Quad.put(quad)
-    DatasetArr.clear()
-    Datasetcte.clear()
-
-def p_tp2(p):
-    '''tp2 : empty'''
-    global LineC
-    LineC+=1
-    quad = ("INVERSE", LineC+1)
-    Quad.put(quad)
-    DatasetArr.clear()
-    Datasetcte.clear()
-
-def p_tp3(p):
-    '''tp3 : empty'''
-    global LineC
-    LineC+=1
-    quad = ("ROTATE", LineC+1)
-    Quad.put(quad)
-    DatasetArr.clear()
-    Datasetcte.clear()
-
-def p_tp4(p):
-    '''tp4 : empty'''
-    global LineC
-    LineC+=1
-    quad = ("REF", LineC+1)
-    Quad.put(quad)
-    DatasetArr.clear()
-    Datasetcte.clear()
-
-def p_tp5(p):
-    '''tp5 : empty'''
-    global LineC
-    LineC+=1
-    quad = ("RREF", LineC+1)
-    Quad.put(quad)
-    DatasetArr.clear()
-    Datasetcte.clear()
-
 def p_expfunc(p):
     '''
     expfunc : ID COMMA ID COMMA ID
     | varcte COMMA varcte COMMA varcte
     '''
+
     #Se agarran los argumentos
+    #print("ARGS", p[1], p[3], p[5])
     quad =("ARGS", p[1], p[3], p[5])
     Quad.put(quad)
 
@@ -1705,56 +1618,22 @@ def p_expfunc2(p):
     expfunc2 : ID COMMA ID
     | varcte COMMA varcte
     '''
-    quad =("ARGS", p[1], p[3])
-    Quad.put(quad)
-
 
 def p_mmmfunc(p):
     '''
     mmmfunc : LCOR RCOR
-	| LCOR mmmarray RCOR
+	| LCOR mmmarray RCOR COMMA mmmfunc
+    | LCOR mmmarray RCOR
     | ID
+	| empty 
     '''
-    print("Deberia salir mi matrix ",DatasetArr)
-    quad =("ARGS", DatasetArr)
-    print("Mande",quad)
-    Quad.put(quad)
-
 
 def p_mmmarray(p):
     '''
-    mmmarray : libero LCOR datasetarr4 RCOR COMMA mmmarray
-    | libero LCOR datasetarr4 RCOR
+    mmmarray : varcte
+    | varcte COMMA mmmarray
+    | empty
     '''
-
-
-def p_libero(p):
-    '''libero : empty'''
-
-def p_datasetarr4(p):
-    '''
-    datasetarr4 : varcte
-    | varcte COMMA datasetarr4
-    '''
-    
-    try:
-        if p[2] == ',':
-            print("Debe ser 1",len(DatasetArr))
-            DatasetArr[len(DatasetArr)-1].append(p[1])
-            if(p[-1] == '['):
-                DatasetArr[len(DatasetArr)-1].reverse()
-                print("Meto ",Datasetcte, " a ",DatasetArr)
-
-    except IndexError:
-        if p[-1] == ',':
-                print("agregando cuando hay comma",p[1])
-                Datasetcte.clear()
-                DatasetArr.append([p[1]])
-                print("Tengo ",DatasetArr)
-        else:
-            print("agregando cuando no hay comma",p[1])
-            DatasetArr.append(Datasetcte)
-
 
 def p_empty(p):
  'empty :'
@@ -2432,21 +2311,14 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'KMEANS':
         #Metemos conjunto de datos 1 y conjunto de datos 2 y numero de clusters
-        args = Quad.get()
-        print("Mi Args ",args)
-
-        n = args[1] #Numero de clusters en este caso 3
-        x = args[2] #Conjunto de datos x
-        y = args[3] #Conjunto de datos y
-
         df = pd.DataFrame({
-            'x': x,
-            'y': y
+            'x': [12, 20, 28, 18, 29, 33, 24, 45, 45, 52, 51, 52, 55, 53, 55, 61, 64, 69, 72],
+            'y': [39, 36, 30, 52, 54, 46, 55, 59, 63, 70, 66, 63, 58, 23, 14, 8, 19, 7, 24]
         })
 
         from sklearn.cluster import KMeans
 
-        kmeans = KMeans(n_clusters=n)
+        kmeans = KMeans(n_clusters=3)
         kmeans.fit(df)
 
         labels = kmeans.predict(df)
@@ -2493,15 +2365,9 @@ while Quad.empty() == False:
         from scipy.stats import bernoulli
         import seaborn as sb
 
-        
-        # El quadruplo que sigue siempre van a ser los argumentos
-        args = Quad.get()
-        #print(args)
-        a1 = args[1]
-        a2 = args[2]
+        #QUE ES LO QUE ASIGNAMOS, SIZE, PROBABILIDAD Y QUE MAS ?
 
-
-        data_bern = bernoulli.rvs(size=a1,p=a2)
+        data_bern = bernoulli.rvs(size=1000,p=0.6)
         ax = sb.distplot(data_bern,
                         kde=True,
                         color='crimson',
@@ -2514,13 +2380,8 @@ while Quad.empty() == False:
         from scipy.stats import poisson
         import seaborn as sb
 
-        # El quadruplo que sigue siempre van a ser los argumentos
-        args = Quad.get()
-        #print(args)
-        a1 = args[1]
-        a2 = args[2]
-
-        data_binom = poisson.rvs(mu=a2, size=a1)
+        #metemos mu y size uwu
+        data_binom = poisson.rvs(mu=4, size=10000)
         ax = sb.distplot(data_binom,
                         kde=True,
                         color='green',
@@ -2530,75 +2391,24 @@ while Quad.empty() == False:
         plt.clf()
 
     if ActualQ[0] == 'TRANSPOSE':
-         
-        args = Quad.get()
-        a1 = args[1]
-        print("Matriz Original",a1)
+        matrix=[[1,2,3],[4,5,6]] 
+        print(matrix) 
         print("\n") 
-        print("Matriz con transpuesta")
-        print(np.transpose(a1))  #Solo neceistamos la matriz con numpu ya hacemos transpose
+        print(np.transpose(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'INVERSE':
         from numpy.linalg import inv
-        args = Quad.get()
-        a1 = args[1]
-        matrix = np.array(a1) 
-        print("Matriz Original")
+        matrix = np.array([[1,1,1],[0,2,5],[2,5,-1]]) 
         print(matrix) 
         print("\n") 
-        print("Matriz inversa")
         print(inv(matrix))  #Solo neceistamos la matriz con numpu ya hacemos transpose
 
     if ActualQ[0] == 'ROTATE':
-
-        args = Quad.get()
-        a1 = args[1]
-        matrix = np.array(a1) 
-        print("Matriz Original")
-        print(matrix) 
-        mat = a1
-        N = len(a1[0])
-
-        for x in range(0, int(N/2)): 
-            
-            # Consider elements in group    
-            # of 4 in current square 
-            for y in range(x, N-x-1): 
-                
-                # store current cell in temp variable 
-                temp = mat[x][y] 
-    
-                # move values from right to top 
-                mat[x][y] = mat[y][N-1-x] 
-    
-                # move values from bottom to right 
-                mat[y][N-1-x] = mat[N-1-x][N-1-y] 
-    
-                # move values from left to bottom 
-                mat[N-1-x][N-1-y] = mat[N-1-y][x] 
-    
-                # assign temp to left 
-                mat[N-1-y][x] = temp 
-        
-        print("Matriz Rotada")
-
-        for i in range(0, N): 
-          
-            for j in range(0, N): 
-                
-                print (mat[i][j], end = ' ') 
-            print ("") 
-  
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
 
     if ActualQ[0] == 'REF':
-
-        args = Quad.get()
-        a1 = args[1]
-        matrix = np.array(a1) 
-        print("Matriz Original")
-        print(matrix) 
-
-        A = np.array(a1, dtype='float')
+        A = np.array([[60, 91, 26], [60, 3, 75], [45, 90, 31]], dtype='float')
         b = np.array([1, 0, 0])
 
         Ab = np.hstack([A, b.reshape(-1, 1)])
@@ -2623,24 +2433,15 @@ while Quad.empty() == False:
                 Ab[j] = a - m * b
 
         x = Ab[:, 3]
-        print("El REF es",x)
+        print("REF",x)
 
     if ActualQ[0] == 'RREF':
-        args = Quad.get()
-        a1 = args[1]
-        matrix = np.array(a1) 
-        print("Matriz Original")
-        print(matrix) 
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1) 
 
-        from sympy import * 
-  
-        M = Matrix(a1) 
-        print("Matrix : {} ".format(M)) 
-        
-        # Use sympy.rref() method  
-        M_rref = M.rref()   
-            
-        print("The Row echelon form of matrix M and the pivot columns : {}".format(M_rref))   
+    if ActualQ[0] == 'MONT':
+        #Meter arreglo, como data, ver como procesar en los quads
+        x = statistics.mean(data1)
 
     if ActualQ[0] == 'EULER':
         print('J.G., 2019           __gggrgM**M#mggg__')
