@@ -31,22 +31,22 @@ FuncionActual = [] #Lista para guardar la funcion actual a ingresar a nuestra ta
 TipoActual = [] #Lista para guardar el tipo actual de variable a ingresar
 DimActual = [] #Dimension de matriz actual 
 ValorArreglo = [] #Valor de arreglo
-TemporalCounter = 0
-MemoryREG = []
+TemporalCounter = 0 # Contador de temps
+MemoryREG = [] # Registro de memoria
 Datasetcte = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte 
 Datasetcte2 = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte 
 DatasetArr = [] #En caso de arreglo ayuda a mantener el set de datos del tipo cte para matrices 
-pr = 0
+pr = 0 # Contador de params
 
-#Busca en Reg
-def findaddrfromREG(elem):
+#Busca en Registro
+def findaddrfromREG(elem):  #Esta Funcion busca en el registro de memoria una una direccoin dado el nombre de la variable
     for i in range(0, len(MemoryREG)):
         if MemoryREG[i][0] == elem:
             return MemoryREG[i][2]
 
 
 #Tipo del elemento 
-def typetostr(element):
+def typetostr(element): # Funcion que convierte <class 'type'> a el estandar de nuestro cubo semantico
 
 	stringvalues = {'int', 'double', 'float', 'string', 'bool'}
 	if element in stringvalues:
@@ -63,7 +63,7 @@ def typetostr(element):
 			return 'bool'
 
 #Avail 
-class AVAIL(object):
+class AVAIL(object): # Esta funcoin genera las T's
     def __init__(self):
         self.AvailC = 0
         self.Temp = "t"
@@ -81,28 +81,27 @@ class AVAIL(object):
 #--------------------
 #Setup of Quadruples
 
-POper = []
-PilaO = []
-Ptype = []
-Quad = Queue.Queue()
-AVAIL = AVAIL()
-LineC = 0
-vmcounter =0
-vfcounter=0
-pfcounter=0
-pftypestack = []
-pfboolstackcond= False
-paramk =0
-queryf = ""
-workingtypedirectory = []
-paramstack = []
+POper = [] # Pila de operaciones
+PilaO = [] # Pila de operadores
+Ptype = [] # Pila de tipos
+Quad = Queue.Queue() # Nuesta fila de quadruplos
+AVAIL = AVAIL() # Generador de temporales
+LineC = 0 # Linea Actual
+vmcounter =0 #numero de variables locales del main
+vfcounter=0 # numero de variables locales de una funcion en particular
+pfcounter=0 # numero de parametros de una funcion
+pftypestack = [] # tipos de los parametros que tiene una funcion
+pfboolstackcond= False # Condicional para agregar los parametros de una funcion en diferentes lineas
+paramk =0 # numero de parametros inputeados
+queryf = "" # query de funcion para conseguir sus params
+workingtypedirectory = [] # stack de tipos de funcion en el que se esta trabajando
+paramstack = [] # stack de parametros para sostenerlos hasta que se agregan al directorio de funciones de la funcion a la que pertenecen
 #--------------------
 #Setup of Non-Linear Statements
-PJumps = []
-exp_type = ""
-nresult = ""
+PJumps = [] # pila de saltos
+exp_type = "" # verificador de que una expresion sea booleano en condicionales
 
-def FILL(elem1, elem2):
+def FILL(elem1, elem2): # Esta funcion se usa para rellenar el salto en condiciones if else
 
     for i in range ( 0, Quad.qsize()):
         if Quad.queue[i][0] == elem1:
@@ -117,7 +116,7 @@ def FILL(elem1, elem2):
 InputF= open("inputf.txt", "r")
 
 cache=InputF.read()
-reserved = {
+reserved = { #palabras reservadas
     'if' : 'IF',
     'do' : 'DO',
     'while' : 'WHILE',

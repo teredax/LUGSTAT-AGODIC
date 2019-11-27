@@ -98,4 +98,6 @@ read(input);
 facto(input)
 print("fact recursive for 4");
 factorec(1, 2, 4)
+
+print("hi!");
 }
