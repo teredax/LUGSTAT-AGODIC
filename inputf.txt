@@ -16,7 +16,7 @@ func fibo2 : double ( var limite: double; )
 print("hi!");
 input = fibo(2+1)
 print(input);
-iterador = fibo2(3.2)
+iterador = fibo2(34.23)
 print(iterador);
 
 }
