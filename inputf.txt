@@ -1,22 +1,92 @@
 lugstat lugstattest;
-var input, iterador, operacion: int;
+var input: int;
+var int4[5] : int;
 func fibo : int ( var limite: int; )
-{
-	limite = limite+7;
-	return (limite+8);
+var local1, local2, cont, res: int;	{
+	print("The first N fibo elements are...");
+	local1 = 1;
+	local2 = 1;
+	cont =1;
+	if(limite == 1){
+		print("2");}
+	else{
+	print(local1+local2);
+	res = local1+local2;
+	do {
+		local1 = local2;
+		local2 = res;
+		res = local1+local2;
+		cont = cont+1;
+		print(res);
+		}while (cont <= limite-1);
+		};
 }
 
-func fibo2 : double ( var limite: double; )
+
+func fiborec : int ( var l1, l2, cont, res, limit: int; )
 {
-	limite = 900.3;
-	return (limite);
+
+if( limit == 1){
+	print(2);
+};
+if(cont == 1){
+	print(2);
+};
+
+if (limit >= 1){
+	if (cont <= limit-1){
+		l1 = l2;
+		l2 = res;
+		res = l1+l2;
+		cont = cont+1;
+		print(res);
+		fiborec(l1, l2, cont, res, limit)
+
+	};
+};
+
+}
+
+func facto : int (var input: int;)
+var res, i : int;{
+	res = 1;
+	i = 2;
+	do {
+		res = res * i; 
+		i = i+1;
+		}while(i <= input);
+	print("The N Factorial is...");
+	print(res);}
+
+func factorec : int (var res, i , lim: int;)
+{
+if (i <=lim){
+res = res*i;
+i = i+1;
+factorec(res, i, lim)
+if (i >lim){
+print(res);
+};
+};
+
+
 }
 
 {
-print("hi!");
-input = fibo(2+1)
-print(input);
-iterador = fibo2(34.23)
-print(iterador);
+int4[0] = 3;
+int4[1+1] = 5;
+print(int4[0]);
+print("Input N for fibo non recursive");
+read(input);
+fibo(input)
+
+print("fibo recursive, first 4 elements");
+fiborec(1,1,1,2, 4)
+
+print("Input N for fact non recursive");
+read(input);
+facto(input)
+print("fact recursive for 4");
+factorec(1, 2, 4)
 
 }
