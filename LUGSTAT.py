@@ -141,6 +141,7 @@ reserved = { #palabras reservadas
     'kmeans' : 'KMEANS',
     'derl' : 'DERL',
     'dpoi' : 'DPOI',
+    'void' : 'VOID',
     'dbern' : 'DBERN',
     'ref' : 'REF',
     'rref' : 'RREF',
@@ -238,12 +239,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-print ("Despliegue de Tokens \n")
-while True:
-     tok = lexer.token()
-     if not tok: 
-         break      # No more input
-     print(tok)
+#print ("Despliegue de Tokens \n")
+#while True:
+#     tok = lexer.token()
+#     if not tok: 
+#         break      # No more input
+#     print(tok)
      
 #LUGSTAT
 def p_lugstat(p):
@@ -293,6 +294,9 @@ def p_vars(p):
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0: #En caso de que tenga un arreglo disponible lo ingresamos 
                             arreglo = {
@@ -402,6 +406,9 @@ def p_vars(p):
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -495,6 +502,9 @@ def p_vars(p):
      #N linea de Variables (Usualmente de otro tipo) 
      #VER DONDE METEMOS CONTEXTO PARA AGREGAR MEMORY VALUE O EN CUALQUIER OTRO CASO HACERLO HASTA MAQUINA VIRTUAL 
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                     if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -588,6 +598,9 @@ def p_vars(p):
         DimActual.clear()
     if p[-1] == ')': # Variables locales de una FUNC 
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
@@ -865,6 +878,7 @@ def p_tipo(p):
     | DOUBLE
     | STRING
     | CHAR
+    | VOID
     '''
     p[0] = p[1]
 
@@ -886,6 +900,7 @@ def p_estatuto(p):
 def p_regreso(p):
     ''' regreso : RETURN OPAREN ID regnum1 CPAREN SCOLON
     | RETURN OPAREN expresion regnum2 CPAREN SCOLON
+    | RETURN OPAREN funccall CPAREN SCOLON
     '''
 
 def p_regnum1(p):
@@ -2763,3 +2778,4 @@ while Quad.empty() == False:
         #print(retf)
         #Lo asigna a la variable global de la funcion
         memory.addMemoryValue(retf, addrv)
+        memory.addOldMemoryContext(retf, addrv)
