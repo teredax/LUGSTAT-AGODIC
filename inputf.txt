@@ -1,5 +1,7 @@
 lugstat lugstattest;
-var input, iterador: int;
+var input, iterador,i: int;
+var int4[4] : int;
+
 func fibo : int ( var limite: int; )
 {
 	limite = 1+1;
@@ -12,5 +14,11 @@ func fibo : int ( var limite: int; )
 
 
 {
+iterador = 1;
+i = 1;
+int4[iterador] = 100;
+int4[i+i] = 200;
+int4[0] = int4[iterador];
+print(int4[2]);
 print("hi!");
 }
