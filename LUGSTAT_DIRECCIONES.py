@@ -2,7 +2,7 @@
 #Mantenemos las direcciones para poder usarlas en otras clases
 
 #Globales
-Gi = 0
+Gi = 1
 Gd = 2500
 Gb = 5000
 Gs = 7500

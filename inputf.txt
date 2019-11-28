@@ -1,16 +1,22 @@
 lugstat lugstattest;
-var input, iterador: int;
+var input, iterador, operacion: int;
 func fibo : int ( var limite: int; )
 {
-	limite = 1+1;
-	print(limite);
-	limite = 3;
-	print("re");
-	return (limite+1);
+	limite = limite+7;
+	return (limite+8);
 }
 
-
+func fibo2 : double ( var limite: double; )
+{
+	limite = 900.3;
+	return (limite);
+}
 
 {
 print("hi!");
+input = fibo(2+1)
+print(input);
+iterador = fibo2(3.2)
+print(iterador);
+
 }
