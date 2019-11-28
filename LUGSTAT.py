@@ -96,6 +96,7 @@ paramk =0 # numero de parametros inputeados
 queryf = "" # query de funcion para conseguir sus params
 workingtypedirectory = [] # stack de tipos de funcion en el que se esta trabajando
 paramstack = [] # stack de parametros para sostenerlos hasta que se agregan al directorio de funciones de la funcion a la que pertenecen
+voidreturncheck = False #revisa que voids no regresen valores
 #--------------------
 #Setup of Non-Linear Statements
 PJumps = [] # pila de saltos
@@ -239,12 +240,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-print ("Despliegue de Tokens \n")
-while True:
-     tok = lexer.token()
-     if not tok: 
-         break      # No more input
-     print(tok)
+#print ("Despliegue de Tokens \n")
+#while True:
+#     tok = lexer.token()
+#     if not tok: 
+#         break      # No more input
+#     print(tok)
      
 #LUGSTAT
 def p_lugstat(p):
@@ -684,6 +685,7 @@ def p_mn1(p):
     global Gs
     global pfboolstackcond
     global paramstack
+    global voidreturncheck
     #print("INIT", p[-3], p[-1])
     quad = ("INIT", p[-3])
     if p[-1] == 'int':
@@ -691,20 +693,24 @@ def p_mn1(p):
         MemoryREG.append((p[-3], p[-1], Gi, 0))
         #print("Added global int!")
         Gi = Gi+1
+        voidreturncheck = True
     if p[-1] == 'double':
         DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gd)
         MemoryREG.append((p[-3], p[-1], Gd, 0))
         Gd = Gd+1
+        voidreturncheck = True
 
     if p[-1] == 'string':
         DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gs)
         MemoryREG.append((p[-3], p[-1], Gs, 0))
         Gs = Gs+1
+        voidreturncheck = True
 
     if p[-1] == 'bool':
         DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gb)
         MemoryREG.append((p[-3], p[-1], Gb, 0))
         Gb = Gb+1
+        voidreturncheck = True
 
     Quad.put(quad)
     p[0] = p[-3]
@@ -720,7 +726,13 @@ def p_mn7(p):
 
     global currentf
     global TemporalCounter
-    global pftypestack
+    global pftypestack  
+    global voidreturncheck
+
+    if voidreturncheck:
+        print("expected return value")
+        sys.exit()
+
     quad = (LineC+1, "END", currentf[-1])
     Quad.put(quad)
     #print("STATUS1:", currentf)
@@ -902,6 +914,8 @@ def p_regreso(p):
 def p_regnum1(p):
     ''' regnum1 :  '''
     #print(p[-1], "^^^^^^^^^^^^^^^^")
+    global voidreturncheck
+    voidreturncheck = False
     quad = ("RETURN", p[-1], currentf[-1])
     # agarra el tipo de retorno de currentf
     # agarra el tipo que se quiere regresar
@@ -916,10 +930,12 @@ def p_regnum1(p):
         print("Returned value does not match function return value!")
         sys.exit()
 
+
 def p_regnum2(p):
     ''' regnum2 :  '''
 
     #print(PilaO.pop(), "^^^^^^^^^^^^^^^^")
+    voidreturncheck = False
     tret = PilaO.pop()
     quad = ("RETURN", tret, currentf[-1])
         # agarra el tipo de retorno de currentf
