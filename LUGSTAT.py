@@ -1880,7 +1880,13 @@ while Quad.empty() == False:
                     #print(memory.getValue(20000))
                 else:
                     addr = findaddrfromREG(ROP)
-                    addrv = memory.getActualContextValue(addr)
+                    #print(ROP, addr)
+                    try:
+                        addrv = memory.getActualContextValue(addr)
+                        
+                    except KeyError:
+                        addrv = memory.getOldContextValue(addr)
+
                     res = LOP + addrv
                     memory.addMemoryValue(MM, res)
 
