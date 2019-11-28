@@ -140,8 +140,8 @@ reserved = { #palabras reservadas
     'stdv' : 'STDV',
     'kmeans' : 'KMEANS',
     'derl' : 'DERL',
-    'dpoi' : 'DPOI',
     'void' : 'VOID',
+    'dpoi' : 'DPOI',
     'dbern' : 'DBERN',
     'ref' : 'REF',
     'rref' : 'RREF',
@@ -239,12 +239,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-#print ("Despliegue de Tokens \n")
-#while True:
-#     tok = lexer.token()
-#     if not tok: 
-#         break      # No more input
-#     print(tok)
+print ("Despliegue de Tokens \n")
+while True:
+     tok = lexer.token()
+     if not tok: 
+         break      # No more input
+     print(tok)
      
 #LUGSTAT
 def p_lugstat(p):
@@ -502,9 +502,6 @@ def p_vars(p):
      #N linea de Variables (Usualmente de otro tipo) 
      #VER DONDE METEMOS CONTEXTO PARA AGREGAR MEMORY VALUE O EN CUALQUIER OTRO CASO HACERLO HASTA MAQUINA VIRTUAL 
         for i in range(len(FuncionActual)):
-                if(TipoActual[0] == 'void'):
-                    print("Cannot have void as var")
-                    sys.exit()
                     if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -900,7 +897,6 @@ def p_estatuto(p):
 def p_regreso(p):
     ''' regreso : RETURN OPAREN ID regnum1 CPAREN SCOLON
     | RETURN OPAREN expresion regnum2 CPAREN SCOLON
-    | RETURN OPAREN funccall CPAREN SCOLON
     '''
 
 def p_regnum1(p):
@@ -2089,6 +2085,10 @@ while Quad.empty() == False:
                 addr = findaddrfromREG(LOP)
                 try:
                     if ActualQ[2] or ActualQ[2] == 0:
+                        if (type(ActualQ[2]) == str):
+                                #print("hi")
+                                addrv = memory.getActualContextValue(addr)
+                                print(addrv)
                         if type(ActualQ[2]) is int:
                             try:
                                 addrv = memory.getActualContextValue(addr+ActualQ[2])
@@ -2778,4 +2778,3 @@ while Quad.empty() == False:
         #print(retf)
         #Lo asigna a la variable global de la funcion
         memory.addMemoryValue(retf, addrv)
-        memory.addOldMemoryContext(retf, addrv)
