@@ -1,6 +1,7 @@
 lugstat lugstattest;
-var input: int;
+var input, iterador,i: int;
 var int4[5] : int;
+
 func fibo : int ( var limite: int; )
 var local1, local2, cont, res: int;	{
 	print("The first N fibo elements are...");

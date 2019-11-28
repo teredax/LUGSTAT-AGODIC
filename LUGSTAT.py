@@ -1027,8 +1027,19 @@ def p_asign(p):
                 if p[2] is '=':
                     try:
                         if p[5]:
-                            quad = (oOP, lOP, rOP,p[4],'arr')
-                            Quad.put(quad)                            
+                            if(rOP is not int):
+                                if type(p[4]) is int or (p[4]) is float:
+                                    quad = (oOP, lOP, rOP,p[4],'ifromarri')
+                                    print("mi cuad es xd",quad)
+                                    Quad.put(quad)
+                                else:
+                                    quad = (oOP, lOP, rOP,p[4],'ifromarrvar')
+                                    print("mi cuad es xd",quad)
+                                    Quad.put(quad)                                    
+                            else:
+                                quad = (oOP, lOP, rOP,p[4],'arr')
+                                print("mi cuad es xd",quad)
+                                Quad.put(quad)                            
                     except:
                         quad = (oOP, lOP, rOP)
                         Quad.put(quad)
@@ -1040,15 +1051,30 @@ def p_asign(p):
                                     quad = (oOP, p[4], rOP,tar.get("inicio") + p[2])
                                     Quad.put(quad)
                                 else:
-                                    tar2=index['fvars'].get(p[4]) 
-                                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2],tar2.get("inicio"))
-                                    Quad.put(quad)
+                                    if type(p[5]) is int or type(p[5]) is float:
+                                        #Arreglar cuando es con numero
+                                        quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                                        Quad.put(quad)
+                                    else:
+                                        tar2=index['fvars'].get(p[5]) 
+                                        quad = (oOP, lOP, rOP,tar2.get("memoryloc"),"id",p[4],p[2])
+                                        Quad.put(quad)
+
                             else:
-                                quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
-                                Quad.put(quad)
+                                if type(p[2]) is int or type(p[2]) is float:
+                                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                                    Quad.put(quad)
+                                else:
+                                    quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                                    Quad.put(quad)
                     except:
-                        quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
-                        Quad.put(quad)
+                        if type(p[2]) is int or type(p[2]) is float:
+                            quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                            Quad.put(quad)
+                        else:
+                            tar2=index['fvars'].get(p[2]) 
+                            quad = (oOP, lOP, rOP,tar2.get('memoryloc'),"id")
+                            Quad.put(quad)
 
                 # if any operand were a temporal space return it to AVAIL??
                 #Next....
@@ -1086,6 +1112,8 @@ def p_asign3(p):
 
 def p_escrt(p):
     '''escrt : PRINT OPAREN ID en3 escrt2 CPAREN SCOLON
+    | PRINT OPAREN ID LCOR NUMBER RCOR en4 escrt2 CPAREN SCOLON
+    | PRINT OPAREN ID LCOR ID RCOR en5 escrt2 CPAREN SCOLON
     | PRINT OPAREN expresion en1 CPAREN SCOLON
     | PRINT OPAREN STRING CPAREN en2 SCOLON
     | PRINT OPAREN STRING  escrt2 CPAREN en2 SCOLON
@@ -1111,30 +1139,9 @@ def p_en1(p):
     tar=index['fvars'].get(output)
             
     #-----------------
-    try:
-        PilaO[1]
-        output2 = PilaO.pop()
-        try:
-            if(tar.get('dim') > 0):
-                output3 = PilaO.pop()
-                matriz = (output3 * tar.get('dim')) + output2
-                quad = ("PRINT", output,matriz)
-                LineC+=1
-                Quad.put(quad)
-            else:
-                quad = ("PRINT", output,output2)
-                #print("debo de ser",quad)
-                LineC+=1
-                Quad.put(quad)
-        except:                
-            quad = ("PRINT", output,output2)
-            #print("debo de ser",quad)
-            LineC+=1
-            Quad.put(quad)
-    except:
-        quad = ("PRINT", output)
-        LineC+=1
-        Quad.put(quad)
+    quad = ("PRINT", output)
+    LineC+=1
+    Quad.put(quad)
     #-----------------
 
 
@@ -1167,6 +1174,50 @@ def p_en3(p):
         global LineC
         LineC+=1
         quad = ("READ", output)
+        Quad.put(quad)
+
+def p_en4(p):
+    '''en4 : empty'''
+    #print("#@#@#@#@#", p[-1])
+    print("Checking if variable to print exists", p[-4])
+    index=DirectorioFunciones.getdir(currentf[-1])
+    tar=index['fvars'].get(p[-4])
+
+    if tar == None:
+        print("Variable not found locally. Checking global scope..")
+        index=DirectorioFunciones.getdir(currentf[0])
+        tar=index['fvars'].get(p[-4])
+
+    if tar == None:
+        print("Variable doesn't exist!")
+        sys.exit()
+    else:
+        output = p[-4]
+        global LineC
+        LineC+=1
+        quad = ("PRINT", output,'NUMBER',p[-2])
+        Quad.put(quad)
+
+def p_en5(p):
+    '''en5 : empty'''
+    #print("#@#@#@#@#", p[-1])
+    print("Checking if variable to print exists", p[-4])
+    index=DirectorioFunciones.getdir(currentf[-1])
+    tar=index['fvars'].get(p[-4])
+
+    if tar == None:
+        print("Variable not found locally. Checking global scope..")
+        index=DirectorioFunciones.getdir(currentf[0])
+        tar=index['fvars'].get(p[-4])
+
+    if tar == None:
+        print("Variable doesn't exist!")
+        sys.exit()
+    else:
+        output = p[-4]
+        global LineC
+        LineC+=1
+        quad = ("PRINT", output,'ID',p[-2])
         Quad.put(quad)
 
 
@@ -1363,6 +1414,7 @@ def p_exp(p):
                     quad = (oOP, rOP, lOP, RFI, Ti)
                     Quad.put(quad)
                     PilaO.append(RFI)
+                    p[0] = Ti
                     Ti = Ti + 1
                 if fTY == 'double':
                     DirectorioFunciones.addv(currentf[-1],RFI, fTY,Td)
@@ -1910,6 +1962,7 @@ while Quad.empty() == False:
                     ROPV = addrv
                     res = LOPV + ROPV
                     memory.addMemoryValue(MM, res)
+
                     #print(memory.getActualContextValue(20000))
                     # Ninguno es un cte
 
@@ -2039,6 +2092,16 @@ while Quad.empty() == False:
                             if ActualQ[4] == 'arr':
                                 valuefromarray = memory.getActualContextValue(addr + ActualQ[3])
                                 memory.addMemoryValue(ActualQ[2], valuefromarray)
+                            elif ActualQ[4] == 'id':
+                                indexvalue = memory.getActualContextValue(ActualQ[3])
+                                addr = findaddrfromREG(ROP) + indexvalue
+                                memory.addMemoryValue(addr,LOP)
+                            elif ActualQ[4] == 'ifromarri':
+                                indexvalue = memory.getActualContextValue(ActualQ[3])
+                                addr = findaddrfromREG(ROP) + indexvalue
+                                memory.addMemoryValue(addr,LOP)
+
+
                             else:
                                 valuefromarray = memory.getActualContextValue(ActualQ[4]+LOP)
                                 memory.addMemoryValue(ActualQ[3], valuefromarray)
@@ -2054,8 +2117,25 @@ while Quad.empty() == False:
                                 addr3 = findaddrfromREG(LOP)
                                 valuefromarray = memory.getActualContextValue(addr3 + ActualQ[3])
                                 addr2 = findaddrfromREG(ROP)
-                                print("Metiendo en ",ROP,"El valor de",valuefromarray,"con la dir",addr2)
                                 memory.addMemoryValue(addr2, valuefromarray)
+                    elif ActualQ[4] == 'id':
+                        myarradr = findaddrfromREG(ActualQ[5])
+                        idvalue = memory.getActualContextValue(ActualQ[3])
+                        indexvalue = memory.getActualContextValue(myarradr+idvalue)
+                        myarradr2 = findaddrfromREG(ActualQ[2])
+                        idaisgnedvalue = myarradr2 + ActualQ[6]
+                        memory.addMemoryValue(idaisgnedvalue,indexvalue)
+                    elif ActualQ[4] == 'ifromarri':
+                        addr = findaddrfromREG(ActualQ[1]) + ActualQ[3]
+                        indexvalue = memory.getActualContextValue(addr)
+                        addr2 = findaddrfromREG(ActualQ[2])
+                        memory.addMemoryValue(addr2,indexvalue)
+                        print("Mi valor es ",memory.getActualContextValue(addr2))
+                    elif ActualQ[4] == 'ifromarrvar':
+                        addr = findaddrfromREG(ActualQ[1]) + memory.getActualContextValue(findaddrfromREG(ActualQ[3]))
+                        indexvalue = memory.getActualContextValue(addr)
+                        addr2 = findaddrfromREG(ActualQ[2])
+                        memory.addMemoryValue(addr2,indexvalue)
                     else:
                             addr = findaddrfromREG(LOP)
                             addrv = memory.getActualContextValue(addr)
@@ -2091,17 +2171,14 @@ while Quad.empty() == False:
                 addr = findaddrfromREG(LOP)
                 try:
                     if ActualQ[2] or ActualQ[2] == 0:
-                        if (type(ActualQ[2]) == str):
-                                #print("hi")
-                                addrv = memory.getActualContextValue(addr)
-                                print(addrv)
-                        if type(ActualQ[2]) is int:
-                            try:
-                                addrv = memory.getActualContextValue(addr+ActualQ[2])
-                                print(addrv)
-                            except KeyError:
-                                addrv = memory.getOldContextValue(addr+ActualQ[2])
-                                print(addrv)
+                        if ActualQ[2] == 'NUMBER':
+                            addrv = memory.getActualContextValue(addr + ActualQ[3])
+                            print(addrv)
+                        else:
+                            addrfvar = findaddrfromREG(ActualQ[3])
+                            vfromvar = memory.getActualContextValue(addrfvar)
+                            addrv = memory.getActualContextValue(addr + vfromvar)
+                            print(addrv)
 
                 except IndexError:
                     try:
