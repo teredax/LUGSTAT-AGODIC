@@ -140,7 +140,6 @@ reserved = { #palabras reservadas
     'stdv' : 'STDV',
     'kmeans' : 'KMEANS',
     'derl' : 'DERL',
-    'void' : 'VOID',
     'dpoi' : 'DPOI',
     'dbern' : 'DBERN',
     'ref' : 'REF',
@@ -294,9 +293,6 @@ def p_vars(p):
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
-                if(TipoActual[0] == 'void'):
-                    print("Cannot have void as var")
-                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0: #En caso de que tenga un arreglo disponible lo ingresamos 
                             arreglo = {
@@ -406,9 +402,6 @@ def p_vars(p):
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
-                if(TipoActual[0] == 'void'):
-                    print("Cannot have void as var")
-                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -595,9 +588,6 @@ def p_vars(p):
         DimActual.clear()
     if p[-1] == ')': # Variables locales de una FUNC 
         for i in range(len(FuncionActual)):
-                if(TipoActual[0] == 'void'):
-                    print("Cannot have void as var")
-                    sys.exit()
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
@@ -678,34 +668,9 @@ def p_modules(p):
 #@mn1
 def p_mn1(p):
     '''mn1 : empty'''
-    global Gi
-    global Gd
-    global Gb
-    global Gs
     global pfboolstackcond
     global paramstack
-    #print("INIT", p[-3], p[-1])
     quad = ("INIT", p[-3])
-    if p[-1] == 'int':
-        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gi)
-        MemoryREG.append((p[-3], p[-1], Gi, 0))
-        #print("Added global int!")
-        Gi = Gi+1
-    if p[-1] == 'double':
-        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gd)
-        MemoryREG.append((p[-3], p[-1], Gd, 0))
-        Gd = Gd+1
-
-    if p[-1] == 'string':
-        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gs)
-        MemoryREG.append((p[-3], p[-1], Gs, 0))
-        Gs = Gs+1
-
-    if p[-1] == 'bool':
-        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gb)
-        MemoryREG.append((p[-3], p[-1], Gb, 0))
-        Gb = Gb+1
-
     Quad.put(quad)
     p[0] = p[-3]
     DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0, 0)
@@ -762,11 +727,6 @@ def p_mn3(p):
 def p_funccall(p):
     ''' funccall : ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3
     | ID OPAREN fcn1 ID fcn2 funccall2 CPAREN '''
-
-    #print("Appending", p[1])
-    PilaO.append(p[1])
-    Ptype.append(DirectorioFunciones.getftype(p[1]))
-    
 
 
 def p_fcn1(p):
@@ -875,7 +835,6 @@ def p_tipo(p):
     | DOUBLE
     | STRING
     | CHAR
-    | VOID
     '''
     p[0] = p[1]
 
@@ -902,7 +861,7 @@ def p_regreso(p):
 def p_regnum1(p):
     ''' regnum1 :  '''
     #print(p[-1], "^^^^^^^^^^^^^^^^")
-    quad = ("RETURN", p[-1], currentf[-1])
+    quad = ("RETURN", p[-1])
     # agarra el tipo de retorno de currentf
     # agarra el tipo que se quiere regresar
     # lo pone en el quadruplo dependiendo se si es 
@@ -921,7 +880,7 @@ def p_regnum2(p):
 
     #print(PilaO.pop(), "^^^^^^^^^^^^^^^^")
     tret = PilaO.pop()
-    quad = ("RETURN", tret, currentf[-1])
+    quad = ("RETURN", tret)
         # agarra el tipo de retorno de currentf
     # agarra el tipo que se quiere regresar
     # lo pone en el quadruplo dependiendo se si es 
@@ -931,14 +890,9 @@ def p_regnum2(p):
     #print(rtype)
     if currentftype == rtype:
         Quad.put(quad)
-
     else:
         print("Returned value does not match function return value!")
         sys.exit()
-
-def p_afcn1(p):
-    '''afcn1 : empty '''
-    #print(p[-3])
 
 def p_asign(p):
     '''
@@ -948,7 +902,6 @@ def p_asign(p):
     | ID asign2 EQUALS ID SCOLON
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
-    | ID EQUALS funccall afcn1
     '''
     #print("!@#",p[1], p[2], p[3])
 
@@ -1048,8 +1001,16 @@ def p_asign(p):
                         if p[5]:
                             if p[4] is not None: #En caso de tener una cuarta y quinta posición significa que pertenece a una expresion
                                 if p[5] == ';': #Usamos ; para revisar si pertenece a un arreglo o matriz 
-                                    quad = (oOP, p[4], rOP,tar.get("inicio") + p[2])
-                                    Quad.put(quad)
+                                    if type(p[2]) is int or type(p[2]) is float:
+                                        quad = (oOP, lOP, rOP,tar.get("inicio") + p[2])
+                                        Quad.put(quad)
+                                    else:
+                                        tar2=index['fvars'].get(p[2]) 
+                                        print("tar2",tar2)
+                                        quad = (oOP, lOP, rOP,tar2.get("memoryloc"),"loopid",p[4])
+                                        print("mi squad es",quad)
+                                        Quad.put(quad)
+
                                 else:
                                     if type(p[5]) is int or type(p[5]) is float:
                                         #Arreglar cuando es con numero
@@ -1133,7 +1094,7 @@ def p_escrt3(p):
 def p_en1(p):
     '''en1 : empty'''
     output = PilaO.pop()
-    #print("PrintOut", output)
+    print("PrintOut", output)
     global LineC
     index=DirectorioFunciones.getdir(currentf[0])            
     tar=index['fvars'].get(output)
@@ -1895,8 +1856,8 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-#print("tu quadruplo resultante es:")
-#print(Quad.queue)
+print("tu quadruplo resultante es:")
+print(Quad.queue)
 
 #print("")
 #print("Variables lugstat MAIN \n")
@@ -1932,13 +1893,7 @@ while Quad.empty() == False:
                     #print(memory.getValue(20000))
                 else:
                     addr = findaddrfromREG(ROP)
-                    #print(ROP, addr)
-                    try:
-                        addrv = memory.getActualContextValue(addr)
-                        
-                    except KeyError:
-                        addrv = memory.getOldContextValue(addr)
-
+                    addrv = memory.getActualContextValue(addr)
                     res = LOP + addrv
                     memory.addMemoryValue(MM, res)
 
@@ -2084,7 +2039,6 @@ while Quad.empty() == False:
         #print("Both vars")
         if type(LOP) is int or type(LOP) is float:
             addr = findaddrfromREG(ROP)
-
             try: 
                 if ActualQ[3]:
                     try: 
@@ -2100,7 +2054,17 @@ while Quad.empty() == False:
                                 indexvalue = memory.getActualContextValue(ActualQ[3])
                                 addr = findaddrfromREG(ROP) + indexvalue
                                 memory.addMemoryValue(addr,LOP)
-
+                            elif ActualQ[4] == 'ifromarrvar':
+                                addr = findaddrfromREG(ActualQ[1]) + memory.getActualContextValue(findaddrfromREG(ActualQ[3]))
+                                indexvalue = memory.getActualContextValue(addr)
+                                addr2 = findaddrfromREG(ActualQ[2])
+                                memory.addMemoryValue(addr2,indexvalue)
+                            elif ActualQ[4] == 'loopid':
+                                donde = findaddrfromREG(ActualQ[1])
+                                indexvalue = memory.getActualContextValue(donde)
+                                addr = findaddrfromREG(ROP) + indexvalue
+                                addr2 = findaddrfromREG(ActualQ[5])
+                                memory.addMemoryValue(addr,memory.getActualContextValue(addr2))
 
                             else:
                                 valuefromarray = memory.getActualContextValue(ActualQ[4]+LOP)
@@ -2111,20 +2075,12 @@ while Quad.empty() == False:
                  memory.addMemoryValue(addr, LOP)
         else:
             try: 
-
                 if ActualQ[4]:
                     if ActualQ[4] == 'arr':
                                 addr3 = findaddrfromREG(LOP)
                                 valuefromarray = memory.getActualContextValue(addr3 + ActualQ[3])
                                 addr2 = findaddrfromREG(ROP)
                                 memory.addMemoryValue(addr2, valuefromarray)
-                    elif ActualQ[4] == 'id':
-                        myarradr = findaddrfromREG(ActualQ[5])
-                        idvalue = memory.getActualContextValue(ActualQ[3])
-                        indexvalue = memory.getActualContextValue(myarradr+idvalue)
-                        myarradr2 = findaddrfromREG(ActualQ[2])
-                        idaisgnedvalue = myarradr2 + ActualQ[6]
-                        memory.addMemoryValue(idaisgnedvalue,indexvalue)
                     elif ActualQ[4] == 'ifromarri':
                         addr = findaddrfromREG(ActualQ[1]) + ActualQ[3]
                         indexvalue = memory.getActualContextValue(addr)
@@ -2136,6 +2092,12 @@ while Quad.empty() == False:
                         indexvalue = memory.getActualContextValue(addr)
                         addr2 = findaddrfromREG(ActualQ[2])
                         memory.addMemoryValue(addr2,indexvalue)
+                    elif ActualQ[4] == 'loopid':
+                        donde = findaddrfromREG(ActualQ[1])
+                        indexvalue = memory.getActualContextValue(donde)
+                        addr = findaddrfromREG(ROP) + indexvalue
+                        addr2 = findaddrfromREG(ActualQ[5])
+                        memory.addMemoryValue(addr,memory.getActualContextValue(addr2))
                     else:
                             addr = findaddrfromREG(LOP)
                             addrv = memory.getActualContextValue(addr)
@@ -2143,20 +2105,16 @@ while Quad.empty() == False:
                             addr = findaddrfromREG(ROP)
                             memory.addMemoryValue(addr, LOPV)
             except IndexError:
-                #print("hi!")
                 addr = findaddrfromREG(LOP)
-                #print(addr)
                 addrv = memory.getActualContextValue(addr)
                 LOPV = addrv
                 addr = findaddrfromREG(ROP)
-                #print(addr, 'r')
                 memory.addMemoryValue(addr, LOPV)
 
         #print(memory.getActualContextValue(10001))
 
     if ActualQ[0] == "PRINT":
-
-        #print(ActualQ)
+        #print(type(ActualQ[1]))
         check = ActualQ[1]
         if type(check) is float or type(check) is int:
             print(check)
@@ -2849,15 +2807,4 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'RETURN':
         # Verifica antes que el tipo de retorno concuerte con el de la variable que se mando
-        ROP = ActualQ[1]
-        RET = ActualQ[2]
-        addr = findaddrfromREG(ROP)
-        #print(addr, "Return loc");
-        addrv = memory.getActualContextValue(addr)
-        #agarra valor de el return
-
-        #agarra la direccion de la variable global de la funcion
-        retf =findaddrfromREG(RET)
-        #print(retf)
-        #Lo asigna a la variable global de la funcion
-        memory.addMemoryValue(retf, addrv)
+        print("")

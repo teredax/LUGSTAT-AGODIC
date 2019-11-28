@@ -1,0 +1,18 @@
+
+do{
+	smin = si;
+	sj = si + 1;
+	do{
+		saj = int4[sj];
+		sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+		sj = sj + 1;
+		}while(sj < 3);
+
+	stemp = int4[si];
+	int4[si] = int4[smin];
+	int4[smin] = stemp;
+	si = si + 1;
+	}while(si < 3);

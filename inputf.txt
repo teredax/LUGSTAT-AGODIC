@@ -1,6 +1,6 @@
 lugstat lugstattest;
-var input, iterador,i: int;
-var int4[5] : int;
+var input, iterador,n,si,sj,smin,stemp,saj,sam : int;
+var int4[4] : int;
 
 func fibo : int ( var limite: int; )
 var local1, local2, cont, res: int;	{
@@ -74,9 +74,29 @@ print(res);
 }
 
 {
-int4[0] = 3;
-int4[1+1] = 5;
-print(int4[0]);
+
+int4[0] = 4;
+int4[1] = 1;
+int4[2] = 5;
+int4[3] = 2;
+n = 0;
+
+do {
+	int4[n] = n;
+	n = n+1;
+	}while(n < 4);
+
+n=0;
+
+print("Arreglo original");
+do {
+	print(int4[n]);
+	n = n+1;
+	}while(n < 4);
+
+n = 0;
+
+
 print("Input N for fibo non recursive");
 read(input);
 fibo(input)
