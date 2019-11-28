@@ -1,5 +1,5 @@
 lugstat lugstattest;
-var input, iterador,n,si,sj,smin,stemp,saj,sam : int;
+var input, iterador,n,si,sj,smin,stemp,saj,sam,nuevo : int;
 var int4[4] : int;
 
 func fibo : int ( var limite: int; )
@@ -69,8 +69,11 @@ if (i >lim){
 print(res);
 };
 };
+}
 
-
+func insidedo : int (var j : int;)
+{
+	print("sam");
 }
 
 {
@@ -82,7 +85,8 @@ int4[3] = 2;
 n = 0;
 
 do {
-	int4[n] = n;
+	read(input);
+	int4[n] = input;
 	n = n+1;
 	}while(n < 4);
 
@@ -95,7 +99,86 @@ do {
 	}while(n < 4);
 
 n = 0;
+si = 0;
 
+smin = si;
+
+sj = si + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+smin = si;
+sj = si + 1;
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+smin = si;
+sj = si + 1;
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+n = 0;
+
+print("Arreglo Ordenado");
+do {
+	print(int4[n]);
+	n = n+1;
+	}while(n < 4);
+n = 0;
+
+mean(int4[4]);
 
 print("Input N for fibo non recursive");
 read(input);

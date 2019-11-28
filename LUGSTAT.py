@@ -1627,7 +1627,8 @@ def p_metodos(p):
     | RREF tp5 OPAREN mmmfunc CPAREN SCOLON
     | EULER tp6 OPAREN CPAREN SCOLON
     '''
-    
+    print("tonses",p[3])
+
 def p_fe1(p):
     '''fe1 : empty'''
     global LineC
@@ -1680,9 +1681,17 @@ def p_kval(p):
     Quad.put(quad)
 
 def p_arrfun(p): #Funcion que utiliza un solo arreglo
-    '''arrfun : LCOR datasetarr RCOR'''
-    quad =("ARGS", Datasetcte)
-    Quad.put(quad)
+    '''arrfun : ID LCOR NUMBER RCOR
+    | LCOR datasetarr RCOR'''
+    if p[1] is '[':
+        Datasetcte.reverse()
+        quad = ("ARGS", Datasetcte)
+        Quad.put(quad)
+    else:
+        quad = ("ARGS", p[1], 'id',p[3])
+        Quad.put(quad)
+
+
 
 def p_arrfun2(p): 
     '''arrfun2 : LCOR datasetarr RCOR'''
@@ -2544,31 +2553,59 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'MEAN':
         args = Quad.get()
-        print("Mi ARGS es ",args)
-        data1 = args[1]
-        x = statistics.mean(data1) 
-        print("La media del arreglo ",data1, " es ",x)
+        if(type(args[1]) is str):
+            data1 = []
+            for x in range(args[3]):
+                addr = findaddrfromREG(args[1]) + x
+                indexvalue = memory.getActualContextValue(addr)
+                data1.append(indexvalue)
+            print("La media del arreglo ",data1, " es ",statistics.mean(data1))   
+        else:
+            data1 = args[1]
+            x = statistics.mean(data1) 
+            print("La media del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'MEDIAN':
         args = Quad.get()
-        print("Mi ARGS es ",args)
-        data1 = args[1]
-        x = statistics.median(data1)
-        print("La mediana del arreglo ",data1, " es ",x)
+        if(type(args[1]) is str):
+            data1 = []
+            for x in range(args[3]):
+                addr = findaddrfromREG(args[1]) + x
+                indexvalue = memory.getActualContextValue(addr)
+                data1.append(indexvalue)
+            print("La media del arreglo ",data1, " es ",statistics.median(data1))   
+        else:
+            data1 = args[1]
+            x = statistics.median(data1)
+            print("La mediana del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'MODE':
         args = Quad.get()
-        print("Mi ARGS es ",args)
-        data1 = args[1]
-        x = statistics.median(data1)
-        print("La moda del arreglo ",data1, " es ",x)
+        if(type(args[1]) is str):
+            data1 = []
+            for x in range(args[3]):
+                addr = findaddrfromREG(args[1]) + x
+                indexvalue = memory.getActualContextValue(addr)
+                data1.append(indexvalue)
+            print("La media del arreglo ",data1, " es ",statistics.mode(data1))   
+        else:
+            data1 = args[1]
+            x = statistics.mode(data1)
+            print("La moda del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'STDV':
         args = Quad.get()
-        print("Mi ARGS es ",args)
-        data1 = args[1]
-        x = statistics.median(data1)
-        print("La desviación standard del arreglo ",data1, " es ",x)
+        if(type(args[1]) is str):
+            data1 = []
+            for x in range(args[3]):
+                addr = findaddrfromREG(args[1]) + x
+                indexvalue = memory.getActualContextValue(addr)
+                data1.append(indexvalue)
+            print("La media del arreglo ",data1, " es ",statistics.stdev(data1))   
+        else:
+            data1 = args[1]
+            x = statistics.stdev(data1)
+            print("La desviación standard del arreglo ",data1, " es ",x)
 
     if ActualQ[0] == 'KMEANS':
         #Metemos conjunto de datos 1 y conjunto de datos 2 y numero de clusters
