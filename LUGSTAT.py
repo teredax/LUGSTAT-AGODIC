@@ -96,6 +96,7 @@ paramk =0 # numero de parametros inputeados
 queryf = "" # query de funcion para conseguir sus params
 workingtypedirectory = [] # stack de tipos de funcion en el que se esta trabajando
 paramstack = [] # stack de parametros para sostenerlos hasta que se agregan al directorio de funciones de la funcion a la que pertenecen
+voidreturncheck = False #revisa que voids no regresen valores
 #--------------------
 #Setup of Non-Linear Statements
 PJumps = [] # pila de saltos
@@ -140,6 +141,7 @@ reserved = { #palabras reservadas
     'stdv' : 'STDV',
     'kmeans' : 'KMEANS',
     'derl' : 'DERL',
+    'void' : 'VOID',
     'dpoi' : 'DPOI',
     'dbern' : 'DBERN',
     'ref' : 'REF',
@@ -238,12 +240,12 @@ lexer = lex.lex()
 lexer.input(cache)
  
  # Tokenize
-print ("Despliegue de Tokens \n")
-while True:
-     tok = lexer.token()
-     if not tok: 
-         break      # No more input
-     print(tok)
+#print ("Despliegue de Tokens \n")
+#while True:
+#     tok = lexer.token()
+#     if not tok: 
+#         break      # No more input
+#     print(tok)
      
 #LUGSTAT
 def p_lugstat(p):
@@ -293,6 +295,9 @@ def p_vars(p):
     if p[-4] == "lugstat":
      #Significa que vengo del main por lo tanto agrego a mi funcion main;
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0: #En caso de que tenga un arreglo disponible lo ingresamos 
                             arreglo = {
@@ -402,6 +407,9 @@ def p_vars(p):
         if p[-1] == '(': #Vengo desde FUNC soy parte de una funcion
             #print(currentf, "$@#$@#")
             for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                         if len(ValorArreglo) > 0:
                             arreglo = {
@@ -588,6 +596,9 @@ def p_vars(p):
         DimActual.clear()
     if p[-1] == ')': # Variables locales de una FUNC 
         for i in range(len(FuncionActual)):
+                if(TipoActual[0] == 'void'):
+                    print("Cannot have void as var")
+                    sys.exit()
                 if(TipoActual[0] == 'int'):
                     DirectorioFunciones.addv(currentf[-1],FuncionActual[i],TipoActual[0],Li)
                     MemoryREG.append((FuncionActual[i],TipoActual[0], Li, 70))
@@ -668,9 +679,39 @@ def p_modules(p):
 #@mn1
 def p_mn1(p):
     '''mn1 : empty'''
+    global Gi
+    global Gd
+    global Gb
+    global Gs
     global pfboolstackcond
     global paramstack
+    global voidreturncheck
+    #print("INIT", p[-3], p[-1])
     quad = ("INIT", p[-3])
+    if p[-1] == 'int':
+        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gi)
+        MemoryREG.append((p[-3], p[-1], Gi, 0))
+        #print("Added global int!")
+        Gi = Gi+1
+        voidreturncheck = True
+    if p[-1] == 'double':
+        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gd)
+        MemoryREG.append((p[-3], p[-1], Gd, 0))
+        Gd = Gd+1
+        voidreturncheck = True
+
+    if p[-1] == 'string':
+        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gs)
+        MemoryREG.append((p[-3], p[-1], Gs, 0))
+        Gs = Gs+1
+        voidreturncheck = True
+
+    if p[-1] == 'bool':
+        DirectorioFunciones.addv(currentf[0], p[-3], p[-1], Gb)
+        MemoryREG.append((p[-3], p[-1], Gb, 0))
+        Gb = Gb+1
+        voidreturncheck = True
+
     Quad.put(quad)
     p[0] = p[-3]
     DirectorioFunciones.addf(p[-3],p[-1], LineC+1, 0 , 0, 0, 0)
@@ -685,7 +726,13 @@ def p_mn7(p):
 
     global currentf
     global TemporalCounter
-    global pftypestack
+    global pftypestack  
+    global voidreturncheck
+
+    if voidreturncheck:
+        print("expected return value")
+        sys.exit()
+
     quad = (LineC+1, "END", currentf[-1])
     Quad.put(quad)
     #print("STATUS1:", currentf)
@@ -727,6 +774,11 @@ def p_mn3(p):
 def p_funccall(p):
     ''' funccall : ID OPAREN fcn1 expresion fcn2 funccall2 CPAREN fcn3
     | ID OPAREN fcn1 ID fcn2 funccall2 CPAREN '''
+
+    #print("Appending", p[1])
+    PilaO.append(p[1])
+    Ptype.append(DirectorioFunciones.getftype(p[1]))
+    
 
 
 def p_fcn1(p):
@@ -835,6 +887,7 @@ def p_tipo(p):
     | DOUBLE
     | STRING
     | CHAR
+    | VOID
     '''
     p[0] = p[1]
 
@@ -861,7 +914,9 @@ def p_regreso(p):
 def p_regnum1(p):
     ''' regnum1 :  '''
     #print(p[-1], "^^^^^^^^^^^^^^^^")
-    quad = ("RETURN", p[-1])
+    global voidreturncheck
+    voidreturncheck = False
+    quad = ("RETURN", p[-1], currentf[-1])
     # agarra el tipo de retorno de currentf
     # agarra el tipo que se quiere regresar
     # lo pone en el quadruplo dependiendo se si es 
@@ -875,12 +930,14 @@ def p_regnum1(p):
         print("Returned value does not match function return value!")
         sys.exit()
 
+
 def p_regnum2(p):
     ''' regnum2 :  '''
-
+    global voidreturncheck
     #print(PilaO.pop(), "^^^^^^^^^^^^^^^^")
+    voidreturncheck = False
     tret = PilaO.pop()
-    quad = ("RETURN", tret)
+    quad = ("RETURN", tret, currentf[-1])
         # agarra el tipo de retorno de currentf
     # agarra el tipo que se quiere regresar
     # lo pone en el quadruplo dependiendo se si es 
@@ -890,9 +947,14 @@ def p_regnum2(p):
     #print(rtype)
     if currentftype == rtype:
         Quad.put(quad)
+
     else:
         print("Returned value does not match function return value!")
         sys.exit()
+
+def p_afcn1(p):
+    '''afcn1 : empty '''
+    #print(p[-3])
 
 def p_asign(p):
     '''
@@ -902,6 +964,7 @@ def p_asign(p):
     | ID asign2 EQUALS ID SCOLON
     | ID asign2 EQUALS expresion SCOLON
     | ID asign2 EQUALS ID asign2 SCOLON
+    | ID EQUALS funccall afcn1
     '''
     #print("!@#",p[1], p[2], p[3])
 
@@ -1094,7 +1157,7 @@ def p_escrt3(p):
 def p_en1(p):
     '''en1 : empty'''
     output = PilaO.pop()
-    print("PrintOut", output)
+    #print("PrintOut", output)
     global LineC
     index=DirectorioFunciones.getdir(currentf[0])            
     tar=index['fvars'].get(output)
@@ -1865,8 +1928,8 @@ print ("Parsing . . . \n")
 parser = yacc.yacc()
 result = parser.parse(cache)
 
-print("tu quadruplo resultante es:")
-print(Quad.queue)
+#print("tu quadruplo resultante es:")
+#print(Quad.queue)
 
 #print("")
 #print("Variables lugstat MAIN \n")
@@ -1902,7 +1965,13 @@ while Quad.empty() == False:
                     #print(memory.getValue(20000))
                 else:
                     addr = findaddrfromREG(ROP)
-                    addrv = memory.getActualContextValue(addr)
+                    #print(ROP, addr)
+                    try:
+                        addrv = memory.getActualContextValue(addr)
+                        
+                    except KeyError:
+                        addrv = memory.getOldContextValue(addr)
+
                     res = LOP + addrv
                     memory.addMemoryValue(MM, res)
 
@@ -2114,10 +2183,13 @@ while Quad.empty() == False:
                             addr = findaddrfromREG(ROP)
                             memory.addMemoryValue(addr, LOPV)
             except IndexError:
+                #print("hi!")
                 addr = findaddrfromREG(LOP)
+                #print(addr)
                 addrv = memory.getActualContextValue(addr)
                 LOPV = addrv
                 addr = findaddrfromREG(ROP)
+                #print(addr, 'r')
                 memory.addMemoryValue(addr, LOPV)
 
         #print(memory.getActualContextValue(10001))
@@ -2844,4 +2916,15 @@ while Quad.empty() == False:
 
     if ActualQ[0] == 'RETURN':
         # Verifica antes que el tipo de retorno concuerte con el de la variable que se mando
-        print("")
+        ROP = ActualQ[1]
+        RET = ActualQ[2]
+        addr = findaddrfromREG(ROP)
+        #print(addr, "Return loc");
+        addrv = memory.getActualContextValue(addr)
+        #agarra valor de el return
+
+        #agarra la direccion de la variable global de la funcion
+        retf =findaddrfromREG(RET)
+        #print(retf)
+        #Lo asigna a la variable global de la funcion
+        memory.addMemoryValue(retf, addrv)

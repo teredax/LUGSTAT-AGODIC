@@ -1,0 +1,109 @@
+lugstat lugstattest;
+var input, iterador,n,si,sj,smin,stemp,saj,sam,nuevo : int;
+var int4[4] : int;
+
+{
+
+int4[0] = 4;
+int4[1] = 1;
+int4[2] = 5;
+int4[3] = 2;
+n = 0;
+
+do {
+	read(input);
+	int4[n] = input;
+	n = n+1;
+	}while(n < 4);
+
+n=0;
+
+print("Arreglo original");
+do {
+	print(int4[n]);
+	n = n+1;
+	}while(n < 4);
+
+n = 0;
+si = 0;
+
+smin = si;
+
+sj = si + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+smin = si;
+sj = si + 1;
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+smin = si;
+sj = si + 1;
+	saj = int4[sj];
+	sam = int4[smin];
+		if (saj < sam){
+			smin = sj;
+			};
+	sj = sj + 1;
+
+	stemp = int4[si];
+	nuevo = int4[smin];
+	int4[si] = nuevo;
+	int4[smin] = stemp;
+	si = si + 1;
+
+n = 0;
+
+print("Arreglo Ordenado");
+do {
+	print(int4[n]);
+	n = n+1;
+	}while(n < 4);
+n = 0;
+
+mean(int4[4]);
+
+}

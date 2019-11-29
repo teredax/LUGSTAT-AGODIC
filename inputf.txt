@@ -1,196 +1,43 @@
 lugstat lugstattest;
-var input, iterador,n,si,sj,smin,stemp,saj,sam,nuevo : int;
-var int4[4] : int;
-
-func fibo : int ( var limite: int; )
-var local1, local2, cont, res: int;	{
-	print("The first N fibo elements are...");
-	local1 = 1;
-	local2 = 1;
-	cont =1;
-	if(limite == 1){
-		print("2");}
-	else{
-	print(local1+local2);
-	res = local1+local2;
-	do {
-		local1 = local2;
-		local2 = res;
-		res = local1+local2;
-		cont = cont+1;
-		print(res);
-		}while (cont <= limite-1);
-		};
-}
-
-
-func fiborec : int ( var l1, l2, cont, res, limit: int; )
+var input, iterador, operacion: int;
+func test : int ( var limite: int; )
 {
-
-if( limit == 1){
-	print(2);
-};
-if(cont == 1){
-	print(2);
-};
-
-if (limit >= 1){
-	if (cont <= limit-1){
-		l1 = l2;
-		l2 = res;
-		res = l1+l2;
-		cont = cont+1;
-		print(res);
-		fiborec(l1, l2, cont, res, limit)
+	limite = limite+1;
+	if (limite >=10)
+	{
+	print("we're 10!");
 
 	};
-};
+	if (limite <10)
+	{
+		print(limite);
+		test(limite)
+
+	};
 
 }
 
-func facto : int (var input: int;)
-var res, i : int;{
-	res = 1;
-	i = 2;
-	do {
-		res = res * i; 
-		i = i+1;
-		}while(i <= input);
-	print("The N Factorial is...");
-	print(res);}
-
-func factorec : int (var res, i , lim: int;)
+func test1 : int ( var res, i, lim: int; )
 {
-if (i <=lim){
-res = res*i;
-i = i+1;
-factorec(res, i, lim)
-if (i >lim){
-print(res);
-};
-};
+	res = res*i;
+	i = i+1;
+	if (lim < i)
+	{
+		return(res);
+	};
+	if (i <=lim)
+	{
+	test1(res, i, lim)
+	};
 }
 
-func insidedo : int (var j : int;)
-{
-	print("sam");
-}
 
 {
+print("hi!");
+input = test1(1,2,5)
+print("result!");
+print(input);
 
-int4[0] = 4;
-int4[1] = 1;
-int4[2] = 5;
-int4[3] = 2;
-n = 0;
-
-do {
-	read(input);
-	int4[n] = input;
-	n = n+1;
-	}while(n < 4);
-
-n=0;
-
-print("Arreglo original");
-do {
-	print(int4[n]);
-	n = n+1;
-	}while(n < 4);
-
-n = 0;
-si = 0;
-
-smin = si;
-
-sj = si + 1;
-
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	stemp = int4[si];
-	nuevo = int4[smin];
-	int4[si] = nuevo;
-	int4[smin] = stemp;
-	si = si + 1;
-
-smin = si;
-sj = si + 1;
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	stemp = int4[si];
-	nuevo = int4[smin];
-	int4[si] = nuevo;
-	int4[smin] = stemp;
-	si = si + 1;
-
-smin = si;
-sj = si + 1;
-	saj = int4[sj];
-	sam = int4[smin];
-		if (saj < sam){
-			smin = sj;
-			};
-	sj = sj + 1;
-
-	stemp = int4[si];
-	nuevo = int4[smin];
-	int4[si] = nuevo;
-	int4[smin] = stemp;
-	si = si + 1;
-
-n = 0;
-
-print("Arreglo Ordenado");
-do {
-	print(int4[n]);
-	n = n+1;
-	}while(n < 4);
-n = 0;
-
-mean(int4[4]);
-
-print("Input N for fibo non recursive");
-read(input);
-fibo(input)
-
-print("fibo recursive, first 4 elements");
-fiborec(1,1,1,2, 4)
-
-print("Input N for fact non recursive");
-read(input);
-facto(input)
-print("fact recursive for 4");
-factorec(1, 2, 4)
-
+input = test(0)
+print(input);
 }
